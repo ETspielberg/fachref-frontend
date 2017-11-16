@@ -1,0 +1,14 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>Nutzung</h1>
+        <p>Die Nutzung von Zeitschriften oder Paketen</p>
+        <div class="form-group">
+        <label class="col-md-2" for="issnsString">ISSNs: </label>
+        <input class="col-md-6 col-md-offset" [(ngModel)]="issnsString" id="issnsString" type="text" name="issnsString" size="20"  autofocus/>
+        <button class="btn btn-sm btn-success" (click)="getJournalCounters()"> Absenden </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <chart [options]="options" *ngIf="journalcounters" style="display: block"></chart>
+</div>

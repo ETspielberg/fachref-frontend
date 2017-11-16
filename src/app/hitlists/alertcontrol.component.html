@@ -1,0 +1,76 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>Hitlisten</h1>
+        <p>Die am stärksten vorgemerkten Titel je Bereich</p>
+        <span class="links">
+				<button class="btn btn-primary" [routerLink]="['hitlist', 'newAlertcontrol']">Neues Profil erstellen</button>
+				</span>
+    </div>
+</div>
+<div *ngIf="alertcontrols" class="container">
+    <h2 class="sub-header">Profile</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Bereich
+                </th>
+                <th>
+                    Schwelle Verhältnis
+                </th>
+                <th>
+                    Schwelle Anzahl
+                </th>
+                <th>
+                    Schwelle Vormerkungen
+                </th>
+                <th>
+                    zur Hitliste
+                </th>
+                <th>
+                    Bearbeiten
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let d of alertcontrols">
+                <th>
+                    {{d.description}}
+                </th>
+                <th>
+                    {{d.notationgroup}}
+                </th>
+                <th>
+                    {{d.thresholdRatio}}
+                </th>
+                <th>
+                    {{d.thresholdRequests}}
+                </th>
+                <th>
+                    {{d.thresholdDuration}}
+                </th>
+                <th>
+                    <span class="links">
+				        <a class="btn btn-sm btn-success" [routerLink]="['nrequests', d.identifier]"
+                            role="button" target="popup">Ansehen</a>
+			</span>
+
+                </th>
+                <th>
+                    <span class="links">
+                        <button class="btn btn-sm btn-warning"
+                                [routerLink]="['hitlist', d.identifier]"> Bearbeiten </button>
+			        </span>
+                    <span class="links">
+                        <button class="btn btn-sm btn-danger" (click)="deleteAlertcontrol(d); $event.stopPropagation()"> Löschen </button>
+			        </span>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<a  href="#" class="dropdown-toggle" data-toggle="dropdown"><b *ngIf="userData" >{{userData.fullname}}</b> <span class="caret"></span></a>
+<ul class="dropdown-menu" id="login-dp">
+    <li>
+        <a routerLink="/usersettings">Einstellungen</a>
+    </li>
+    <li>
+        <a href="/settings/passwordChange">Passwort ändern</a>
+    </li>
+
+    <li>
+        <a href="/logout">Logout</a>
+    </li>
+</ul>

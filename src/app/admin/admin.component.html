@@ -1,0 +1,59 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>FachRef-Assistent Administration</h1>
+        <p>Kontrolle über die Einstellungen </p>
+    </div>
+</div>
+<div class="container">
+    <table class="table table-hover" >
+        <tbody>
+        <tr routerLink="userAdmin">
+            <td>
+            <h4>Nutzer verwalten</h4>
+            </td>
+            <td>
+                <p>Nutzern Rollen vergeben, löschen und Passwort setzen.</p>
+            </td>
+            <td></td>
+        </tr>
+        <tr (click)="updateNrequests()">
+            <td>
+                <h4>Hitliste aktualisieren</h4>
+            </td>
+            <td>
+                Die aktuellen Hitlisten erstellen.
+            </td>
+        </tr>
+        <tr (click)="buildNotationIndex()">
+            <td>
+                <h4>Notationenindex</h4>
+            </td>
+            <td>
+                Index aus Notationen erstellen.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div  class="col-md-12 main">
+            <h2>Systematik-Upload</h2>
+            <p-fileUpload name="file" url="http://localhost:11855/files?module=systematik" (onUpload)="onUpload($event)"
+                          accept="text/xml" maxFileSize="100000000">
+            </p-fileUpload>
+        </div>
+    </div>
+    <table *ngIf="files" class="table table-hover">
+        <tbody>
+        <tr *ngFor="let file of files">
+            <td>
+                {{file.filename}}
+            </td>
+            <td>
+                <a [href]="file.link" >Ansehen</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>

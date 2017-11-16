@@ -1,0 +1,56 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>Blacklist</h1>
+        <p>Diese Titel sind von der weiteren Analyse und Aussonderung
+            ausgeschlossen:</p>
+    </div>
+</div>
+<div *ngIf="blacklist" class="container">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Signatur
+                </th>
+                <th>
+                    Kommentar
+                </th>
+                <th>
+                    Datum Aufnahme
+                </th>
+                <th>
+                    Datum Ende
+                </th>
+                <th>
+                    Löschen
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let i of blacklist">
+                <th>
+                    {{i.shelfmark}}
+                </th>
+                <th>
+                    {{i.mab}}
+                </th>
+                <th>
+                    {{i.date}}
+                </th>
+                <th>
+                    {{i.expire}}
+                </th>
+                <th>
+                    {{i.comment}}
+                </th>
+                <th>
+				<span class="links">
+					<button (click)="deleteIgnored(i); $event.stopPropagation()"></button>
+				</span>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

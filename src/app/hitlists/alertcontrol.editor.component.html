@@ -1,0 +1,127 @@
+<div *ngIf="alertcontrol" class="conatiner">
+<div class="jumbotron">
+    <div class="container">
+        <h1><input [(ngModel)]="alertcontrol.description" placeholder="name" style="border: none"/></h1>
+        <p>Alle Titel mit Vormerkungen werden täglich in eine Datenbank eingetragen. Anhand der Profile kann ein einzelnes Fachgebiet für die Darstellung ausgewählt werden und die Darstellung auf jene einträge beschränkt werden, die vorgegebene Schwellenwerte überschreiten.</p>
+
+    </div>
+</div>
+
+<div >
+    <div class="col-md-12">
+        <h2 class="sub-header">Angaben zum Bereich</h2>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="subjectID">
+                Fach:
+            </label>
+            <div class="col-md-8">
+                <select id="subjectID" [(ngModel)]="alertcontrol.notationgroup" class="form-control">
+                    <option value="00">Systemstellenanalyse</option>
+                    <option value="01">Allgemeines</option>
+                    <option value="04">Sprach- und Literaturwissenschaften
+                    </option>
+                    <option value="07">Germanistik</option>
+                    <option value="10">Anglistik</option>
+                    <option value="13">Romanistik</option>
+                    <option value="16">sonstige Philologien</option>
+                    <option value="19">Philosophie</option>
+                    <option value="22">Psychologie</option>
+                    <option value="25">Erziehungswissenschaften</option>
+                    <option value="28">Theologie</option>
+                    <option value="31">Autoren GW</option>
+                    <option value="34">Kunstwissenschaften</option>
+                    <option value="34a">Medienwissenschaften</option>
+                    <option value="37">Sportwissenschaften</option>
+                    <option value="40">Geschichte</option>
+                    <option value="43">Geowissenschaften</option>
+                    <option value="46a">Sozialwissenschaften </option>
+                    <option value="46b">Soziologie </option>
+                    <option value="46c">Politikwissenschaften </option>
+                    <option value="49">Wirtschaftswissenschaften </option>
+                    <option value="52">Rechtswissenscahften </option>
+                    <option value="55">Land- und Forstwissenschaften</option>
+                    <option value="58">Naturwissenschaften</option>
+                    <option value="61">Mathematik </option>
+                    <option value="64">Informatik </option>
+                    <option value="67">Physik </option>
+                    <option value="70">Chemie </option>
+                    <option value="73">Astronomie </option>
+                    <option value="75">Biologie </option>
+                    <option value="77">Fachbibliothek Medizin</option>
+                    <option value="77a">Medizin </option>
+                    <option value="79">Technik allgemein</option>
+                    <option value="82">Bauingenieurwesen </option>
+                    <option value="85">Maschinenbau</option>
+                    <option value="88">Elektrotechnik </option>
+                    <option value="91">Sonstige Gebiete der Technik </option>
+                    <option value="94">Turkistik </option>
+                    <option value="99">Sonderstandorte</option>
+                </select>
+            </div>
+        </div>
+        <h2 class="sub-header">Grenzwerte</h2>
+        <p>Mittels der folgenden Filter können Grenzen für die abzurufenden Einträge gesetzt werden.</p>
+        <div class="form-group">
+        <label class="col-md-4 control-label" for="thresholdRatio">
+            Verhältnis:
+        </label>
+        <div class="col-md-8">
+            <input id="thresholdRatio" placeholder="z.B. 5"
+                   class="form-control input-md " [(ngModel)]="alertcontrol.thresholdRatio" type="number" required/>
+        </div>
+        <label class="col-md-4 control-label" for="thresholdNrequests">
+            Anzahl Vormerkungen:
+        </label>
+        <div class="col-md-8">
+            <input id="thresholdNrequests" placeholder="z.B. 5"
+                   class="form-control input-md " [(ngModel)]="alertcontrol.thresholdRequests" type="number" required/>
+        </div>
+        <label class="col-md-4 control-label" for="thresholdDuration">
+            Durchschnittliche Dauer der Vormerkungen:
+        </label>
+        <div class="col-md-8">
+            <input id="thresholdDuration" placeholder="z.B. 5"
+                   class="form-control input-md " [(ngModel)]="alertcontrol.thresholdDuration" type="number" required/>
+        </div>
+        </div>
+        <h2 class="sub-header">Zeitraum</h2>
+        <p>Außerdem wird eine Anzahl an Tagen angegeben, für die Einträge abgerufen werden (von heute an rückwärts gezählt).</p>
+        <div class="form-group">
+        <label class="col-md-4 control-label" for="timeperiod">
+            Tage:
+        </label>
+        <div class="col-md-8">
+            <input id="timeperiod" placeholder="z.B. 5"
+                   class="form-control input-md " [(ngModel)]="alertcontrol.timeperiod" type="number" required/>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="col-md-12">
+        <div class="form-group">
+    <button class="btn btn-danger" (click)="goBack()">Abbrechen</button>
+    <button class="btn btn-success" (click)="save(alertcontrol)">Speichern</button>
+        </div>
+    </div>
+
+<div class="col-md-12">
+    <h2>Freigaben</h2>
+    Folgende Nutzer können zusätzlichauf das Profil zugreifen:
+    <ul>
+        <li *ngFor="let su of stockcontrolUsers">
+            {{su.username}}
+            <button *ngIf="su.username != user.getName()" (click)="deleteStockcontrolUser(su)">X</button>
+        </li>
+        <li>
+            <form>
+                <input #username placeholder="username" style="border: none"/>
+                <button (click)="addStockcontrolUser(username.value)">Hinzufügen</button>
+            </form>
+        </li>
+    </ul>
+
+</div>
+</div>

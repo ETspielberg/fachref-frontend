@@ -1,0 +1,93 @@
+<p-dialog header="Erweiterter Eintrag" [(visible)]="display" modal="modal" width="300" [responsive]="true">
+    <p-calendar [(ngModel)]="ignored.expire" dateFormat="@" [yearNavigator]="true" yearRange="2015:2050"></p-calendar>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
+        <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+    </p-footer>
+</p-dialog>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Aussonderungsvorschläge</h1>
+        <p>
+            <button type="button" pButton class="ui-button-success" label="Zur Blacklist"></button>
+            <button type="button" (click)="saveStatus()" pButton class="ui-button-success" label="Zustand speichern"></button>
+        </p>
+        <p>Liste anzeigen :<p-selectButton [options]="listOptions" [(ngModel)]="selectedList"></p-selectButton></p>
+        <p>Analysen ohne Aussonderungsvorschlag anzeigen: <p-inputSwitch (onChange)="reloadAllAnalyses()" onLabel="Ja" offLabel="Nein" [(ngModel)]="showAllAnalyses"></p-inputSwitch></p>
+    </div>
+    <p-dialog header="Erweiterter Eintrag" [(visible)]="display" modal="modal" width="500" [responsive]="true">
+        <textarea [(ngModel)]="ignored.comment" pInputTextarea autoResize="autoResize"></textarea>
+        <p-calendar [(ngModel)]="ignored.expire" [yearNavigator]="true" dateFormat="@" yearRange="2015:2030"></p-calendar>
+        <p-footer>
+            <button type="button" pButton icon="fa-check" (click)="saveIgnored()" label="Yes"></button>
+            <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+        </p-footer>
+    </p-dialog>
+</div>
+<div  *ngIf="sortedEventanalysis[selectedList]; else message" class="container-fluid">
+    <p-dataTable #dt [value]="sortedEventanalysis[selectedList]" expandableRows="true" sortMode="multiple" [editable]="true">
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export csv" (click)="dt.exportCSV()" style="float:left"></button>
+            </div>
+        </p-header>
+        <p-column expander="true" styleClass="col-icon" header="Infos"></p-column>
+        <p-column field="shelfmark" header="Signatur" [filter]="true" filterPlaceholder="Filter" [sortable]="true"></p-column>
+         <p-column header="Protokoll">
+        <ng-template let-eventanalyse="rowData" pTemplate="body">
+            <a class="search" type="button" href="/protokoll?shelfmark={{eventanalyse.shelfmark}}&amp;collections={{eventanalyse.collection}}&amp;exact="
+               target="popup">Link</a>
+        </ng-template>
+        </p-column>
+        <p-column field="meanRelativeLoan" header="Mittlere Ausleihe" [sortable]="true">
+            <ng-template let-col let-eventanalyse="rowData" pTemplate="body">
+                {{eventanalyse.meanRelativeLoan | percent:'1.0-1'}}
+            </ng-template>
+        </p-column>
+        <p-column field="slope" header="Trend / Jahr" [sortable]="true">
+            <ng-template let-col let-eventanalyse="rowData" pTemplate="body">
+                {{eventanalyse.slope | number}}
+            </ng-template>
+        </p-column>
+        <p-column field="lastStock" header="Bestand" [sortable]="true"></p-column>
+        <p-column field="maxLoansAbs" header="maximale Ausleihe" [sortable]="true"></p-column>
+        <p-column field="proposedDeletion" header="Vorschlag" [sortable]="true" [editable]="true">
+        <ng-template let-col let-eventanalyse="rowData" pTemplate="editor">
+            <p-spinner size="30" [(ngModel)]="eventanalyse[col.field]" [min]="0"></p-spinner>
+        </ng-template>
+        </p-column>
+        <p-column field="comment" header="Kommentar" [filter]="true" filterPlaceholder="Filter" [editable]="true">
+            <ng-template let-col let-eventanalyse="rowData" pTemplate="editor" autoResize="autoResize">
+                <textarea pInputTextarea [(ngModel)]="eventanalyse[col.field]"></textarea>
+            </ng-template>
+        </p-column>
+
+        <p-column header="Aktion">
+        <ng-template let-eventanalyse="rowData" pTemplate="body">
+            <button *ngIf="selectedList=='proposed'" type="button" (click)="toBlacklist(eventanalyse)" pButton class="ui-button-success" label="Ignorieren"></button>
+            <button *ngIf="selectedList=='ignored'" type="button" (click)="showDialog(eventanalyse)" pButton class="ui-button-success" label="Erweitert"></button>
+            <button *ngIf="selectedList!='proposed'" type="button" (click)="toProposal(eventanalyse)" pButton class="ui-button-success" label="Auf die Liste"></button>
+            <button *ngIf="selectedList=='proposed'" type="button" (click)="toRepository(eventanalyse)" pButton class="ui-button-warning" label="Umstellen"></button>
+            <button *ngIf="selectedList=='proposed'" type="button" (click)="delete(eventanalyse)" pButton class="ui-button-danger" label="Aussondern"></button>
+        </ng-template>
+        </p-column>
+        <ng-template let-eventanalyse pTemplate="rowexpansion">
+            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" style="text-align:center">
+                        {{eventanalyse.collection}} : {{eventanalyse.shelfmark}}
+                    </div>
+                    <div class="ui-grid-col-3" style="text-align:center">
+                        {{eventanalyse.mab}}
+                    </div>
+                    <div class="ui-grid-col-3" style="text-align:center">
+                        <a href="/protokoll?shelfmark={{eventanalyse.shelfmark}}&amp;collections={{eventanalyse.collection}}&amp;exact="
+                           target="popup">Link</a>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataTable>
+</div>
+
+<ng-template #message><div class="col-md-6 col-md-offset-2">Keine einträge gefunden.</div></ng-template>

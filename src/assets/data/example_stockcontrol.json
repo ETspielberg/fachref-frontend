@@ -1,0 +1,17 @@
+{
+"identifier" : "test",
+"description" : "Ein Beispiel für einen Stockcontrol-Eintrag",
+"subjectID" : "75",
+"yearsToAverage" : 5,
+"minimumYears" : 3,
+"staticBuffer" : 1,
+"variableBuffer" : 0.4,
+"yearsOfRequests" : 2,
+"minimumDaysOfRequest" : 10,
+"groupedAnalysis" : false,
+"materials?" : "BOOK",
+"collections?" : "E3",
+"deletionMailBcc?" : "test@example.com",
+"status?" : "finished",
+"systemCode?" : ""
+}

@@ -1,0 +1,26 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>Hitlisten</h1>
+        <p>Die am stärksten vorgemerkten Titel je Bereich</p>
+        <span class="links">
+				<button class="btn btn-primary" [routerLink]="['/hitlist', 'newAlertcontrol']">Neues Profil erstellen</button>
+				</span>
+    </div>
+</div>
+<div class="container">
+    <h2>Hitliste</h2>
+    <p *ngIf="alertcontrol"> für das Profil: {{alertcontrol.description}}</p>
+    <p-dataTable #dt [value]="nrequestss" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,50]">
+        <p-column field="shelfmark" header="Signatur" [sortable]="true"></p-column>
+        <p-column field="ratio" header="Verhältnis" [sortable]="true">
+            <ng-template let-col let-nrequests="rowData" pTemplate="body">
+                {{nrequests.ratio | percent:'1.0-1'}}
+            </ng-template>
+        </p-column>
+        <p-column field="NRequests" header="Vormerkungen" [sortable]="true"></p-column>
+        <p-column field="NLoans" header="Ausleihen" [sortable]="true"></p-column>
+        <p-column field="NItems" header="Exemplare" [sortable]="true"></p-column>
+        <p-column field="NLendable" header="ausl. Exemplare" [sortable]="true"></p-column>
+    </p-dataTable>
+
+</div>
