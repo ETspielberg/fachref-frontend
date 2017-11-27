@@ -19,56 +19,44 @@ export class AppComponent implements OnInit {
 
     media : boolean;
 
-    authenticated : boolean;
-
-    loginFailed : boolean;
-
-    username : string;
-
-    password : string;
-
     usersettings : Usersettings;
 
-   constructor (private authentificationService : AuthentificationService, private userService : UserService) { }
+   constructor (private authentificationService : AuthentificationService, private userService : UserService) {  }
 
     ngOnInit(): void {
-     this.authentificationService.updatePrincipal().subscribe(
-       data => {
-         this.principal = data;
-         this.userService.get(this.principal.name).subscribe(
-           data => this.usersettings = data
-         );
-       }
-     );
-        if (!(this.authentificationService.principal === undefined)) {
-          this.admin =this.authentificationService.hasRole('admin');
-          this.fachreferent =  this.authentificationService.hasRole('fachreferent');
-          this.media =  this.authentificationService.hasRole('media');
-        }
+      this.authentificationService.updatePrincipal().subscribe(
+        data => {
+          this.principal = data;
+          this.refreshUser();
+          this.userService.get(this.principal.name).subscribe(
+            data => this.usersettings = data
+          );
+        },
+        error => console.log(error)
+      );
     }
 
-  login() {
-    this.authentificationService.login(this.username, this.password).subscribe(
-      data => {
-        this.principal = data;
-        this.authenticated = true;
-        this.admin = this.authentificationService.hasRole('admin');
-        this.fachreferent = this.authentificationService.hasRole('fachreferent');
-        this.media = this.authentificationService.hasRole('media');
-      }
-    );
+  refreshUser() {
+    this.principal = this.authentificationService.principal;
+    if (!(this.principal === undefined)) {
+      this.admin = this.authentificationService.hasRole('admin');
+      this.fachreferent = this.authentificationService.hasRole('fachreferent');
+      this.media = this.authentificationService.hasRole('media');
+    }
   }
 
   logout() {
-    this.authentificationService.logout().subscribe((response: Response) => {
-      if (response.status === 200) {
-        this.authenticated = false;
-        this.loginFailed = false;
-        this.principal = new Principal("", []);
-        window.location.replace(response.url);
-      }
-    }, (error) => {
-      console.log(error);
-    });
+     this.authentificationService.logout().subscribe(
+       () => {
+         this.principal = null;
+         this.admin = false;
+         this.media = false;
+         this.fachreferent = false;
+         this.usersettings = null;
+         window.location.href = "/login";
+       }
+     );
   }
+
+
 }

@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "C:\\Development\\workspace\\gateway\\src\\main\\resources\\static",
+      "outDir": "C:\\Development\\workspace\\fachref-frontend\\src\\main\\resources\\static",
       "assets": [
         "assets",
         "logo.gif"

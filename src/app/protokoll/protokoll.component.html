@@ -84,6 +84,10 @@
         <chart [options]="options" *ngIf="manifestationsFound" style="display: block"></chart>
     </div>
 
+      <p-dialog header="Daten werden abgerufen" [modal]="true" [closable]="false" [(visible)]="busy">
+        <img src="../../assets/img/loading_newtons_cradle.gif" alt="Loading..." style="width:304px;height:228px;">
+      </p-dialog>
+
 <div class="col-md-12" *ngIf="manifestationsFound">
         <div class="col-md-5" *ngIf="selectedItems.length > 0">
             <h3>

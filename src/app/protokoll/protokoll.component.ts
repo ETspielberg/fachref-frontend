@@ -22,7 +22,7 @@ export class ProtokollComponent implements OnInit{
     constructor(private getterService : GetterService, private route:ActivatedRoute) {
     }
 
-    busy: Promise<any>;
+    busy: boolean;
 
     manifestations : Manifestation[];
 
@@ -94,11 +94,13 @@ export class ProtokollComponent implements OnInit{
 
     getFullManifestations() {
         this.manifestations = [];
-        this.busy = this.getterService.getFullManifestation(this.protokollRequest).toPromise();
-        this.busy.then(
-                    manifestations => this.manifestations = manifestations
+        this.busy = true;
+        this.getterService.getFullManifestation(this.protokollRequest).subscribe(
+          data => {
+            this.manifestations = data;
+            this.initializeLists();
+          }
         );
-        this.busy.then(manifestations => this.initializeLists());
     }
 
     initializeLists() {
@@ -153,6 +155,7 @@ export class ProtokollComponent implements OnInit{
     update() {
         this.updateFilteredLists();
         this.updatePlotData();
+      this.busy = false;
     }
 
     updateFilteredLists() {

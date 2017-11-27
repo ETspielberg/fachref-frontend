@@ -15,10 +15,18 @@ export class UserComponent implements OnInit {
 
     principal : Principal;
 
-    constructor(private userService : UserService, private authentificationService : AuthentificationService) { }
+    guest : boolean;
+
+    constructor(private userService : UserService, private authentificationService : AuthentificationService) {
+    }
 
     ngOnInit(): void {
+      this.refreshUsersettings();
+    }
+
+    refreshUsersettings() {
       this.principal = this.authentificationService.principal;
+      this.guest = this.authentificationService.hasRole("guest");
       if (!(this.principal === undefined)) {
         this.userService.get(this.authentificationService.principal.name).subscribe(
           usersettings => this.userData = usersettings

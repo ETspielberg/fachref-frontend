@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
-import {UserService} from "../services/user.service";
-import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 import {UsersettingsComponent} from "./usersettings.component";
 import {CommonModule} from "@angular/common";
-import {MultiSelectModule, SpinnerModule} from "primeng/primeng";
+import {MultiSelectModule, PasswordModule, SpinnerModule} from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
 import {usersettingsRouting} from "./usersettings.routing";
+import {UserPasswordChangeComponent} from "./user.password.change.component";
 
 @NgModule({
-    imports: [HttpModule,
+    imports: [
         RouterModule,
         CommonModule,
         SpinnerModule,
         FormsModule,
         MultiSelectModule,
+        PasswordModule,
         usersettingsRouting],
-    declarations: [UsersettingsComponent],
-    exports: [UsersettingsComponent],
+    declarations: [UsersettingsComponent,UserPasswordChangeComponent],
+    exports: [UsersettingsComponent,UserPasswordChangeComponent],
     providers: []
 })
 

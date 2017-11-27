@@ -1,15 +1,15 @@
-<div class="jumbotron">
+<div  class="jumbotron">
     <div class="container">
         <h1>Willkommen beim FachRef-Assistenten
         </h1>
         <p>Bestandskontrolle und -steuerung bequem von einem Punkt</p>
         <p>
-          <button *ngIf="principal" class="btn btn-primary btn-lg"  routerLink="/usersettings" role="button">Meine Einstellungen &#187;</button>
-          <button *ngIf="!principal" class="btn btn-primary btn-lg"  routerLink="/login" role="button">Login &#187;</button></p>
+          <button *ngIf="!guest" class="btn btn-primary btn-lg"  routerLink="/user" role="button">Meine Einstellungen &#187;</button>
+          <button *ngIf="guest" class="btn btn-primary btn-lg"  routerLink="/login" role="button">Login &#187;</button></p>
     </div>
 </div>
 <div class="container">
-    <table *ngIf="principal" class="table table-hover" >
+    <table class="table table-hover" >
         <tbody>
         <tr routerLink="/protokoll">
             <td>

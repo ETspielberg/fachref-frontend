@@ -4,7 +4,7 @@ import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
 import {DataTableModule} from "primeng/components/datatable/datatable";
-import {InputSwitchModule, SelectButtonModule, TabMenuModule, ToggleButtonModule} from "primeng/primeng";
+import {InputSwitchModule, SelectButtonModule, TabMenuModule, ToggleButtonModule, DialogModule} from "primeng/primeng";
 import {ChartModule} from "angular2-highcharts";
 import * as highcharts from 'highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
@@ -32,6 +32,7 @@ export function highchartsFactory() {
         TabMenuModule,
         SelectButtonModule,
         ChartModule,
+        DialogModule,
         protokollRouting],
     declarations: [ProtokollComponent],
     exports: [ProtokollComponent],

@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {Principal} from "../model/Principal";
 import {Usersettings} from "../model/Usersettings";
 import {UserService} from "../services/user.service";
 import { Location }  from '@angular/common';
@@ -13,8 +12,6 @@ import {AuthentificationService} from "../services/authentification.service";
 
 
 export class UsersettingsComponent implements OnInit {
-
-    private user: Principal;
 
     subjects : string[];
 
