@@ -10,7 +10,7 @@ import {ProfilesPerUserService} from "./services/profilesperuser.service";
 import {NotationgroupService} from "./services/notationgroup.service";
 import {GetterService} from "./services/getter.service";
 import {AuthentificationService} from "./services/authentification.service";
-import {APP_BASE_HREF, CommonModule,} from "@angular/common";
+import {CommonModule,} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
 @NgModule ({

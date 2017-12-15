@@ -18,21 +18,7 @@ export class StartComponent implements OnInit {
 
     principal : Principal;
 
-    admin : boolean;
-
-    fachreferent : boolean;
-
-    media : boolean;
-
-    guest : boolean;
-
     ngOnInit(): void {
         this.principal = this.authentificationService.principal;
-        if (!(this.principal === undefined)) {
-          this.admin = this.authentificationService.hasRole('admin');
-          this.fachreferent = this.authentificationService.hasRole('fachreferent');
-          this.media = this.authentificationService.hasRole('media');
-          this.guest = this.authentificationService.hasRole('guest');
-        }
     }
 }

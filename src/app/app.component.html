@@ -15,24 +15,15 @@
                 <li>
                     <a routerLink="protokoll">Protokoll</a>
                 </li>
-                <li *ngIf="admin">
-                    <a href="/admin">Admin</a>
-                </li>
-                <li *ngIf="media">
-                    <a routerLink="media">Medien</a>
-                </li>
-                <li *ngIf="fachreferent">
+                <li>
                     <a routerLink="profiles">Profile</a>
                 </li>
-                <li *ngIf="fachreferent">
+                <li>
                     <a routerLink="hitlists">Hitlisten</a>
                 </li>
-                <li *ngIf="fachreferent || media">
+                <li>
                     <a routerLink="ejournals">e-Journals</a>
                 </li>
-              <li>
-                <a (click)="logout()" >Logout</a>
-              </li>
                 <li class="dropdown">
                     <user></user>
                 </li>

@@ -13,12 +13,6 @@ export class AppComponent implements OnInit {
 
     principal : Principal;
 
-    admin : boolean;
-
-    fachreferent : boolean;
-
-    media : boolean;
-
     usersettings : Usersettings;
 
    constructor (private authentificationService : AuthentificationService, private userService : UserService) {  }
@@ -38,25 +32,5 @@ export class AppComponent implements OnInit {
 
   refreshUser() {
     this.principal = this.authentificationService.principal;
-    if (!(this.principal === undefined)) {
-      this.admin = this.authentificationService.hasRole('admin');
-      this.fachreferent = this.authentificationService.hasRole('fachreferent');
-      this.media = this.authentificationService.hasRole('media');
-    }
   }
-
-  logout() {
-     this.authentificationService.logout().subscribe(
-       () => {
-         this.principal = null;
-         this.admin = false;
-         this.media = false;
-         this.fachreferent = false;
-         this.usersettings = null;
-         window.location.href = "/login";
-       }
-     );
-  }
-
-
 }

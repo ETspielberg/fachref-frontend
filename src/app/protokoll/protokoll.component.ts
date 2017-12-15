@@ -24,6 +24,8 @@ export class ProtokollComponent implements OnInit{
 
     busy: boolean;
 
+    primaryLoad: boolean;
+
     manifestations : Manifestation[];
 
     private options : Option;
@@ -55,6 +57,7 @@ export class ProtokollComponent implements OnInit{
     manifestationsFound : boolean;
 
     ngOnInit(): void {
+        this.primaryLoad = true;
         this.resetVariables();
         let shelfmarkFromRequest : string = "";
         let collectionsFromRequest : string = "";
@@ -93,6 +96,7 @@ export class ProtokollComponent implements OnInit{
     }
 
     getFullManifestations() {
+      this.primaryLoad = false;
         this.manifestations = [];
         this.busy = true;
         this.getterService.getFullManifestation(this.protokollRequest).subscribe(

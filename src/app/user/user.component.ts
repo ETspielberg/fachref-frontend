@@ -33,4 +33,14 @@ export class UserComponent implements OnInit {
         );
       }
     }
+
+  logout() {
+    this.authentificationService.logout().subscribe(
+      data => {
+        console.log(data);
+        this.principal = null;
+        window.location.href = "/login";
+      }
+    );
+  }
 }

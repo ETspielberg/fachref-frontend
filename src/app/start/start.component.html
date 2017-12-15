@@ -4,8 +4,7 @@
         </h1>
         <p>Bestandskontrolle und -steuerung bequem von einem Punkt</p>
         <p>
-          <button *ngIf="!guest" class="btn btn-primary btn-lg"  routerLink="/user" role="button">Meine Einstellungen &#187;</button>
-          <button *ngIf="guest" class="btn btn-primary btn-lg"  routerLink="/login" role="button">Login &#187;</button></p>
+          <button class="btn btn-primary btn-lg"  routerLink="/user" role="button">Meine Einstellungen &#187;</button>
     </div>
 </div>
 <div class="container">
@@ -19,7 +18,7 @@
                 <p> Das Protokoll gibt eine Übersicht über die Nutzung und den Bestand sowohl von einzelnen Auflagen oder über mehrere Auflagen hinweg. Außerdem können auf über das Protokoll nutzungsbasierte Aussonderungsvorschläge erstellt werden.</p>
             </td>
         </tr>
-        <tr *ngIf="fachreferent" routerLink="/profiles">
+        <tr routerLink="/profiles">
             <td>
                 <h2>Profile</h2>
             </td>
@@ -27,7 +26,7 @@
                 <p> Im Bestandspflegemodul können Profile zur Bestandspflege erstellt und verwaltet werden. Auf der Basis dieser Parametersätzen werden Listen von nutzungsbasierte Aussonderungs- und Anschaffungsvorschlägen erstellt.</p>
             </td>
         </tr>
-        <tr *ngIf="fachreferent" routerLink="/hitlists">
+        <tr routerLink="/hitlists">
             <td>
                 <h2>Hitlisten</h2>
             </td>
@@ -35,28 +34,13 @@
                 <p> Die Vormerkhitlisten können nach Bestandsbereichen und vorgegebenen Schwellenwerten gefiltert werden. Die so gefilterten Listen können außerdem als RSS-Feeds abonniert werden.</p>
             </td>
         </tr>
-        <tr *ngIf="media" routerLink="/media">
-            <td>
-                <h2>Medien</h2>
-            </td>
-            <td>
-                <p> Im Medien-Modul können Zeitschriften verwaltet werden, zugehörige SUSHI-Profile erstellt werden und Nutzungsdaten verknüpft werden.</p>
-            </td>
-        </tr>
-        <tr *ngIf="fachreferent || media" routerLink="/ejournals">
+
+        <tr routerLink="/ejournals">
             <td>
                 <h2>eMedien</h2>
             </td>
             <td>
                 <p> In diesem Bereich können Nutzungsstatistiken für e-Journals, e-Books und Pakete abgerufen werden sowie Nutzungsanalysen erstellt werden.</p>
-            </td>
-        </tr>
-        <tr *ngIf="admin" routerLink="/admin">
-            <td>
-                <h2>Admin</h2>
-            </td>
-            <td>
-                <p> Im Admin-Modul können Nutzerrollen verwaltet, Einstellungen zu Standortgruppen, Notationen und Nutzergruppen getroffen werden..</p>
             </td>
         </tr>
         </tbody>

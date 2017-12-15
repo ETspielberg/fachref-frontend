@@ -24,7 +24,7 @@ export class AuthentificationService {
     return this.principal.roles && (this.principal.roles.indexOf("ROLE_" + role.toUpperCase()) > -1);
   }
 
-  logout(): Observable<object> {
-    return this.http.post('/logout',{});
+  logout(): Observable<string> {
+    return this.http.post('/logout',{},{responseType: 'text'});
   }
 }
