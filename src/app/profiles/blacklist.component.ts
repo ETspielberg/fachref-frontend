@@ -1,36 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { Ignored } from '../model/Ignored';
-import { IgnoredService } from "../services/ignored.service";
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Ignored} from '../model/Ignored';
+import {IgnoredService} from "../services/ignored.service";
 
 @Component({
-    selector: 'blacklist',
-    templateUrl: 'blacklist.component.html',
-    providers: []
+  selector: 'blacklist',
+  templateUrl: 'blacklist.component.html',
+  providers: []
 })
 
 export class BlacklistComponent implements OnInit {
-    blacklist : Ignored[];
 
-    constructor(private ignoredService:IgnoredService, private router : Router) {
-    }
+  blacklist: Ignored[];
 
-    ngOnInit(): void {
-        this.getBlacklist();
-    }
+  constructor(private ignoredService: IgnoredService) {
+  }
 
-    getBlacklist() {
-        this.ignoredService.getAll().map(
-            blacklist=> this.blacklist = blacklist
-        );
-    }
+  ngOnInit(): void {
+    this.getBlacklist();
+  }
 
-    deleteIgnored(ignored : Ignored):void {
-        this.ignoredService.deleteIgnored(ignored.identifier).map(() => {
-            this.blacklist.filter(ig => ig != ignored);
-        });
-    }
-    newStockcontrol() : void {
+  getBlacklist() {
+    this.ignoredService.getAll().subscribe(
+      data => this.blacklist = data
+    );
+  }
 
-    }
+  deleteIgnored(ignored: Ignored): void {
+    this.ignoredService.deleteIgnored(ignored.identifier).subscribe(
+      () => {
+        this.blacklist.filter(ig => ig != ignored);
+      });
+  }
 }

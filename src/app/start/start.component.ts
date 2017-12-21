@@ -21,4 +21,8 @@ export class StartComponent implements OnInit {
     ngOnInit(): void {
         this.principal = this.authentificationService.principal;
     }
+
+    goTo(url: string) {
+      window.location.href = '/protokoll';
+    }
 }

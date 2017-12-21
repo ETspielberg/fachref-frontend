@@ -6,14 +6,15 @@
 				<button class="btn btn-primary" [routerLink]="['profile', 'newProfile']">Neues Profil erstellen</button>
 				</span>
         <span class="links">
-				<a class="btn btn-success" href="blacklist" target="popup">Zur Blacklist</a>
+				<a class="btn btn-success" [routerLink]="blacklist" target="popup">Zur Blacklist</a>
 				</span>
     </div>
 </div>
 <div *ngIf="stockcontrols" class="container">
     <h2 class="sub-header">Profile für das Fachreferat</h2>
     <p>Weiß hinterlegte Profile wurden neu erstellt, bisher aber noch nicht ausgeführt. Bei rot hinterlegten läuf die Analyse gerade. Für grün hinterlegte iost die Analyse abgeschlossen und die Aussonderungslisten stehen bereit.</p>
-    <div class="table-responsive">
+    <button pButton (click)="getStockcontrols()" label="Refresh" icon="fa-refresh">    </button>
+  <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -59,11 +60,12 @@
         </table>
     </div>
 </div>
-
+<!--
 <div class="container">
     <h2 class="sub-header">hochgeladene csv-Dateien</h2>
 
     <div class="col-md-4 main">
-        <!--<form action="csvUpload" method="post" class="dropzone" enctype="multipart/form-data" />-->
+        <form action="csvUpload" method="post" class="dropzone" enctype="multipart/form-data" />
     </div>
 </div>
+-->

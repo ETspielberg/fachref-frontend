@@ -8,42 +8,30 @@
     </div>
 </div>
 <div class="container">
-    <table class="table table-hover" >
-        <tbody>
-        <tr routerLink="/protokoll">
-            <td>
-                <h2>Protokoll</h2>
-            </td>
-            <td>
-                <p> Das Protokoll gibt eine Übersicht über die Nutzung und den Bestand sowohl von einzelnen Auflagen oder über mehrere Auflagen hinweg. Außerdem können auf über das Protokoll nutzungsbasierte Aussonderungsvorschläge erstellt werden.</p>
-            </td>
-        </tr>
-        <tr routerLink="/profiles">
-            <td>
-                <h2>Profile</h2>
-            </td>
-            <td>
-                <p> Im Bestandspflegemodul können Profile zur Bestandspflege erstellt und verwaltet werden. Auf der Basis dieser Parametersätzen werden Listen von nutzungsbasierte Aussonderungs- und Anschaffungsvorschlägen erstellt.</p>
-            </td>
-        </tr>
-        <tr routerLink="/hitlists">
-            <td>
-                <h2>Hitlisten</h2>
-            </td>
-            <td>
-                <p> Die Vormerkhitlisten können nach Bestandsbereichen und vorgegebenen Schwellenwerten gefiltert werden. Die so gefilterten Listen können außerdem als RSS-Feeds abonniert werden.</p>
-            </td>
-        </tr>
-
-        <tr routerLink="/ejournals">
-            <td>
-                <h2>eMedien</h2>
-            </td>
-            <td>
-                <p> In diesem Bereich können Nutzungsstatistiken für e-Journals, e-Books und Pakete abgerufen werden sowie Nutzungsanalysen erstellt werden.</p>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <hr />
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div (click)="goTo('protokoll')" class="tile">
+      <h2>Protokoll</h2>
+      <p> Das Protokoll gibt eine Übersicht über die Nutzung und den Bestand sowohl von einzelnen Auflagen oder über mehrere Auflagen hinweg.</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div routerLink="/profiles" class="tile">
+        <h2>Profile</h2>
+        <p> Im Bestandspflegemodul können Profile zur Bestandspflege erstellt und verwaltet werden. Auf der Basis dieser Parametersätzen werden Listen von nutzungsbasierte Aussonderungs- und Anschaffungsvorschlägen erstellt.</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div routerLink="/hitlists" class="tile">
+        <h2>Hitlisten</h2>
+        <p> Die Vormerkhitlisten können nach Bestandsbereichen und vorgegebenen Schwellenwerten gefiltert werden. Die so gefilterten Listen können außerdem als RSS-Feeds abonniert werden.</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-3">
+      <div routerLink="/ejournals" class="tile">
+        <h2>eMedien</h2>
+        <p> In diesem Bereich können Nutzungsstatistiken für e-Journals, e-Books und Pakete abgerufen werden sowie Nutzungsanalysen erstellt werden.</p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -31,7 +31,7 @@ import {ProfilesPerUserService} from "../services/profilesperuser.service";
         InputSwitchModule,
         profilesRouting],
     declarations: [StockcontrolComponent,StockcontrolEditorComponent,EventanalysisComponent,BlacklistComponent],
-    exports: [StockcontrolComponent,StockcontrolEditorComponent,EventanalysisComponent],
+    exports: [StockcontrolComponent,StockcontrolEditorComponent,EventanalysisComponent,BlacklistComponent],
     providers: [StockcontrolService,EventanalysisService,IgnoredService,ProfilesPerUserService]
 })
 
