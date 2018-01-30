@@ -12,6 +12,7 @@ import {GetterService} from "./services/getter.service";
 import {AuthentificationService} from "./services/authentification.service";
 import {CommonModule,} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {TranslateModule} from "./translate/translate.module";
 
 @NgModule ({
     imports: [
@@ -21,6 +22,7 @@ import {FormsModule} from "@angular/forms";
         UserModule,
         HttpClientModule,
         BrowserAnimationsModule,
+      TranslateModule,
         appRouting
     ],
     declarations: [AppComponent],

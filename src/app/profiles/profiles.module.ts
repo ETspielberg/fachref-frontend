@@ -2,9 +2,9 @@ import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {
-    CalendarModule,
-    DataTableModule, DialogModule, InputSwitchModule, SelectButtonModule, SpinnerModule, TabMenuModule,
-    ToggleButtonModule
+  CalendarModule,
+  DataTableModule, DialogModule, InputSwitchModule, SelectButtonModule, SpinnerModule, TabMenuModule,
+  ToggleButtonModule
 } from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
 import {profilesRouting} from "./profiles.routing";
@@ -16,23 +16,26 @@ import {EventanalysisService} from "../services/eventanalysis.service";
 import {BlacklistComponent} from "./blacklist.component";
 import {IgnoredService} from "../services/ignored.service";
 import {ProfilesPerUserService} from "../services/profilesperuser.service";
+import {TranslateModule} from "../translate/translate.module";
 
 @NgModule({
-    imports: [CommonModule,
-        RouterModule,
-        DataTableModule,
-        ToggleButtonModule,
-        SpinnerModule,
-        FormsModule,
-        TabMenuModule,
-        SelectButtonModule,
-        CalendarModule,
-        DialogModule,
-        InputSwitchModule,
-        profilesRouting],
-    declarations: [StockcontrolComponent,StockcontrolEditorComponent,EventanalysisComponent,BlacklistComponent],
-    exports: [StockcontrolComponent,StockcontrolEditorComponent,EventanalysisComponent,BlacklistComponent],
-    providers: [StockcontrolService,EventanalysisService,IgnoredService,ProfilesPerUserService]
+  imports: [CommonModule,
+    RouterModule,
+    DataTableModule,
+    ToggleButtonModule,
+    SpinnerModule,
+    FormsModule,
+    TabMenuModule,
+    SelectButtonModule,
+    CalendarModule,
+    DialogModule,
+    InputSwitchModule,
+    TranslateModule,
+    profilesRouting],
+  declarations: [StockcontrolComponent, StockcontrolEditorComponent, EventanalysisComponent, BlacklistComponent],
+  exports: [StockcontrolComponent, StockcontrolEditorComponent, EventanalysisComponent, BlacklistComponent],
+  providers: [StockcontrolService, EventanalysisService, IgnoredService, ProfilesPerUserService]
 })
 
-export class ProfilesModule {}
+export class ProfilesModule {
+}

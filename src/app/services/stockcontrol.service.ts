@@ -43,11 +43,11 @@ export class StockcontrolService {
 
     create(stockcontrol: Stockcontrol): Observable<Stockcontrol> {
         stockcontrol.identifier = stockcontrol.subjectID + '_' + Date.now();
-        const profilePerUser : ProfilePerUser = new ProfilePerUser(stockcontrol.identifier,this.authentificationService.principal.name);
+        /* const profilePerUser : ProfilePerUser = new ProfilePerUser(stockcontrol.identifier,this.authentificationService.principal.name);
         this.http
             .post<ProfilePerUser>(this.profilePerUserUrl, JSON.stringify(
                 profilePerUser),
-                {headers: appGlobals.headers});
+                {headers: appGlobals.headers}).subscribe(); */
         return this.http
             .post<Stockcontrol>(this.stockcontrolUrl, JSON.stringify(
                 stockcontrol),

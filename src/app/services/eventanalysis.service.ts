@@ -29,8 +29,10 @@ export class EventanalysisService {
     }
 
     update(eventanalysis: Eventanalysis): Observable<Eventanalysis> {
-        const url = `${this.eventanalysisUrl}/${eventanalysis.titleId}`;
+        const url = `${this.eventanalysisUrl}/${eventanalysis.identifier}`;
+        const headers = appGlobals.headers.set('X-Requested-With','XMLHttpRequest');
+        let eaString = JSON.stringify(eventanalysis);
         return this.http
-            .put<Eventanalysis>(url, JSON.stringify(eventanalysis), {headers: appGlobals.headers});
+            .put<Eventanalysis>(url, eaString, {headers: headers});
     }
 }

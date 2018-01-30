@@ -49,9 +49,15 @@ private router : Router
     save(stockControl : Stockcontrol) {
         if (stockControl.identifier == 'newProfile') {
             this.stockcontrolService.create(stockControl).subscribe(
-                data => this.stockcontrol = data);
+                data => {
+                  this.stockcontrol = data;
+                  this.addStockcontrolUser(this.user.name);
+                  console.log('saved stockcontrol ' + this.stockcontrol.identifier + ' for user ' + this.user.name);
+                });
         } else {
-            this.stockcontrolService.update(stockControl);
+            this.stockcontrolService.update(stockControl).subscribe(
+              () => console.log('updated stockcontrol')
+            );
          }
         this.router.navigate(['/profiles']);
     }

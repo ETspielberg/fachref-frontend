@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map'
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Principal} from "../model/Principal";
 import {Observable} from "rxjs/Observable";
-import * as appGlobals from '../app.globals';
 
 @Injectable()
 export class AuthentificationService {
@@ -13,7 +12,7 @@ export class AuthentificationService {
   public principal : Principal;
 
   updatePrincipal() : Observable<Principal> {
-    let observable  = this.http.get<Principal>(appGlobals.gatewayurl + '/activeuser');
+    let observable  = this.http.get<Principal>('/activeuser');
     observable.subscribe(
       data => this.principal = data
     );

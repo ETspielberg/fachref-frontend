@@ -1,64 +1,65 @@
 <div class="jumbotron">
-    <div class="container">
-        <h1>Profile</h1>
-        <p>Individuelle Bestandspflege für jeden Fachbereich</p>
-        <span class="links">
+  <div class="container">
+    <h1>Profile</h1>
+    <p>Individuelle Bestandspflege für jeden Fachbereich</p>
+    <span class="links">
 				<button class="btn btn-primary" [routerLink]="['profile', 'newProfile']">Neues Profil erstellen</button>
 				</span>
-        <span class="links">
-				<a class="btn btn-success" [routerLink]="blacklist" target="popup">Zur Blacklist</a>
+    <span class="links">
+				<a class="btn btn-success" routerLink="blacklist" target="popup">Zur Blacklist</a>
 				</span>
-    </div>
+  </div>
 </div>
 <div *ngIf="stockcontrols" class="container">
-    <h2 class="sub-header">Profile für das Fachreferat</h2>
-    <p>Weiß hinterlegte Profile wurden neu erstellt, bisher aber noch nicht ausgeführt. Bei rot hinterlegten läuf die Analyse gerade. Für grün hinterlegte iost die Analyse abgeschlossen und die Aussonderungslisten stehen bereit.</p>
-    <button pButton (click)="getStockcontrols()" label="Refresh" icon="fa-refresh">    </button>
+  <h2 class="sub-header">Profile für das Fachreferat</h2>
+  <p>Weiß hinterlegte Profile wurden neu erstellt, bisher aber noch nicht ausgeführt. Bei rot hinterlegten läuf die
+    Analyse gerade. Für grün hinterlegte iost die Analyse abgeschlossen und die Aussonderungslisten stehen bereit.</p>
+  <button class="btn btn-primary" pButton (click)="getStockcontrols()" label="Refresh" icon="fa-refresh"></button>
   <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>
-                    Beschreibung
-                </th>
-                <th>
-                    Aussonderungsvorschlag
-                </th>
-                <th>
-                    Ausführen/bearbeiten/löschen
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let d of stockcontrols"
-                [ngClass]="{danger: (d.status=='RUNNING'),success:(d.status=='FINISHED')}">
-                <th>
-                    {{d.description}}
-                </th>
-                <th>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          Beschreibung
+        </th>
+        <th>
+          Aussonderungsvorschlag
+        </th>
+        <th>
+          Ausführen/bearbeiten/löschen
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let d of stockcontrols"
+          [ngClass]="{danger: (d.status=='RUNNING'),success:(d.status=='FINISHED')}">
+        <th>
+          {{d.description}}
+        </th>
+        <th>
 
 			<span class="links">
 				<a class="btn btn-sm btn-success" [routerLink]="['eventanalysis', d.identifier]"
-                   role="button" target="popup"
-                   [attr.disabled]="d.status!='FINISHED' ? 'disabled' : null">zur Liste</a>
+           role="button" target="popup"
+           [attr.disabled]="d.status!='FINISHED' ? 'disabled' : null">zur Liste</a>
 			</span>
-                </th>
-                <th>
+        </th>
+        <th>
 			<span class="links">
                 <button class="btn btn-sm btn-primary" (click)="runStockcontrol(d)"> Ausführen </button>
 			</span>
-                    <span class="links">
+          <span class="links">
                         <button class="btn btn-sm btn-warning"
                                 [routerLink]="['profile', d.identifier]"> Bearbeiten </button>
 			        </span>
-                    <span class="links">
+          <span class="links">
                         <button class="btn btn-sm btn-danger" (click)="deleteStockcontrol(d); $event.stopPropagation()"> Löschen </button>
 			        </span>
-                </th>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <!--
 <div class="container">

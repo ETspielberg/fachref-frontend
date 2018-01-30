@@ -16,7 +16,7 @@ export class AlertcontrolComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAlertcontrols();
+      this.getAlertcontrols();
     }
 
     getAlertcontrols() {
