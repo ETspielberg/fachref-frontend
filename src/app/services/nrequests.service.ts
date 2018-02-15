@@ -16,6 +16,6 @@ export class NrequestsService {
 
     getAllForRange(startNotation : string, endNotation : string) : Observable<Nrequests[]> {
         let url = this.nrequestsUrl + '/search/getNrequestsForNotationgroup?startNotation=' + startNotation + "&endNotation=" + endNotation;
-        return this.http.get<Nrequests[]>(url);
+        return this.http.get<Nrequests[]>(url).map(data => data['_embedded']['nrequests']);
     }
 }

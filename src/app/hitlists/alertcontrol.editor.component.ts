@@ -17,8 +17,6 @@ export class AlertcontrolEditorComponent  implements OnInit {
 
     alertcontrol : Alertcontrol;
 
-    private identifier : string;
-
     private profilePerUser : ProfilePerUser[];
 
     constructor(
@@ -34,11 +32,13 @@ private profilePerUserService : ProfilesPerUserService
     }
 
     update() {
-
         this.route.params
             .switchMap((params: Params) => this.alertcontrolService.getAlertcontrol(params['identifier']))
-            .subscribe(alertcontrol => this.alertcontrol = alertcontrol);
-        console.log('queried alertcontrol ' + this.alertcontrol.identifier);
+            .subscribe(alertcontrol => {
+              this.alertcontrol = alertcontrol;
+              console.log('queried alertcontrol ' + this.alertcontrol.identifier);
+            });
+
     }
 
     goBack(): void {

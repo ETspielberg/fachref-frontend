@@ -11,7 +11,7 @@ export class ProfilesPerUserService {
     constructor (private http: HttpClient) {}
 
     getProfilePerUsers(identifier : string) : Observable<ProfilePerUser[]> {
-        return this.http.get<ProfilePerUser[]>(this.profilesPerUserUrl + '/search/findByIdentifier?identifier=' + identifier);
+        return this.http.get<ProfilePerUser[]>(this.profilesPerUserUrl + '/search/findByIdentifier?identifier=' + identifier).map(data => data['_embedded']['profilesperuser']);
     }
 
     addProfilePerUsers(profilePerUser :ProfilePerUser) : Observable<ProfilePerUser> {

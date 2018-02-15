@@ -34,7 +34,7 @@ export class StockcontrolComponent implements OnInit {
     }
 
     runStockcontrol(stockcontrol : Stockcontrol) : void {
-        this._http.get(appGlobals.batchUrl + "/eventanalyzer?identifier=" + stockcontrol.identifier);
+        this._http.get(appGlobals.batchUrl + "/eventanalyzer?identifier=" + stockcontrol.identifier).subscribe();
     }
 
 }

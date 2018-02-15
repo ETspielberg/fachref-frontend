@@ -5,11 +5,12 @@
 export class Usersettings {
 
   constructor(
-    public fullname : string,
-    public email : string,
-    public yearsToAverage : number,
-    public timePeriod : number,
-    public subjects : string[],
-    public substitute : string[],
+    public username: string,
+    public fullname: string,
+    public email: string,
+    public yearsToAverage: number,
+    public timePeriod: number,
+    public subjects: string[],
+    public substitute: string[],
 ) {}
 }

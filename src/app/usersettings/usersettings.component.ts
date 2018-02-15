@@ -60,17 +60,20 @@ export class UsersettingsComponent implements OnInit {
   ];
 
 
-    constructor(private userService: UserService,private authenticationService : AuthentificationService,  private location : Location,
-    private router : Router) {
+    constructor(private userService: UserService,
+                private authenticationService: AuthentificationService,
+                private location : Location,
+                private router : Router) {
     }
 
     ngOnInit(): void {
       this.userService.get(this.authenticationService.principal.name).subscribe(
         data => {
           this.usersettings = data;
-            this.subjects = this.usersettings.subjects;
+          this.subjects = this.usersettings.subjects;
           this.substitute = this.usersettings.substitute;
-        }
+        },
+        error =>  this.usersettings = new Usersettings(this.authenticationService.principal.name,'','',5,5,[],[])
       );
     }
 

@@ -218,9 +218,9 @@
         <h3>Freigaben</h3>
         Folgende Nutzer können auf das Profil zugreifen:
         <ul>
-            <li *ngFor="let su of stockcontrolUsers">
+            <li *ngFor="let su of profilePerUsers">
                 {{su.username}}
-                <button *ngIf="su.username != user.getName()" (click)="deleteStockcontrolUser(su)">X</button>
+                <button *ngIf="su.username != user.username" (click)="deleteStockcontrolUser(su)">X</button>
             </li>
             <li>
                 <form>

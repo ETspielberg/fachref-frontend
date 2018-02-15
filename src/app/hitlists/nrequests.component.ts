@@ -35,13 +35,22 @@ export class NrequestsComponent implements OnInit {
         if (this.identifier == 'all') {
             this.getAllNrequests();
         } else {
-            let busy = this.alertcontrolService.getAlertcontrol(this.identifier).toPromise().then(
-                alertcontrol => this.alertcontrol = alertcontrol);
-            let busyTwo = busy.then( alertcontrol => this.notationgroupService.get(this.alertcontrol.notationgroup).toPromise().then(
-                notationgroup => this.notationgroup = notationgroup));
-            busyTwo.then( notationgroup => this.nrequestsService.getAllForRange(this.notationgroup.notationsStart,this.notationgroup.notationsEnd).subscribe(
-                data => this.nrequestss = data,
-                error => this.errorMessage = error));
+          this.alertcontrolService.getAlertcontrol(this.identifier).subscribe(
+            data => {
+              this.alertcontrol = data;
+              this.notationgroupService.get(this.alertcontrol.notationgroup).subscribe(
+                data => {
+                  this.notationgroup = data;
+                  this.nrequestsService.getAllForRange(this.notationgroup.notationsStart, this.notationgroup.notationsEnd).subscribe(
+                    data => this.nrequestss = data,
+                    error => this.errorMessage = error
+                );
+                },
+                error => this.errorMessage = error
+              )
+            },
+            error => this.errorMessage = error
+          );
         }
     }
 

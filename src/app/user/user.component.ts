@@ -3,6 +3,8 @@ import { UserService} from '../services/user.service';
 import { Usersettings } from '../model/Usersettings'
 import {AuthentificationService} from "../services/authentification.service";
 import {Principal} from "../model/Principal";
+import {Location} from "@angular/common";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'user',
@@ -17,7 +19,11 @@ export class UserComponent implements OnInit {
 
     guest : boolean;
 
-    constructor(private userService : UserService, private authentificationService : AuthentificationService) {
+    constructor(private userService : UserService,
+                private authentificationService : AuthentificationService,
+                private route : ActivatedRoute,
+                private location : Location,
+                private router : Router) {
     }
 
     ngOnInit(): void {
@@ -29,7 +35,8 @@ export class UserComponent implements OnInit {
       this.guest = this.authentificationService.hasRole("guest");
       if (!(this.principal === undefined)) {
         this.userService.get(this.authentificationService.principal.name).subscribe(
-          usersettings => this.userData = usersettings
+          usersettings => this.userData = usersettings,
+          error => this.router.navigate(['/user'])
         );
       }
     }
