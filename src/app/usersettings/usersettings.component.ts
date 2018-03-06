@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Usersettings} from "../model/Usersettings";
-import {UserService} from "../services/user.service";
+import {UsersettingsService} from "../services/usersettings.service";
 import { Location }  from '@angular/common';
 import { Router} from "@angular/router";
 import {AuthentificationService} from "../services/authentification.service";
@@ -60,7 +60,7 @@ export class UsersettingsComponent implements OnInit {
   ];
 
 
-    constructor(private userService: UserService,
+    constructor(private userService: UsersettingsService,
                 private authenticationService: AuthentificationService,
                 private location : Location,
                 private router : Router) {

@@ -2,21 +2,41 @@
     <div class="container">
         <h1>Hitlisten</h1>
         <p>Die am stärksten vorgemerkten Titel je Bereich</p>
-        <span class="links">
-				<button class="btn btn-primary" [routerLink]="['/hitlist', 'newAlertcontrol']">Neues Profil erstellen</button>
-				</span>
     </div>
 </div>
+
+<p-dialog header="Daten werden abgerufen" [modal]="true" [closable]="false" [(visible)]="busy">
+  <img src="assets/img/loading_newtons_cradle.gif" alt="Loading..." style="width:304px;height:228px;">
+</p-dialog>
+
+<p-growl baseZIndex="10" life="7500" [(value)]="msgs"></p-growl>
+
 <div class="container">
     <h2>Hitliste</h2>
     <p *ngIf="alertcontrol"> für das Profil: {{alertcontrol.description}}</p>
     <p-dataTable #dt [value]="nrequestss" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,50]">
         <p-column field="shelfmark" header="Signatur" [sortable]="true"></p-column>
+      <p-column header="Info / Protokoll">
+        <ng-template let-nrequests="rowData" pTemplate="body">
+          <button type="button" pButton pTooltip="Bibliographische Informationen anzeigen"
+                  (click)="showInfo(nrequests.mab)" icon="fa fa-info"></button>
+          <button type="button" pButton pTooltip="zum Ausleihprotokoll"
+                  (click)="goToProtokoll(nrequests.shelfmark)" icon="fa fa-search"></button>
+        </ng-template>
+      </p-column>
         <p-column field="ratio" header="Verhältnis" [sortable]="true">
             <ng-template let-col let-nrequests="rowData" pTemplate="body">
                 {{nrequests.ratio | percent:'1.0-1'}}
             </ng-template>
         </p-column>
+      <p-column header="Info / Protokoll">
+        <ng-template let-nrequests="rowData" pTemplate="body">
+          <button type="button" pButton pTooltip="Bibliographische Informationen anzeigen"
+                  (click)="showInfo(nrequests.mab)" icon="fa fa-info"></button>
+          <button type="button" pButton pTooltip="zum Ausleihprotokoll"
+                  (click)="goToProtokoll(nrequests.shelfmark,'')" icon="fa fa-search"></button>
+        </ng-template>
+      </p-column>
         <p-column field="NRequests" header="Vormerkungen" [sortable]="true"></p-column>
         <p-column field="NLoans" header="Ausleihen" [sortable]="true"></p-column>
         <p-column field="NItems" header="Exemplare" [sortable]="true"></p-column>

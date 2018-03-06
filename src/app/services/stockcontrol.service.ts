@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Stockcontrol } from '../model/Stockcontrol';
 import 'rxjs/add/operator/toPromise';
-import {UserService} from "./user.service";
+import {UsersettingsService} from "./usersettings.service";
 import {Observable} from "rxjs/Observable";
 import {ProfilePerUser} from "../model/ProfilePerUser";
 import {HttpClient} from "@angular/common/http";

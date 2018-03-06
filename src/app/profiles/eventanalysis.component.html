@@ -1,93 +1,82 @@
-<p-dialog header="Erweiterter Eintrag" [(visible)]="display" modal="modal" width="300" [responsive]="true">
-    <p-calendar [(ngModel)]="ignored.expire" dateFormat="@" [yearNavigator]="true" yearRange="2015:2050"></p-calendar>
-    <p-footer>
-        <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
-        <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
-    </p-footer>
-</p-dialog>
 <div class="jumbotron">
-    <div class="container">
-        <h1>Aussonderungsvorschläge</h1>
-        <p>
-            <button type="button" pButton class="ui-button-success" label="Zur Blacklist"></button>
-            <button type="button" (click)="saveStatus()" pButton class="ui-button-success" label="Zustand speichern"></button>
-        </p>
-        <p>Liste anzeigen :<p-selectButton [options]="listOptions" [(ngModel)]="selectedList"></p-selectButton></p>
-        <p>Analysen ohne Aussonderungsvorschlag anzeigen: <p-inputSwitch (onChange)="reloadAllAnalyses()" onLabel="Ja" offLabel="Nein" [(ngModel)]="showAllAnalyses"></p-inputSwitch></p>
-    </div>
-    <p-dialog header="Erweiterter Eintrag" [(visible)]="display" modal="modal" width="500" [responsive]="true">
-        <textarea [(ngModel)]="ignored.comment" pInputTextarea autoResize="autoResize"></textarea>
-        <p-calendar [(ngModel)]="ignored.expire" [yearNavigator]="true" dateFormat="@" yearRange="2015:2030"></p-calendar>
-        <p-footer>
-            <button type="button" pButton icon="fa-check" (click)="saveIgnored()" label="Yes"></button>
-            <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
-        </p-footer>
-    </p-dialog>
-</div>
-<div  *ngIf="sortedEventanalysis[selectedList]; else message" class="container-fluid">
-    <p-dataTable #dt [value]="sortedEventanalysis[selectedList]" expandableRows="true" sortMode="multiple" [editable]="true">
-        <p-header>
-            <div class="ui-helper-clearfix">
-                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export csv" (click)="dt.exportCSV()" style="float:left"></button>
-            </div>
-        </p-header>
-        <p-column expander="true" styleClass="col-icon" header="Infos"></p-column>
-        <p-column field="shelfmark" header="Signatur" [filter]="true" filterPlaceholder="Filter" [sortable]="true"></p-column>
-         <p-column header="Protokoll">
-        <ng-template let-eventanalyse="rowData" pTemplate="body">
-            <a class="search" type="button" href="/protokoll?shelfmark={{eventanalyse.shelfmark}}&amp;collections={{eventanalyse.collection}}&amp;exact="
-               target="popup">Link</a>
-        </ng-template>
-        </p-column>
-        <p-column field="meanRelativeLoan" header="Mittlere Ausleihe" [sortable]="true">
-            <ng-template let-col let-eventanalyse="rowData" pTemplate="body">
-                {{eventanalyse.meanRelativeLoan | percent:'1.0-1'}}
-            </ng-template>
-        </p-column>
-        <p-column field="slope" header="Trend / Jahr" [sortable]="true">
-            <ng-template let-col let-eventanalyse="rowData" pTemplate="body">
-                {{eventanalyse.slope | number}}
-            </ng-template>
-        </p-column>
-        <p-column field="lastStock" header="Bestand" [sortable]="true"></p-column>
-        <p-column field="maxLoansAbs" header="maximale Ausleihe" [sortable]="true"></p-column>
-        <p-column field="proposedDeletion" header="Vorschlag" [sortable]="true" [editable]="true">
-        <ng-template let-col let-eventanalyse="rowData" pTemplate="editor">
-            <p-spinner size="30" [(ngModel)]="eventanalyse[col.field]" [min]="0"></p-spinner>
-        </ng-template>
-        </p-column>
-        <p-column field="comment" header="Kommentar" [filter]="true" filterPlaceholder="Filter" [editable]="true">
-            <ng-template let-col let-eventanalyse="rowData" pTemplate="editor" autoResize="autoResize">
-                <textarea pInputTextarea [(ngModel)]="eventanalyse[col.field]"></textarea>
-            </ng-template>
-        </p-column>
-
-        <p-column header="Aktion">
-        <ng-template let-eventanalyse="rowData" pTemplate="body">
-            <button *ngIf="selectedList=='proposed'" type="button" (click)="toBlacklist(eventanalyse)" pButton class="ui-button-success" label="Ignorieren"></button>
-            <button *ngIf="selectedList=='ignored'" type="button" (click)="showDialog(eventanalyse)" pButton class="ui-button-success" label="Erweitert"></button>
-            <button *ngIf="selectedList!='proposed'" type="button" (click)="toProposal(eventanalyse)" pButton class="ui-button-success" label="Auf die Liste"></button>
-            <button *ngIf="selectedList=='proposed'" type="button" (click)="toRepository(eventanalyse)" pButton class="ui-button-warning" label="Umstellen"></button>
-            <button *ngIf="selectedList=='proposed'" type="button" (click)="delete(eventanalyse)" pButton class="ui-button-danger" label="Aussondern"></button>
-        </ng-template>
-        </p-column>
-        <ng-template let-eventanalyse pTemplate="rowexpansion">
-            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-3" style="text-align:center">
-                        {{eventanalyse.collection}} : {{eventanalyse.shelfmark}}
-                    </div>
-                    <div class="ui-grid-col-3" style="text-align:center">
-                        {{eventanalyse.mab}}
-                    </div>
-                    <div class="ui-grid-col-3" style="text-align:center">
-                        <a href="/protokoll?shelfmark={{eventanalyse.shelfmark}}&amp;collections={{eventanalyse.collection}}&amp;exact="
-                           target="popup">Link</a>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </p-dataTable>
+  <div class="container">
+    <h1>Aussonderungsvorschläge</h1>
+    <p> Liste der Titel mit Aussonderungspotential.</p>
+    Liste anzeigen: <p-selectButton [options]="listOptions" [(ngModel)]="selectedList"></p-selectButton>
+  </div>
+  <p-dialog header="Erweiterte Sperrung" [(visible)]="display" modal="modal" width="500" [responsive]="true">
+    <p> Diesem Titel ({{ignored.shelfmark}}) einen erweiterter Kommentar hinzufügen: </p>
+    <textarea [(ngModel)]="ignored.comment" pInputTextarea [rows]="5" [cols]="60" autoResize="true"></textarea>
+    <p>Diesen Titel für einen erweiterten Zeitraum von den Analysen ausschließen: </p>
+    <p-calendar [(ngModel)]="ignored.expire" dateFormat="dd.mm.yyyy" [yearNavigator]="true" [monthNavigator]="true" yearRange="2015:2030" [inline]="true"></p-calendar>
+    <p-footer>
+      <button type="button" pButton iconPos="right" icon="fa-save" (click)="saveIgnored(ignored)" class="ui-button-success" label="Speichern"></button>
+      <button type="button" pButton iconPos="right" icon="fa-times" (click)="display=false" class="ui-button-danger" label="Abbrechen"></button>
+    </p-footer>
+  </p-dialog>
 </div>
 
-<ng-template #message><div class="col-md-6 col-md-offset-2">Keine einträge gefunden.</div></ng-template>
+<p-dialog header="Daten werden abgerufen" [modal]="true" [closable]="false" [(visible)]="busy">
+  <img src="assets/img/loading_newtons_cradle.gif" alt="Loading..." style="width:304px;height:228px;">
+</p-dialog>
+
+<p-growl baseZIndex="10" life="7500" [(value)]="msgs"></p-growl>
+<div *ngIf="sortedEventanalysis[selectedList]; else message" class="container">
+  <p-dataTable #dt [value]="sortedEventanalysis[selectedList]" sortMode="multiple" [editable]="true">
+    <p-header>
+      <div class="ui-helper-clearfix">
+        <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export csv" (click)="dt.exportCSV()"
+                style="float:left"></button>
+        <p-toggleButton (onChange)="reloadAnalyses()" [(ngModel)]="showAllAnalyses" onLabel="Nur Analysen mit Vorschlag anzeigen" offLabel="Auch Analysen ohne Vorschlag anzeigen"></p-toggleButton>
+      </div>
+    </p-header>
+    <p-column field="shelfmark" header="Signatur" [filter]="true" filterPlaceholder="Filter"
+              [sortable]="true"></p-column>
+    <p-column header="Info / Protokoll">
+      <ng-template let-eventanalyse="rowData" pTemplate="body">
+        <button type="button" pButton pTooltip="Bibliographische Informationen anzeigen"
+                (click)="showInfo(eventanalyse.mab)" icon="fa fa-info"></button>
+        <button type="button" pButton pTooltip="zum Ausleihprotokoll"
+                (click)="goToProtokoll(eventanalyse.shelfmark,eventanalyse.collection)" icon="fa fa-search"></button>
+      </ng-template>
+    </p-column>
+    <p-column field="meanRelativeLoan" header="Mittlere Ausleihe" [sortable]="true">
+      <ng-template let-col let-eventanalyse="rowData" pTemplate="body">
+        {{eventanalyse.meanRelativeLoan | percent:'1.0-1'}}
+      </ng-template>
+    </p-column>
+    <p-column field="lastStock" header="Bestand" [sortable]="true"></p-column>
+    <p-column field="maxLoansAbs" header="maximale Ausleihe" [sortable]="true"></p-column>
+    <p-column field="proposedDeletion" header="Vorschlag" [sortable]="true" [editable]="true">
+      <ng-template let-col let-eventanalyse="rowData" pTemplate="editor">
+        <p-spinner size="30" [(ngModel)]="eventanalyse[col.field]" [min]="0"></p-spinner>
+      </ng-template>
+    </p-column>
+    <p-column field="comment" header="Kommentar" [filter]="true" filterPlaceholder="Filter" [editable]="true">
+      <ng-template let-col let-eventanalyse="rowData" pTemplate="editor" autoResize="autoResize">
+        <textarea pInputTextarea [(ngModel)]="eventanalyse[col.field]"></textarea>
+      </ng-template>
+    </p-column>
+
+    <p-column header="Aktion">
+      <ng-template let-eventanalyse="rowData" pTemplate="body">
+        <button *ngIf="selectedList=='proposed'" type="button" (click)="toBlacklist(eventanalyse)"
+                pTooltip="auf die Blacklist" pButton class="ui-button-black" icon="fa-minus-circle"></button>
+        <button *ngIf="selectedList=='ignored'" type="button" (click)="showDialog(eventanalyse)"
+                pTooltip="Erweiterte Sperrung" pButton class="ui-button-black" icon="fa-plus-square"></button>
+        <button *ngIf="selectedList=='ignored'" type="button" (click)="fromBlacklistToProposal(eventanalyse)"
+                pTooltip="Auf die Vorschlagsliste zurück" pButton class="ui-button-success" icon="fa-list-alt"></button>
+        <button *ngIf="selectedList!='proposed' && selectedList!='ignored'" type="button" (click)="toProposal(eventanalyse)"
+                pTooltip="Auf die Vorschlagsliste zurück" pButton class="ui-button-success" icon="fa-list-alt"></button>
+        <button *ngIf="selectedList=='proposed'" type="button" (click)="toRepository(eventanalyse)"
+                pTooltip="Ins Magazin umstellen" pButton class="ui-button-warning" icon="fa-archive"></button>
+        <button *ngIf="selectedList=='proposed'" type="button" (click)="delete(eventanalyse)" pButton
+                pTooltip="Aussondern" class="ui-button-danger" icon="fa-trash"></button>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+</div>
+
+<ng-template #message>
+  <div class="col-md-6 col-md-offset-2">Keine Einträge gefunden.</div>
+</ng-template>

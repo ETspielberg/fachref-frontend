@@ -6,6 +6,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Alertcontrol} from "../model/Alertcontrol";
 import {NotationgroupService} from "../services/notationgroup.service";
 import {Notationgroup} from "../model/Notationgroup";
+import {Message} from "primeng/primeng";
 
 @Component({
     selector: 'nrequests',
@@ -17,6 +18,8 @@ export class NrequestsComponent implements OnInit {
 
     nrequestss : Nrequests[];
 
+    msgs: Message[];
+
     private identifier : string;
 
     alertcontrol : Alertcontrol;
@@ -25,6 +28,8 @@ export class NrequestsComponent implements OnInit {
 
     private errorMessage : string;
 
+    busy: boolean;
+
     constructor(private nrequestsService:NrequestsService,
                 private route : ActivatedRoute,
                 private alertcontrolService : AlertcontrolService,
@@ -32,6 +37,7 @@ export class NrequestsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((params : Params) => this.identifier = params['identifier']);
+        this.busy = true;
         if (this.identifier == 'all') {
             this.getAllNrequests();
         } else {
@@ -42,7 +48,10 @@ export class NrequestsComponent implements OnInit {
                 data => {
                   this.notationgroup = data;
                   this.nrequestsService.getAllForRange(this.notationgroup.notationsStart, this.notationgroup.notationsEnd).subscribe(
-                    data => this.nrequestss = data,
+                    data => {
+                      this.nrequestss = data;
+                      this.busy = false;
+                    },
                     error => this.errorMessage = error
                 );
                 },
@@ -56,7 +65,26 @@ export class NrequestsComponent implements OnInit {
 
     getAllNrequests() : void {
     this.nrequestsService.getAll().subscribe(
-        data => this.nrequestss = data,
-        error => this.errorMessage = error);
+        data => {
+          this.nrequestss = data;
+          this.busy = false;
+        },
+            error => this.errorMessage = error
+        );
     }
+
+  showInfo(text:string) {
+    this.msgs = [];
+    this.msgs.push({severity:'info', summary:'Titeldaten', detail:text});
+  }
+
+  goToProtokoll(shelfmark: string) {
+    let url;
+    if (shelfmark.indexOf(',') > 0) {
+      url = '/protokoll?shelfmark=' + shelfmark.substring(0,shelfmark.indexOf(','))
+    } else {
+      url = '/protokoll?shelfmark=' + shelfmark
+    }
+    window.open(url,'_blank');
+  }
 }

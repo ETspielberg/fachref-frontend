@@ -18,3 +18,25 @@
 .tile-bottom {
   border-radius: 0px 0px 25px 25px
 }
+
+/* Success */
+.ui-button.ui-button-black.ui-state-default,
+.ui-splitbutton.ui-button-black .ui-button.ui-state-default {
+  background-color: #000000;
+  border-color: #1a171b;
+  color: #ffffff;
+}
+
+.ui-button.ui-button-black:enabled:hover,
+.ui-button.ui-button-black:focus,
+.ui-splitbutton.ui-button-black .ui-button:enabled:hover,
+.ui-splitbutton.ui-button-black .ui-button:focus {
+  background-color: #101010;
+  border-color: #1a171b;
+}
+
+.ui-button.ui-button-success:enabled:active,
+.ui-splitbutton.ui-button-success .ui-button:enabled:active {
+  background-color: #000000;
+  border-color: #1a171b;
+}

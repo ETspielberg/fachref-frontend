@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
-import {UserService} from "../services/user.service";
+import {UsersettingsService} from "../services/usersettings.service";
 import {MediaComponent} from "./media.component";
 import {mediaRouting} from "./media.routing";
 import {SushiComponent} from "./sushi.component";
@@ -25,7 +25,7 @@ import {CollectionManagementComponent} from "./collection.management.component";
         mediaRouting],
     declarations: [MediaComponent,SushiComponent,SushiEditorComponent,CollectionManagementComponent],
     exports: [],
-    providers: [UserService, FileService, JournalCollectionService, JournalService, JournalTitleService]
+    providers: [UsersettingsService, FileService, JournalCollectionService, JournalService, JournalTitleService]
 })
 
 export class MediaModule {}

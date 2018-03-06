@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {UserService} from "../services/user.service";
+import {UsersettingsService} from "../services/usersettings.service";
 import {Principal} from "../model/Principal";
 import {Router} from "@angular/router";
 import {AuthentificationService} from "../services/authentification.service";
@@ -13,7 +13,7 @@ import {AuthentificationService} from "../services/authentification.service";
 })
 export class StartComponent implements OnInit {
 
-    constructor(private userService :UserService, private authentificationService : AuthentificationService, private router: Router) {
+    constructor(private userService :UsersettingsService, private authentificationService : AuthentificationService, private router: Router) {
     }
 
     principal : Principal;

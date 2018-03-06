@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { UserService} from '../services/user.service';
+import { UsersettingsService} from '../services/usersettings.service';
 import { Usersettings } from '../model/Usersettings'
 import {AuthentificationService} from "../services/authentification.service";
 import {Principal} from "../model/Principal";
@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
 
     guest : boolean;
 
-    constructor(private userService : UserService,
+    constructor(private userService : UsersettingsService,
                 private authentificationService : AuthentificationService,
                 private route : ActivatedRoute,
                 private location : Location,

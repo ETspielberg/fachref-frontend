@@ -2,9 +2,9 @@ import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {
-  CalendarModule,
+  CalendarModule, TooltipModule,
   DataTableModule, DialogModule, InputSwitchModule, SelectButtonModule, SpinnerModule, TabMenuModule,
-  ToggleButtonModule
+  ToggleButtonModule, ButtonModule, GrowlModule, AutoCompleteModule
 } from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
 import {profilesRouting} from "./profiles.routing";
@@ -13,7 +13,6 @@ import {StockcontrolEditorComponent} from "./stockcontrol.editor.component";
 import {EventanalysisComponent} from "./eventanalysis.component";
 import {StockcontrolService} from "../services/stockcontrol.service";
 import {EventanalysisService} from "../services/eventanalysis.service";
-import {BlacklistComponent} from "./blacklist.component";
 import {IgnoredService} from "../services/ignored.service";
 import {ProfilesPerUserService} from "../services/profilesperuser.service";
 import {TranslateModule} from "../translate/translate.module";
@@ -23,17 +22,21 @@ import {TranslateModule} from "../translate/translate.module";
     RouterModule,
     DataTableModule,
     ToggleButtonModule,
+    ButtonModule,
     SpinnerModule,
     FormsModule,
     TabMenuModule,
+    TooltipModule,
     SelectButtonModule,
     CalendarModule,
     DialogModule,
+    AutoCompleteModule,
     InputSwitchModule,
     TranslateModule,
+    GrowlModule,
     profilesRouting],
-  declarations: [StockcontrolComponent, StockcontrolEditorComponent, EventanalysisComponent, BlacklistComponent],
-  exports: [StockcontrolComponent, StockcontrolEditorComponent, EventanalysisComponent, BlacklistComponent],
+  declarations: [StockcontrolComponent, StockcontrolEditorComponent, EventanalysisComponent],
+  exports: [StockcontrolComponent, StockcontrolEditorComponent, EventanalysisComponent],
   providers: [StockcontrolService, EventanalysisService, IgnoredService, ProfilesPerUserService]
 })
 

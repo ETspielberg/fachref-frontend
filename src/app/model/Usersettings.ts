@@ -11,6 +11,6 @@ export class Usersettings {
     public yearsToAverage: number,
     public timePeriod: number,
     public subjects: string[],
-    public substitute: string[],
+    public substitute: string[]
 ) {}
 }

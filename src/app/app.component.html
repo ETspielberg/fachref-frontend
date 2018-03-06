@@ -1,36 +1,39 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                    aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" routerLink="/start">UB-Services :: Start</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul *ngIf="principal" class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/protokoll">Protokoll</a>
-                </li>
-                <li>
-                    <a routerLink="profiles">Profile</a>
-                </li>
-                <li>
-                    <a routerLink="hitlists">Hitlisten</a>
-                </li>
-                <li>
-                    <a routerLink="ejournals">e-Journals</a>
-                </li>
-                <li class="dropdown">
-                    <user></user>
-                </li>
-            </ul>
-        </div>
-        <!--/.navbar-collapse -->
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+              aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span> <span
+        class="icon-bar"></span> <span class="icon-bar"></span> <span
+        class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/start">UB-Services :: Start</a>
     </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul *ngIf="principal" class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/protokoll">Protokoll</a>
+        </li>
+        <li>
+          <a routerLink="profiles">Profile</a>
+        </li>
+        <li>
+          <a routerLink="hitlists">Hitlisten</a>
+        </li>
+        <li>
+          <a routerLink="blacklist">Blacklist</a>
+        </li>
+        <li>
+          <a routerLink="ejournals">e-Journals</a>
+        </li>
+        <li class="dropdown">
+          <user></user>
+        </li>
+      </ul>
+    </div>
+    <!--/.navbar-collapse -->
+  </div>
 </nav>
 <router-outlet></router-outlet>
 

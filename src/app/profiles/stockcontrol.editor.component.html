@@ -1,234 +1,224 @@
+<p-growl baseZIndex="10" life="7500" [(value)]="msgs"></p-growl>
 <div *ngIf="stockcontrol">
-    <div class="jumbotron">
-        <div class="container">
-        <h1><input [(ngModel)]="stockcontrol.description" placeholder="name" style="border: none"/></h1>
-        </div>
-    </div>
-
+  <div class="jumbotron">
     <div class="container">
-    <h2 class="sub-header">Angaben zum Bereich</h2>
-    <p> Dieser Abschnitt umfasst die notwendigen Angaben zum
-        Fachbereich und der Medienart, die untersucht werden soll.
-    </p>
-    <p> Wird explizit eine Systemstelle angegeben, so erfolgt die
-        Analyse nur für diese. Soll die Analyse für die ganze Fachgruppe
-        durchgeführt werden, bleibt das Feld leer.
-    </p>
-    <p>
-        Ähnlich wie beim Ausleihprotokoll können Einschränkungen
-        hinsichtlich der Standorte vorgenommen werden. Dabei gelten die
-        gleichen.
-    </p>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="subjectID">
-                Fach:
-            </label>
-            <div class="col-md-5">
-                <select id="subjectID" [(ngModel)]="stockcontrol.subjectID" class="form-control">
-                    <option value="00">Systemstellenanalyse</option>
-                    <option value="01">Allgemeines</option>
-                    <option value="04">Sprach- und Literaturwissenschaften
-                    </option>
-                    <option value="07">Germanistik</option>
-                    <option value="10">Anglistik</option>
-                    <option value="13">Romanistik</option>
-                    <option value="16">sonstige Philologien</option>
-                    <option value="19">Philosophie</option>
-                    <option value="22">Psychologie</option>
-                    <option value="25">Erziehungswissenschaften</option>
-                    <option value="28">Theologie</option>
-                    <option value="31">Autoren GW</option>
-                    <option value="34">Kunstwissenschaften</option>
-                    <option value="34a">Medienwissenschaften</option>
-                    <option value="37">Sportwissenschaften</option>
-                    <option value="40">Geschichte</option>
-                    <option value="43">Geowissenschaften</option>
-                    <option value="46a">Sozialwissenschaften </option>
-                    <option value="46b">Soziologie </option>
-                    <option value="46c">Politikwissenschaften </option>
-                    <option value="49">Wirtschaftswissenschaften </option>
-                    <option value="52">Rechtswissenscahften </option>
-                    <option value="55">Land- und Forstwissenschaften</option>
-                    <option value="58">Naturwissenschaften</option>
-                    <option value="61">Mathematik </option>
-                    <option value="64">Informatik </option>
-                    <option value="67">Physik </option>
-                    <option value="70">Chemie </option>
-                    <option value="73">Astronomie </option>
-                    <option value="75">Biologie </option>
-                    <option value="77">Fachbibliothek Medizin</option>
-                    <option value="77a">Medizin </option>
-                    <option value="79">Technik allgemein</option>
-                    <option value="82">Bauingenieurwesen </option>
-                    <option value="85">Maschinenbau</option>
-                    <option value="88">Elektrotechnik </option>
-                    <option value="91">Sonstige Gebiete der Technik </option>
-                    <option value="94">Turkistik </option>
-                    <option value="99">Sonderstandorte</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="systemCode">
-                Systemstelle:
-            </label>
-            <div class="col-md-5">
-                <input id="systemCode" [(ngModel)]="stockcontrol.systemCode" placeholder="z.B. VNA,VNA-VNO"
-                       class="form-control input-md" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="collections">
-                Standorte:
-            </label>
-            <div class="col-md-5">
-                <input id="collections" [(ngModel)]="stockcontrol.collections" placeholder="z.B. E33 E31"
-                       class="form-control input-md" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="materials">
-                Materialien:
-            </label>
-            <div class="col-md-5">
-                <input id="materials" [(ngModel)]="stockcontrol.materials" placeholder="z.B. BOOKS"
-                       class="form-control input-md" />
-            </div>
-        </div>
+      <h1><input [(ngModel)]="stockcontrol.description" placeholder="name" style="border: none"/></h1>
     </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-8 ui-md-12 ui-g-offset-2">
+      <div class="ui-g-12">
+        <h2 class="sub-header">Angaben zum Bereich</h2>
+        <p> Dieser Abschnitt umfasst die notwendigen Angaben zum
+          Fachbereich und der Medienart, die untersucht werden soll.
 
-    <div class="container">
+
+          Wird explizit eine Systemstelle angegeben, so erfolgt die
+          Analyse nur für diese. Soll die Analyse für die ganze Fachgruppe
+          durchgeführt werden, bleibt das Feld leer.
+
+
+          Ähnlich wie beim Ausleihprotokoll können Einschränkungen
+          hinsichtlich der Standorte vorgenommen werden. Dabei gelten die
+          gleichen.
+        </p>
+      </div>
+      <div class="ui-g-12">
+        <div class="form-group">
+          <label class="ui-g-4 control-label" for="subjectID">
+            Fach:
+          </label>
+          <div class="ui-g-6">
+            <select id="subjectID" [(ngModel)]="stockcontrol.subjectID" class="form-control">
+              <option value="00">Systemstellenanalyse</option>
+              <option value="01">Allgemeines</option>
+              <option value="04">Sprach- und Literaturwissenschaften
+              </option>
+              <option value="07">Germanistik</option>
+              <option value="10">Anglistik</option>
+              <option value="13">Romanistik</option>
+              <option value="16">sonstige Philologien</option>
+              <option value="19">Philosophie</option>
+              <option value="22">Psychologie</option>
+              <option value="25">Erziehungswissenschaften</option>
+              <option value="28">Theologie</option>
+              <option value="31">Autoren GW</option>
+              <option value="34">Kunstwissenschaften</option>
+              <option value="34a">Medienwissenschaften</option>
+              <option value="37">Sportwissenschaften</option>
+              <option value="40">Geschichte</option>
+              <option value="43">Geowissenschaften</option>
+              <option value="46a">Sozialwissenschaften</option>
+              <option value="46b">Soziologie</option>
+              <option value="46c">Politikwissenschaften</option>
+              <option value="49">Wirtschaftswissenschaften</option>
+              <option value="52">Rechtswissenscahften</option>
+              <option value="55">Land- und Forstwissenschaften</option>
+              <option value="58">Naturwissenschaften</option>
+              <option value="61">Mathematik</option>
+              <option value="64">Informatik</option>
+              <option value="67">Physik</option>
+              <option value="70">Chemie</option>
+              <option value="73">Astronomie</option>
+              <option value="75">Biologie</option>
+              <option value="77">Fachbibliothek Medizin</option>
+              <option value="77a">Medizin</option>
+              <option value="79">Technik allgemein</option>
+              <option value="82">Bauingenieurwesen</option>
+              <option value="85">Maschinenbau</option>
+              <option value="88">Elektrotechnik</option>
+              <option value="91">Sonstige Gebiete der Technik</option>
+              <option value="94">Turkistik</option>
+              <option value="99">Sonderstandorte</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="ui-g-4 control-label" for="systemCode">
+            Systemstelle:
+          </label>
+          <div class="ui-g-6">
+            <input id="systemCode" [(ngModel)]="stockcontrol.systemCode" placeholder="z.B. VNA,VNA-VNO"
+                   class="form-control input-md"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="ui-g-4 control-label" for="collections">
+            Standorte:
+          </label>
+          <div class="ui-g-6">
+            <input id="collections" [(ngModel)]="stockcontrol.collections" placeholder="z.B. E33 E31"
+                   class="form-control input-md"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="ui-g-4 control-label" for="materials">
+            Materialien:
+          </label>
+          <div class="ui-g-6">
+            <input id="materials" [(ngModel)]="stockcontrol.materials" placeholder="z.B. BOOKS"
+                   class="form-control input-md"/>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12">
         <h2 class="sub-header">Parameter zur Ausleihenanalyse</h2>
         <p> In diesem Abschnitt werden die grundlegenden Parameter zur
-            Berechnung der nutzungsbasierten Aussonderungsvorschläge
-            vorgegeben. Eine genauere Beschreibung erhält man, wenn die Maus
-            auf den Parameternamen bewegt wird.
+          Berechnung der nutzungsbasierten Aussonderungsvorschläge
+          vorgegeben. Eine genauere Beschreibung erhält man, wenn die Maus
+          auf den Parameternamen bewegt wird.
         </p>
-
         <div class="form-group">
-            <label class="col-md-4 control-label" for="yearsToAverage"
-                   data-toggle="tooltip"
-                   title="Zeitraum in Jahren, in dem das Ausleihverhalten untersucht wird. Wird beispielsweise 5 eingetragen, so werden die maximale und durchschnittliche Ausleihe für die vergangenen fünf Jahre berechnet.">
+          <label class="ui-g-4 control-label" for="yearsToAverage"
+                 data-toggle="tooltip"
+                 title="Zeitraum in Jahren, in dem das Ausleihverhalten untersucht wird. Wird beispielsweise 5 eingetragen, so werden die maximale und durchschnittliche Ausleihe für die vergangenen fünf Jahre berechnet.">
             Betrachteter Zeitraum
-            </label>
-            <div class="col-md-1">
-                <input id="yearsToAverage" placeholder="z.B. 5"
-                       class="form-control input-md " [(ngModel)]="stockcontrol.yearsToAverage" type="number" required/>
-            </div>
+          </label>
+          <div class="ui-g-2">
+            <input id="yearsToAverage" placeholder="z.B. 5"
+                   class="form-control input-md " [(ngModel)]="stockcontrol.yearsToAverage" type="number" required/>
+          </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="minimumYears"
-                   data-toggle="tooltip"
-                   title="Zeitraum, den Exemplare einer Auflage mindestens im Bestand sein müssen, damit Aussonderungen vorgeschlagen werden.">
-                Minmaler Zeitraum
-            </label>
-            <div class="col-md-1">
-                <input id="minimumYears" placeholder="z.B. 5"
-                       class="form-control input-md" [(ngModel)]="stockcontrol.minimumYears" type="number" required />
-            </div>
+          <label class="ui-g-4 control-label" for="minimumYears"
+                 data-toggle="tooltip"
+                 title="Zeitraum, den Exemplare einer Auflage mindestens im Bestand sein müssen, damit Aussonderungen vorgeschlagen werden.">
+            Minmaler Zeitraum
+          </label>
+          <div class="ui-g-2">
+            <input id="minimumYears" placeholder="z.B. 5"
+                   class="form-control input-md" [(ngModel)]="stockcontrol.minimumYears" type="number" required/>
+          </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="staticBuffer"
-                   data-toggle="tooltip"
-                   title="Anzahl an Exemplaren über die maximale Ausleihe hinaus, die nicht ausgesondert werden. Wird eine ganze Zahl angegeben (zum Beispiel 4), so verbleiben mindestens vier Exemplare ZUSÄTZLICH zur maximalen Ausleihe im Bestand. Auch die Angabe von Anteilen (0.1 für 10%) ist möglich.">
+          <label class="ui-g-4 control-label" for="staticBuffer"
+                 data-toggle="tooltip"
+                 title="Anzahl an Exemplaren über die maximale Ausleihe hinaus, die nicht ausgesondert werden. Wird eine ganze Zahl angegeben (zum Beispiel 4), so verbleiben mindestens vier Exemplare ZUSÄTZLICH zur maximalen Ausleihe im Bestand. Auch die Angabe von Anteilen (0.1 für 10%) ist möglich.">
             Statischer Puffer
-            </label>
-            <div class="col-md-1">
-                <input id="staticBuffer" placeholder="z.B. 2"
-                       class="form-control input-md" type="text" [(ngModel)]="stockcontrol.staticBuffer" required/>
-            </div>
+          </label>
+          <div class="ui-g-2">
+            <input id="staticBuffer" placeholder="z.B. 2"
+                   class="form-control input-md" type="text" [(ngModel)]="stockcontrol.staticBuffer" required/>
+          </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="variableBuffer"
-                   data-toggle="tooltip"
-                   title="Anzahl an Exemplaren, die in Abhängigkeit von der durchschnittlichen Ausleihe im Bestand verbleiben. Je höher die durchschnittliche Ausleihe ist, desto mehr Exemplare wverbleiben ZUSÄTZLICH zur maximalen Ausleihe im Bestand. Auch die Angabe von Anteilen (0.2 für 20%) ist möglich.">
-                Variabler Puffer
-            </label>
-            <div class="col-md-1">
-                <input id="variableBuffer" placeholder="z.B. 0.4"
-                       class="form-control input-md" type="text" [(ngModel)]="stockcontrol.variableBuffer" required/>
-            </div>
+          <label class="ui-g-4 control-label" for="variableBuffer"
+                 data-toggle="tooltip"
+                 title="Anzahl an Exemplaren, die in Abhängigkeit von der durchschnittlichen Ausleihe im Bestand verbleiben. Je höher die durchschnittliche Ausleihe ist, desto mehr Exemplare wverbleiben ZUSÄTZLICH zur maximalen Ausleihe im Bestand. Auch die Angabe von Anteilen (0.2 für 20%) ist möglich.">
+            Variabler Puffer
+          </label>
+          <div class="ui-g-2">
+            <input id="variableBuffer" placeholder="z.B. 0.4"
+                   class="form-control input-md" type="text" [(ngModel)]="stockcontrol.variableBuffer" required/>
+          </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="groupedAnalysis">
-                gruppierte Analyse
-            </label>
-            <div class="col-md-2">
-                <select [(ngModel)]="stockcontrol.groupedAnalysis" id="groupedAnalysis" class="form-control">
-                    <option value="true">verwenden</option>
-                    <option value="false">nicht verwenden</option>
-                </select>
-            </div>
+          <label class="ui-g-4 control-label" for="groupedAnalysis">
+            gruppierte Analyse
+          </label>
+          <div class="ui-g-2">
+            <select [(ngModel)]="stockcontrol.groupedAnalysis" id="groupedAnalysis" class="form-control">
+              <option value="true">verwenden</option>
+              <option value="false">nicht verwenden</option>
+            </select>
+          </div>
         </div>
-    </div>
-        <div class="container">
-            <p> Optional kann eine E-Mail-Adresse angegeben werden, an die (zum
-                Zwecke der Archivierung) eine Kopie der Auftrags-Email geschickt
-                wird.
-            </p>
-
-        <div class="form-group">
+      </div>
+      <div class="ui-g-12">
+          <p> Optional kann eine E-Mail-Adresse angegeben werden, an die (zum
+            Zwecke der Archivierung) eine Kopie der Auftrags-Email geschickt
+            wird.
+          </p>
+          <div class="form-group">
             <label class="col-md-4 control-label" for="deletionMailBcc">
-                BCC-Adresse
+              BCC-Adresse
             </label>
-            <div class="col-md-6">
-                <input id="deletionMailBcc" placeholder="max.mustermann@test.de"
-                       class="form-control input-md" [(ngModel)]="stockcontrol.deletionMailBcc" type="email" />
+            <div class="ui-g-6">
+              <input id="deletionMailBcc" placeholder="max.mustermann@test.de"
+                     class="form-control input-md" [(ngModel)]="stockcontrol.deletionMailBcc" type="email"/>
             </div>
+          </div>
         </div>
-        </div>
-        <div class="container">
-            <h2 class="sub-header">Parameter zur Vormerk-Analyse</h2>
-            <p> Dieser Abschnitt umfasst die Parameter zur Analyse der
-                Vormerkungen. Eine genauere Beschreibung erhält man, wenn die Maus
-                auf den Parameternamen bewegt wird.
-            </p>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="yearsOfRequests"
-                       data-toggle="tooltip"
-                       title="Anzahl an Jahren, in denen Vormerkungen zur Analyse herangezogen werden.">
-                    Betrachteter Zeitraum
-                </label>
-                <div class="col-md-1">
-                    <input id="yearsOfRequests" placeholder="z.B. 2"
-                           class="form-control input-md " [(ngModel)]="stockcontrol.yearsOfRequests" type="number" required />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="minimumDaysOfRequest"
-                       data-toggle="tooltip"
-                       title="Anzahl an Tagen, die ein Buch mindestens vorgemerkt werden muss, um bei der Analyse berücksichtigt zu werden. Dies entspricht der Wartezeit des Nutzers auf sein vorgemerktes Exemplar, die man für annehmbar hält.">
-                Minimale Anzahl an Vormerktagen
-                </label>
-                <div class="col-md-1">
-                    <input id="minimumDaysOfRequest" placeholder="z.B. 5"
-                           class="form-control input-md" [(ngModel)]="stockcontrol.minimumDaysOfRequest" type="number" required />
-                </div>
-            </div>
-        </div>
-    <div class="container">
-        <div class="form-group">
-    <button class="btn btn-danger" (click)="goBack()">Abbrechen</button>
-    <button class="btn btn-success" (click)="save(stockcontrol)">Speichern</button>
-        </div>
-    </div>
-    <div class="container">
-        <h3>Freigaben</h3>
-        Folgende Nutzer können auf das Profil zugreifen:
-        <ul>
-            <li *ngFor="let su of profilePerUsers">
-                {{su.username}}
-                <button *ngIf="su.username != user.username" (click)="deleteStockcontrolUser(su)">X</button>
-            </li>
-            <li>
-                <form>
-                <input #username placeholder="username" style="border: none"/>
-                <button (click)="addStockcontrolUser(username.value)">Hinzufügen</button>
-                </form>
-            </li>
-        </ul>
 
+      <div class="ui-g-12">
+        <h2>Teilen</h2>
+        <p>Dieses Profil ist mit folgenden Nutzern geteilt:</p>
+        <div class="ui-g-6 ui-g-offset-1">
+          <table class="table table-hover">
+            <tr *ngFor="let su of profilePerUsers">
+              <td>{{su.username}}</td>
+              <td>
+                <button pButton type="button" class="ui-button-danger"
+                        (click)="deleteStockcontrolUser(su)" label="Teilen aufheben" iconPos="right"
+                        icon="fa-trash"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-autoComplete [(ngModel)]="userShare" [suggestions]="allUsers"
+                                (completeMethod)="filterSimpleUser($event)"
+                                field="email" [size]="30"
+                                placeholder="Suche mit E-Mail" [minLength]="3"></p-autoComplete>
+              </td>
+              <td>
+                <button pButton type="button" label="Hinzufügen" icon="fa-plus" iconPos="right"
+                        (click)="shareWithUser(userShare)"></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-10 ui-g-offset-1">
+            <div class="form-group">
+              <button pButton type="button" class="ui-button-danger" label="Abbrechen" icon="fa-times" iconPos="right"
+                      (click)="goBack()"></button>
+              <button pButton type="button" class="ui-button-success" label="Speichern" icon="fa-save" iconPos="right"
+                      (click)="save(stockcontrol)"></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

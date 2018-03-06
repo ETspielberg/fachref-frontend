@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {UserService} from "./services/user.service";
+import {UsersettingsService} from "./services/usersettings.service";
 import {Principal} from "./model/Principal";
 import $ from 'bootstrap';
 import {AuthentificationService} from "./services/authentification.service";
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
     usersettings : Usersettings;
 
-   constructor (private authentificationService : AuthentificationService, private userService : UserService) {  }
+   constructor (private authentificationService : AuthentificationService, private userService : UsersettingsService) {  }
 
     ngOnInit(): void {
       this.authentificationService.updatePrincipal().subscribe(

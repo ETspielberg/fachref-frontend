@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Alertcontrol } from '../model/Alertcontrol';
 import { AlertcontrolService } from "../services/alertcontrol.service";
 import { Router } from "@angular/router";
+import { UUID } from 'angular2-uuid';
 
 @Component({
     selector: 'profiles',
@@ -30,5 +31,11 @@ export class AlertcontrolComponent implements OnInit {
             this.alertcontrols = this.alertcontrols.filter(ac => ac != alertcontrol);
         });
         this.router.navigate(['/hitlists']);
+    }
+
+    goToRss(alertcontrol : Alertcontrol) {
+      const uuid = UUID.UUID();
+      const url = '/rss?alertcontrol='+ alertcontrol.identifier + '&requestor=' + uuid;
+      window.open(url,'_blank');
     }
 }

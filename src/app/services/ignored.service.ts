@@ -18,8 +18,8 @@ export class IgnoredService {
         return this.http.get<Ignored[]>(appGlobals.ignoredUrl);
     }
 
-    deleteIgnored(id: string) {
-        return this.http.delete(appGlobals.ignoredUrl + '/' + id, {headers: appGlobals.headers});
+    deleteIgnored(identifier: string) {
+        return this.http.delete(appGlobals.ignoredUrl + '/' + identifier, {headers: appGlobals.headers});
     }
 
     create(ignored: Ignored): Observable<Ignored> {
@@ -32,5 +32,9 @@ export class IgnoredService {
     update(ignored: Ignored): Observable<Ignored> {
         return this.http
             .put<Ignored>(appGlobals.ignoredUrl + '/' + ignored.identifier, JSON.stringify(ignored), {headers: appGlobals.headers});
+    }
+
+    get(identifier: string):Observable<Ignored> {
+      return this.http.get<Ignored>(appGlobals.ignoredUrl + '/' + identifier)
     }
 }

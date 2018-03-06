@@ -1,5 +1,5 @@
 import {JournalcounterComponent} from "./journalcounter.component";
-import {UserService} from "../services/user.service";
+import {UsersettingsService} from "../services/usersettings.service";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
@@ -36,7 +36,7 @@ export function highchartsFactory() {
         eJournalsRouting],
     declarations: [JournalcounterComponent],
     exports: [JournalcounterComponent],
-    providers: [UserService,DataService,{provide: HighchartsStatic,
+    providers: [UsersettingsService,DataService,{provide: HighchartsStatic,
   useFactory: highchartsFactory}]
 })
 

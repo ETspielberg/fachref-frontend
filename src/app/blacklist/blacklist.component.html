@@ -2,12 +2,19 @@
     <div class="container">
         <h1>Blacklist</h1>
         <p>Diese Titel sind für weitere Analyse und Vormerk-Hitlisten gesperrt.</p>
-      <p>Liste anzeigen :
+      <p *ngIf="blacklist.length > 0">Liste anzeigen :
         <p-selectButton [options]="options" [(ngModel)]="selected"></p-selectButton>
       </p>
     </div>
 </div>
-<div *ngIf="!busy" class="container">
+
+<p-dialog header="Daten werden abgerufen" [modal]="true" [closable]="false" [(visible)]="busy">
+  <img src="assets/img/loading_newtons_cradle.gif" alt="Loading..." style="width:304px;height:228px;">
+</p-dialog>
+
+<p-growl baseZIndex="10" life="7500" [(value)]="msgs"></p-growl>
+
+<div *ngIf="blacklist.length > 0" class="container">
   <p-dataTable [value]="selectedIgnoreds[selected]" [paginator]="true" [rows]="10" #dt>
     <ng-template pTemplate="header">
       <p-column field="shelfmark" header="Signatur" [filter]="true" filterPlaceholder="Suche"></p-column>
@@ -16,32 +23,25 @@
           <p-dropdown [options]="options" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
         </ng-template> -->
       </p-column>
+      <p-column field="comment" header="Kommentar" [filter]="true" filterPlaceholder="Suche"></p-column>
+      <p-column field="date" header="Sperrung Aufnahme"></p-column>
+      <p-column field="expire" header="Sperrung Ende"></p-column>
+      <p-column header="Sperrung aufheben">
+        <ng-template pTemplate="filter" let-col>
+          <button pButton class="ui-button-danger" icon="fa-trash" iconPos="right" label="Löschen"
+                  (click)="deleteIgnored(col); $event.stopPropagation()"></button>
+        </ng-template>
+      </p-column>
     </ng-template>
   </p-dataTable>
-      <!--<tr>
-        <th>Signatur</th>
-        <th>Typ</th>
-        <th>Kommentar</th>
-        <th>Datum Aufnahme</th>
-        <th>Datum Ende</th>
-        <th>Löschen</th>
-      </tr>
-      <tr>
-        <th><input pInputText type="text" (input)="dt.filter($event.target.value, 'shelfmark', col.filterMatchMode)"></th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-selectedIgnored>
-      <tr>
-        <td>{{selectedIgnored.shelfmark}}</td>
-        <td>{{selectedIgnored.type}}</td>
-        <td>{{selectedIgnored.comment}}</td>
-        <td>{{selectedIgnored.date}}</td>
-        <td>{{selectedIgnored.expire}}</td>
-        <td>
-          <button type="button" (click)="delete(selectedIgnored)" pButton
-                  pTooltip="Sperrung aufheben" class="ui-button-danger" icon="fa-trash"></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-dataTable>-->
+</div>
+
+<div *ngIf="blacklist.length == 0" class="container">
+  <div class="ui-g content">
+    <div class="ui-g-12" style="padding: 15px;">
+      <div class="alert alert-warning" style="text-align: center;">
+        <p> Keine Titel auf der Blacklist.</p>
+      </div>
+    </div>
+  </div>
 </div>

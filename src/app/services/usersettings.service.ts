@@ -7,13 +7,16 @@ import 'rxjs/add/operator/catch';
 import { Usersettings } from '../model/Usersettings';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import * as appGlobals from '../app.globals';
+import {Userinformation} from "../model/Userinformation";
 
 @Injectable()
-export class UserService {
+export class UsersettingsService {
 
     private usersettingsUrl : string = appGlobals.settingsUrl + '/usersettings';
+
+    private userinformationUrl: string = appGlobals.settingsUrl + '/userinformation';
 
     public usersettings: Usersettings;
 
@@ -32,5 +35,10 @@ export class UserService {
 
     getAll() : Observable<Usersettings[]> {
         return this.http.get<Usersettings[]>(this.usersettingsUrl);
+    }
+
+    getUserinformationStartingWith(start: string): Observable<Userinformation[]> {
+      const params = new HttpParams().set('start', start);
+      return this.http.get<Userinformation[]>(this.userinformationUrl,{params});
     }
 }

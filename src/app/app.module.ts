@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
-import { UserService } from "./services/user.service";
+import { UsersettingsService } from "./services/usersettings.service";
 import {appRouting} from "./app.routing";
 import { HttpClientModule } from '@angular/common/http';
 import {ProfilesPerUserService} from "./services/profilesperuser.service";
@@ -27,7 +27,7 @@ import {TranslateModule} from "./translate/translate.module";
     ],
     declarations: [AppComponent],
     bootstrap: [AppComponent],
-    providers: [AuthentificationService,UserService,HttpClientModule,ProfilesPerUserService,NotationgroupService,GetterService],
+    providers: [AuthentificationService,UsersettingsService,HttpClientModule,ProfilesPerUserService,NotationgroupService,GetterService],
   exports: []
 })
 export class AppModule{ }

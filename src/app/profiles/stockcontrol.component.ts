@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Stockcontrol } from '../model/Stockcontrol';
 import { StockcontrolService } from "../services/stockcontrol.service";
 import { Router } from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import * as appGlobals from '../app.globals';
+import {IntervalObservable} from "rxjs/observable/IntervalObservable";
 
 @Component({
     selector: 'profiles',
     templateUrl: 'stockcontrol.component.html',
     providers: []
 })
-export class StockcontrolComponent implements OnInit {
+export class StockcontrolComponent implements OnInit,OnDestroy {
     stockcontrols : Stockcontrol[];
+    timer: any;
 
     constructor(private stockcontrolService:StockcontrolService, private router : Router,private _http: HttpClient) {
     }
 
     ngOnInit(): void {
-        this.getStockcontrols();
+      this.timer = IntervalObservable.create(1000).subscribe(() =>   this.getStockcontrols())
     }
 
     getStockcontrols() {
@@ -34,7 +36,11 @@ export class StockcontrolComponent implements OnInit {
     }
 
     runStockcontrol(stockcontrol : Stockcontrol) : void {
-        this._http.get(appGlobals.batchUrl + "/eventanalyzer?identifier=" + stockcontrol.identifier).subscribe();
+        this._http.get(appGlobals.batchUrl + "/batch/eventanalyzer?identifier=" + stockcontrol.identifier).subscribe();
+        setTimeout(this.getStockcontrols(),1000);
     }
 
+    ngOnDestroy() {
+      this.timer.unsubscribe();
+    }
 }
