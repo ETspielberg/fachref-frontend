@@ -1,12 +1,22 @@
 <div class="jumbotron">
     <div class="container">
-        <h1>Nutzung</h1>
-        <p>Die Nutzung von Zeitschriften oder Paketen</p>
-        <div class="form-group">
-        <label class="col-md-2" for="issnsString">ISSNs: </label>
-        <input class="col-md-6 col-md-offset" [(ngModel)]="identifiersString" id="issnsString" type="text" name="issnsString" size="20"  autofocus/>
-        <button class="btn btn-sm btn-success" (click)="getCounters()"> Absenden </button>
+        <h1>{{'title.eusage' | translate}}</h1>
+        <p>{{'description.eusage.short' | translate}} </p>
+
+      <form (submit)="getCounters()" (keyup.enter)="getCounters()">
+        <div class="ui-g">
+          <div class="ui-g-6">
+      <span class="ui-float-label">
+      <input id="float-input" type="text" size="30" pInputText [(ngModel)]="identifiersString"
+             [ngModelOptions]="{standalone: true}" autofocus>
+      <label for="float-input">ISSN, ISBN, ID</label>
+      </span>
+          </div>
+          <div class="ui-g-6">
+        <button pButton type="button" label="{{'submit' | translate}}" (click)="getCounters()" class="ui-button-success"></button>
+          </div>
         </div>
+      </form>
     </div>
 </div>
 <div class="container">

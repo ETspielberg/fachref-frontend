@@ -1,6 +1,8 @@
 export const LANG_DE_NAME = 'de';
 
 export const LANG_DE_TRANS = {
+  'title.eusage': 'e-Nutzung',
+  'description.eusage.short': 'Die Nutzung von Zeitschriften, E-Books oder Datenbanken',
   'subject_00': 'Systemstellenanalyse',
   'subject_01': 'Allgemeines',
   'subject_04': 'Sprach- und Literaturwissenschaften',

@@ -29,6 +29,8 @@ export class JournalcounterComponent implements OnInit {
 
   public identifiersString : string;
 
+  private typeOfIdentifier: string;
+
     private identifiers : string[];
 
     constructor(private dataService :DataService,
@@ -49,21 +51,22 @@ export class JournalcounterComponent implements OnInit {
         if (this.identifiersString != null) {
             this.identifiers = this.identifiersString.split(" ");
             for (let identifier of this.identifiers) {
-              if (this.typeOfCounter(identifier) === 'journal') {
+              this.typeOfCounter(identifier);
+              if (this.typeOfIdentifier === 'journal') {
                 this.dataService.getAllJournalcounterForIssn(identifier).subscribe(
                   data => {
                     this.journalcounters[identifier] = data;
                     this.convertJournalcounterIntoPlotData(identifier,this.journalcounters[identifier]);
                   }
                 );
-              } else if (this.typeOfCounter(identifier) === 'ebook') {
+              } else if (this.typeOfIdentifier === 'ebook') {
                 this.dataService.getAllEbookcounterForIsbn(identifier).subscribe(
                   data => {
                     this.ebookcounters[identifier] = data;
                     this.convertEbookCounterIntoPlotData(identifier,this.ebookcounters[identifier]);
                   }
                 );
-              } else if (this.typeOfCounter(identifier) === 'database') {
+              } else if (this.typeOfIdentifier === 'database') {
                 this.dataService.getAllDatabasecounterForPlatform(identifier).subscribe(
                   data => {
                     this.databasecounters[identifier] = data;
@@ -76,17 +79,14 @@ export class JournalcounterComponent implements OnInit {
         }
     }
 
-    typeOfCounter(identifier: string): string {
+    typeOfCounter(identifier: string): void {
       let testString = identifier.replace('-', '');
       if (testString.length === 8) {
-        console.log('identifier is of type journal');
-        return 'journal'
+        this.typeOfIdentifier = 'journal'
       } else if (testString.length === 10 || testString.length === 13) {
-        console.log('identifier is of type ebook');
-        return 'ebook';
+        this.typeOfIdentifier = 'ebook';
       } else {
-        console.log('identifier is of type database');
-        return 'database';
+        this.typeOfIdentifier = 'database';
       }
     }
 
@@ -97,6 +97,7 @@ export class JournalcounterComponent implements OnInit {
       const values = [date.valueOf(), journalcounter.totalRequests];
       list.push(values);
     }
+    list = list.sort((n1,n2)=> n1[0] - n2[0]);
     this.plotData.set(description,list);
     this.descriptions.set(description,journalcounters[0].fullName);
     this.updatePlotData();
@@ -109,6 +110,7 @@ export class JournalcounterComponent implements OnInit {
       const values = [date.valueOf(), databasecounter.recordViews];
       list.push(values);
     }
+    list = list.sort((n1,n2)=> n1[0] - n2[0]);
     this.plotData.set(description,list);
     this.descriptions.set(description,databasecounters[0].title);
     this.updatePlotData();
@@ -121,25 +123,28 @@ export class JournalcounterComponent implements OnInit {
       const values = [date.valueOf(), ebookcounter.totalRequests];
       list.push(values);
     }
+    list = list.sort((n1,n2)=> n1[0] - n2[0]);
     this.plotData.set(description,list);
     this.descriptions.set(description,ebookcounters[0].fullName);
     this.updatePlotData();
   }
 
     updatePlotData() {
-        this.options = new Option({text:"Nutzung"},[],
+        this.options = new Option({text:"Anzahl Zugriffe"},[],
             {title: {text: 'Anzahl'},min : 0, allowDecimals : false},
             {type: 'datetime',
-              dateTimeLabelFormats: {
-                month: '%b \'%y',
-              }},
+              dateTimeLabelFormats: {month: '%b %y'}},
             {defaultSeriesType : 'line',zoomType : 'xy'},
             ['#AA4643', '#4572A7', '#89A54E', '#80699B',
                 '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ]);
         this.options.lang = {
             months : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
                 'Juli', 'August', 'September', 'Oktober', 'November',
-                'Dezember' ]};
+                'Dezember' ],
+        shortMonths: [ 'Jan', 'Feb', 'März', 'Apr', 'Mai', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Okt', 'Nov',
+          'Dez' ]};
+        this.options.tooltip = {xDateFormat: '%B %Y' };
        this.updateChartObject();
     }
 

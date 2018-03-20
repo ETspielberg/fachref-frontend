@@ -4,7 +4,7 @@ import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
 import {DataTableModule} from "primeng/components/datatable/datatable";
-import {InputSwitchModule, SelectButtonModule, TabMenuModule, ToggleButtonModule} from "primeng/primeng";
+import {ButtonModule, InputSwitchModule, SelectButtonModule, TabMenuModule, ToggleButtonModule} from "primeng/primeng";
 import {ChartModule} from "angular2-highcharts";
 import * as highcharts from 'highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import {eJournalsRouting} from "./ejournals.routing";
 import {CommonModule} from "@angular/common";
 import {DataService} from "../services/data.service";
+import {TranslateModule} from "../translate/translate.module";
 
 
 export function highchartsFactory() {
@@ -32,6 +33,8 @@ export function highchartsFactory() {
         InputSwitchModule,
         TabMenuModule,
         SelectButtonModule,
+      TranslateModule,
+      ButtonModule,
         ChartModule,
         eJournalsRouting],
     declarations: [JournalcounterComponent],
