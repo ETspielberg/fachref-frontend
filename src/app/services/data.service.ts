@@ -25,7 +25,7 @@ export class DataService {
 
     getAllJournalcounterForIssn(issn : string) : Observable<JournalCounter[]> {
       const url = this.journalcounterUrl + '/getForIssn?issn=' + issn;
-        return this.http.get<JournalCounter[]>(url).map(data => data['_embedded']['journalcounter']);
+        return this.http.get<JournalCounter[]>(url);
     }
 
     getAllJournalcounterForJournalcollection(journalcollection : string) : Observable<JournalCounter[]> {
