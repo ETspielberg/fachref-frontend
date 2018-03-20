@@ -29,14 +29,6 @@
                 {{nrequests.ratio | percent:'1.0-1'}}
             </ng-template>
         </p-column>
-      <p-column header="Info / Protokoll">
-        <ng-template let-nrequests="rowData" pTemplate="body">
-          <button type="button" pButton pTooltip="Bibliographische Informationen anzeigen"
-                  (click)="showInfo(nrequests.mab)" icon="fa fa-info"></button>
-          <button type="button" pButton pTooltip="zum Ausleihprotokoll"
-                  (click)="goToProtokoll(nrequests.shelfmark,'')" icon="fa fa-search"></button>
-        </ng-template>
-      </p-column>
         <p-column field="NRequests" header="Vormerkungen" [sortable]="true"></p-column>
         <p-column field="NLoans" header="Ausleihen" [sortable]="true"></p-column>
         <p-column field="NItems" header="Exemplare" [sortable]="true"></p-column>

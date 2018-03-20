@@ -34,6 +34,8 @@ export class StockcontrolEditorComponent implements OnInit {
 
   public userShare: Userinformation;
 
+  public subjectIds= ['00', '01', '04', '07', '10', '13', '16', '19', '22', '25', '28', '31', '34', '34a', '37', '40', '43', '46a', '46b', '46c', '49', '52', '55', '58', '61', '64', '67', '70', '73', '75', '77', '77a', '79', '82', '85', '88', '91', '94', '99'];
+
   constructor(private stockcontrolService: StockcontrolService,
               private profilePerUserService: ProfilesPerUserService,
               private authentificationService: AuthentificationService,

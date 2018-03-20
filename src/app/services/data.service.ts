@@ -24,15 +24,13 @@ export class DataService {
     constructor (private http: HttpClient) {}
 
     getAllJournalcounterForIssn(issn : string) : Observable<JournalCounter[]> {
-        return this.http.get<JournalCounter[]>(
-            this.journalcounterUrl + '/search/findByIssn?identifier=' + issn)
-            .map(data => data['_embedded']['journalcounter']);
+      const url = this.journalcounterUrl + '/getForIssn?issn=' + issn;
+        return this.http.get<JournalCounter[]>(url).map(data => data['_embedded']['journalcounter']);
     }
 
     getAllJournalcounterForJournalcollection(journalcollection : string) : Observable<JournalCounter[]> {
-        return this.http.get<JournalCounter[]>(
-            this.journalcounterUrl + '/search/findByJournalcollection?onlineIssn=' + journalcollection)
-            .map(data => data['_embedded']['journalcounter'])
+      const url = this.journalcounterUrl + '/search/findByJournalcollection?onlineIssn=' + journalcollection;
+        return this.http.get<JournalCounter[]>(url).map(data => data['_embedded']['journalcounter'])
     }
 
     getAllEbookcounterForIsbn(isbn : string) : Observable<EbookCounter[]> {

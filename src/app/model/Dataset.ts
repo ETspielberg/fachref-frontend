@@ -1,9 +1,9 @@
-import {Datapoint} from "./Datapoint";
-
 export class Dataset {
 
-    constructor(
-        public name : string,
-        public data : number[][]
-    ) {}
+  constructor(
+    public name: string,
+    public data: number[][],
+    public color?: string,
+    public zIndex?: number,
+  ) {}
 }

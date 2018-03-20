@@ -3,7 +3,7 @@ import {TRANSLATIONS} from "./translation";
 
 @Injectable()
 export class TranslateService {
-  private _currentLang: string;
+  private _currentLang: string = 'de';
 
   public get currentLang() {
     return this._currentLang;

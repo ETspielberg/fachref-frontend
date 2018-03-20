@@ -11,7 +11,9 @@ export class TranslatePipe implements PipeTransform {
 
   transform(value: string, lang: string): any {
     if (!value) return;
-    this.translate.use(lang);
+    if (lang) {
+      this.translate.use(lang);
+    }
     return this.translate.instant(value);
   }
 }

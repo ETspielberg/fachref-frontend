@@ -3,8 +3,9 @@ import { JournalCounter } from '../model/JournalCounter';
 import { Params, ActivatedRoute } from "@angular/router";
 import { DataService } from "../services/data.service";
 import {Option} from "../model/Option";
-import {Datapoint} from "../model/Datapoint";
 import {Dataset} from "../model/Dataset";
+import {EbookCounter} from "../model/EbookCounter";
+import {DatabaseCounter} from "../model/DatabaseCounter";
 
 @Component({
     selector: 'journalcounter',
@@ -14,40 +15,124 @@ import {Dataset} from "../model/Dataset";
 
 export class JournalcounterComponent implements OnInit {
 
-    journalcounters : Map<string,JournalCounter[]>;
+    public journalcounters : Map<string,JournalCounter[]>;
 
-    private plotData : Map<string,Datapoint[]>;
+  public ebookcounters : Map<string,EbookCounter[]>;
 
-    private options : Option;
+  public databasecounters : Map<string,DatabaseCounter[]>;
 
-    issnsString : string;
+  private descriptions: Map<string, string>;
 
-    private issns : string[];
+  private plotData : Map<string,number[][]>;
+
+  public options : Option;
+
+  public identifiersString : string;
+
+    private identifiers : string[];
 
     constructor(private dataService :DataService,
                 private route : ActivatedRoute) {
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe((params : Params) => this.issnsString = params['onlineIssn']);
-        this.getJournalCounters();
+        this.route.params.subscribe((params : Params) => this.identifiers = params['identifiers']);
+        this.getCounters();
+        this.journalcounters = new Map<string, JournalCounter[]>();
+        this.plotData = new Map<string, number[][]>();
+        this.descriptions = new Map<string,string>();
     }
 
-    getJournalCounters() {
-        if (this.issnsString != null) {
-            this.issns = this.issnsString.split(" ");
-            for (let issn of this.issns) {
-                this.dataService.getAllJournalcounterForIssn(issn).subscribe(
-                    data => this.journalcounters[issn] = data
+    getCounters() {
+      this.plotData = new Map<string, number[][]>();
+      this.descriptions = new Map<string,string>();
+        if (this.identifiersString != null) {
+            this.identifiers = this.identifiersString.split(" ");
+            for (let identifier of this.identifiers) {
+              if (this.typeOfCounter(identifier) === 'journal') {
+                this.dataService.getAllJournalcounterForIssn(identifier).subscribe(
+                  data => {
+                    this.journalcounters[identifier] = data;
+                    this.convertJournalcounterIntoPlotData(identifier,this.journalcounters[identifier]);
+                  }
                 );
+              } else if (this.typeOfCounter(identifier) === 'ebook') {
+                this.dataService.getAllEbookcounterForIsbn(identifier).subscribe(
+                  data => {
+                    this.ebookcounters[identifier] = data;
+                    this.convertEbookCounterIntoPlotData(identifier,this.ebookcounters[identifier]);
+                  }
+                );
+              } else if (this.typeOfCounter(identifier) === 'database') {
+                this.dataService.getAllDatabasecounterForPlatform(identifier).subscribe(
+                  data => {
+                    this.databasecounters[identifier] = data;
+                    this.convertDatabasecounterIntoPlotData(identifier,this.databasecounters[identifier]);
+                  }
+                );
+              }
+
             }
         }
     }
 
+    typeOfCounter(identifier: string): string {
+      let testString = identifier.replace('-', '');
+      if (testString.length === 8) {
+        console.log('identifier is of type journal');
+        return 'journal'
+      } else if (testString.length === 10 || testString.length === 13) {
+        console.log('identifier is of type ebook');
+        return 'ebook';
+      } else {
+        console.log('identifier is of type database');
+        return 'database';
+      }
+    }
+
+  convertJournalcounterIntoPlotData(description, journalcounters : JournalCounter[]) {
+    let list: number[][] = [];
+    for (let journalcounter of journalcounters) {
+      const date = new Date(journalcounter.year, journalcounter.month-1);
+      const values = [date.valueOf(), journalcounter.totalRequests];
+      list.push(values);
+    }
+    this.plotData.set(description,list);
+    this.descriptions.set(description,journalcounters[0].fullName);
+    this.updatePlotData();
+  }
+
+  convertDatabasecounterIntoPlotData(description, databasecounters : DatabaseCounter[]) {
+    let list: number[][] = [];
+    for (let databasecounter of databasecounters) {
+      const date = new Date(databasecounter.year, databasecounter.month-1);
+      const values = [date.valueOf(), databasecounter.recordViews];
+      list.push(values);
+    }
+    this.plotData.set(description,list);
+    this.descriptions.set(description,databasecounters[0].title);
+    this.updatePlotData();
+  }
+
+  convertEbookCounterIntoPlotData(description, ebookcounters : EbookCounter[]) {
+    let list: number[][] = [];
+    for (let ebookcounter of ebookcounters) {
+      const date = new Date(ebookcounter.year, ebookcounter.month-1);
+      const values = [date.valueOf(), ebookcounter.totalRequests];
+      list.push(values);
+    }
+    this.plotData.set(description,list);
+    this.descriptions.set(description,ebookcounters[0].fullName);
+    this.updatePlotData();
+  }
+
     updatePlotData() {
-        this.options = new Option({text:""},[],
+        this.options = new Option({text:"Nutzung"},[],
             {title: {text: 'Anzahl'},min : 0, allowDecimals : false},
-            {type: 'datetime'},
+            {type: 'datetime',
+              dateTimeLabelFormats: {
+                month: '%b \'%y',
+              }},
             {defaultSeriesType : 'line',zoomType : 'xy'},
             ['#AA4643', '#4572A7', '#89A54E', '#80699B',
                 '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92' ]);
@@ -55,16 +140,16 @@ export class JournalcounterComponent implements OnInit {
             months : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
                 'Juli', 'August', 'September', 'Oktober', 'November',
                 'Dezember' ]};
-        this.plotData = new Map<string,Datapoint[]>();
        this.updateChartObject();
     }
 
     updateChartObject() {
-        for (let key in this.plotData) {
-            let datapoints = this.plotData[key];
-            datapoints.push(new Datapoint(new Date().getTime(), datapoints[datapoints.length-1][1]));
-            let dataset : Dataset = new Dataset(key,datapoints);
+      let entries = this.plotData.entries();
+        this.plotData.forEach(
+          (value: number[][], key: string) => {
+            const dataset = new Dataset(this.descriptions.get(key), value);
             this.options.series.push(dataset);
-        }
+          }
+        );
     }
 }

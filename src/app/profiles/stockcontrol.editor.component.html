@@ -8,19 +8,8 @@
   <div class="ui-g">
     <div class="ui-g-8 ui-md-12 ui-g-offset-2">
       <div class="ui-g-12">
-        <h2 class="sub-header">Angaben zum Bereich</h2>
-        <p> Dieser Abschnitt umfasst die notwendigen Angaben zum
-          Fachbereich und der Medienart, die untersucht werden soll.
-
-
-          Wird explizit eine Systemstelle angegeben, so erfolgt die
-          Analyse nur für diese. Soll die Analyse für die ganze Fachgruppe
-          durchgeführt werden, bleibt das Feld leer.
-
-
-          Ähnlich wie beim Ausleihprotokoll können Einschränkungen
-          hinsichtlich der Standorte vorgenommen werden. Dabei gelten die
-          gleichen.
+        <h2 class="sub-header">{{'title.area' | translate}}</h2>
+        <p> {{'description.area' | translate}}
         </p>
       </div>
       <div class="ui-g-12">
@@ -30,46 +19,7 @@
           </label>
           <div class="ui-g-6">
             <select id="subjectID" [(ngModel)]="stockcontrol.subjectID" class="form-control">
-              <option value="00">Systemstellenanalyse</option>
-              <option value="01">Allgemeines</option>
-              <option value="04">Sprach- und Literaturwissenschaften
-              </option>
-              <option value="07">Germanistik</option>
-              <option value="10">Anglistik</option>
-              <option value="13">Romanistik</option>
-              <option value="16">sonstige Philologien</option>
-              <option value="19">Philosophie</option>
-              <option value="22">Psychologie</option>
-              <option value="25">Erziehungswissenschaften</option>
-              <option value="28">Theologie</option>
-              <option value="31">Autoren GW</option>
-              <option value="34">Kunstwissenschaften</option>
-              <option value="34a">Medienwissenschaften</option>
-              <option value="37">Sportwissenschaften</option>
-              <option value="40">Geschichte</option>
-              <option value="43">Geowissenschaften</option>
-              <option value="46a">Sozialwissenschaften</option>
-              <option value="46b">Soziologie</option>
-              <option value="46c">Politikwissenschaften</option>
-              <option value="49">Wirtschaftswissenschaften</option>
-              <option value="52">Rechtswissenscahften</option>
-              <option value="55">Land- und Forstwissenschaften</option>
-              <option value="58">Naturwissenschaften</option>
-              <option value="61">Mathematik</option>
-              <option value="64">Informatik</option>
-              <option value="67">Physik</option>
-              <option value="70">Chemie</option>
-              <option value="73">Astronomie</option>
-              <option value="75">Biologie</option>
-              <option value="77">Fachbibliothek Medizin</option>
-              <option value="77a">Medizin</option>
-              <option value="79">Technik allgemein</option>
-              <option value="82">Bauingenieurwesen</option>
-              <option value="85">Maschinenbau</option>
-              <option value="88">Elektrotechnik</option>
-              <option value="91">Sonstige Gebiete der Technik</option>
-              <option value="94">Turkistik</option>
-              <option value="99">Sonderstandorte</option>
+              <option *ngFor="let m of subjectIds" value="m">{{m | translate}}</option>
             </select>
           </div>
         </div>

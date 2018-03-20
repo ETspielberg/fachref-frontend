@@ -4,11 +4,11 @@
         <p>Die Nutzung von Zeitschriften oder Paketen</p>
         <div class="form-group">
         <label class="col-md-2" for="issnsString">ISSNs: </label>
-        <input class="col-md-6 col-md-offset" [(ngModel)]="issnsString" id="issnsString" type="text" name="issnsString" size="20"  autofocus/>
-        <button class="btn btn-sm btn-success" (click)="getJournalCounters()"> Absenden </button>
+        <input class="col-md-6 col-md-offset" [(ngModel)]="identifiersString" id="issnsString" type="text" name="issnsString" size="20"  autofocus/>
+        <button class="btn btn-sm btn-success" (click)="getCounters()"> Absenden </button>
         </div>
     </div>
 </div>
 <div class="container">
-    <chart [options]="options" *ngIf="journalcounters" style="display: block"></chart>
+    <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters" style="display: block"></chart>
 </div>
