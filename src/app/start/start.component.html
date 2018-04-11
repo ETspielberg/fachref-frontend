@@ -1,36 +1,36 @@
 <div  class="jumbotron">
     <div class="container">
-        <h1>Willkommen beim FachRef-Assistenten
+        <h1>{{'title.fachref' | translate}}
         </h1>
-        <p>Bestandskontrolle und -steuerung bequem von einem Punkt</p>
+        <p>{{'description.fachref.short' | translate}}</p>
         <p>
-          <button pButton type="button" class="ui-button"  routerLink="/user" label="Meine Einstellungen" icon="fa-user" iconPos="right"></button>
+          <button pButton type="button" class="ui-button"  routerLink="/user" label="{{'my.settings' | translate}}" icon="fa-user"></button>
     </div>
 </div>
 <div class="container">
   <div class="ui-g">
     <div class="ui-g-12 ui-md-6 ui-lg-3">
       <div (click)="goTo('protokoll')" style="cursor: pointer;" class="tile">
-      <h2>Protokoll</h2>
-      <p> Das Protokoll gibt eine Übersicht über die Nutzung und den Bestand sowohl von einzelnen Auflagen oder über mehrere Auflagen hinweg.</p>
+      <h2>{{'title.protokoll' | translate}}</h2>
+      <p> {{'description.protokoll.medium' | translate}}</p>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-lg-3">
       <div routerLink="/profiles" style="cursor: pointer;" class="tile">
-        <h2>Profile</h2>
-        <p> Im Bestandspflegemodul können Profile zur Bestandspflege erstellt und verwaltet werden. Auf der Basis dieser Parametersätzen werden Listen von nutzungsbasierte Aussonderungs- und Anschaffungsvorschlägen erstellt.</p>
+        <h2>{{'title.profiles' | translate}}</h2>
+        <p> {{'description.profiles.medium' | translate}} </p>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-lg-3">
       <div routerLink="/hitlists" style="cursor: pointer;" class="tile">
-        <h2>Hitlisten</h2>
-        <p> Die Vormerkhitlisten können nach Bestandsbereichen und vorgegebenen Schwellenwerten gefiltert werden. Die so gefilterten Listen können außerdem als RSS-Feeds abonniert werden.</p>
+        <h2>{{'title.hitlists' | translate}}</h2>
+        <p> {{'description.hitlists.medium' | translate}}</p>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-lg-3">
       <div routerLink="/ejournals" style="cursor: pointer;" class="tile">
-        <h2>eMedien</h2>
-        <p> In diesem Bereich können Nutzungsstatistiken für e-Journals, e-Books und Pakete abgerufen werden sowie Nutzungsanalysen erstellt werden.</p>
+        <h2>{{'title.eusage' | translate}}</h2>
+        <p> {{'description.eusage.medium' | translate}}</p>
       </div>
     </div>
   </div>

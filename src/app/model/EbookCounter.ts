@@ -7,7 +7,7 @@ export class EbookCounter  {
     public doi : string,
     public proprietary : string,
     public abbreviation : string,
-    public fullName : string,
+    public title : string,
     public publisher : string,
     public platform : string,
     public type : string,

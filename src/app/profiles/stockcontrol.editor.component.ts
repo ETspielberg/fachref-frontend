@@ -11,6 +11,7 @@ import {AuthentificationService} from "../services/authentification.service";
 import {Message} from "primeng/primeng";
 import {UsersettingsService} from "../services/usersettings.service";
 import {Userinformation} from "../model/Userinformation";
+import {TranslateService} from "../translate";
 
 
 @Component({
@@ -34,18 +35,22 @@ export class StockcontrolEditorComponent implements OnInit {
 
   public userShare: Userinformation;
 
+  availableSubjects: object[];
+
   public subjectIds= ['00', '01', '04', '07', '10', '13', '16', '19', '22', '25', '28', '31', '34', '34a', '37', '40', '43', '46a', '46b', '46c', '49', '52', '55', '58', '61', '64', '67', '70', '73', '75', '77', '77a', '79', '82', '85', '88', '91', '94', '99'];
 
   constructor(private stockcontrolService: StockcontrolService,
               private profilePerUserService: ProfilesPerUserService,
               private authentificationService: AuthentificationService,
               private usersettingsService: UsersettingsService,
+              private translateService: TranslateService,
               private route: ActivatedRoute,
               private location: Location,
               private router: Router) {
   }
 
   ngOnInit(): void {
+    this.availableSubjects = [];
     this.route.params
       .switchMap((params: Params) => this.stockcontrolService.getStockcontrol(params['identifier']))
       .subscribe(stockcontrol => this.stockcontrol = stockcontrol);
@@ -58,6 +63,9 @@ export class StockcontrolEditorComponent implements OnInit {
         }, error => this.profilePerUsers = []
       );
     this.user = this.authentificationService.principal;
+    this.subjectIds.forEach(
+      entry => this.availableSubjects.push({value: entry}, {label: this.translateService.instant(entry)})
+    )
   }
 
   goBack(): void {

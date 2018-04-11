@@ -4,7 +4,10 @@ import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
 import {DataTableModule} from "primeng/components/datatable/datatable";
-import {ButtonModule, InputSwitchModule, SelectButtonModule, TabMenuModule, ToggleButtonModule} from "primeng/primeng";
+import {
+  ButtonModule, InputSwitchModule, MessagesModule, SelectButtonModule, TabMenuModule,
+  ToggleButtonModule
+} from "primeng/primeng";
 import {ChartModule} from "angular2-highcharts";
 import * as highcharts from 'highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
@@ -28,6 +31,7 @@ export function highchartsFactory() {
         CommonModule,
         RouterModule,
         FormsModule,
+      MessagesModule,
         DataTableModule,
         ToggleButtonModule,
         InputSwitchModule,

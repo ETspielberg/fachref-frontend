@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Hitlisten</h1>
     <p>Die am stärksten vorgemerkten Titel je Fachbereich</p>
-      <button pButton type="button" [routerLink]="['hitlist', 'newAlertcontrol']" label="Neues Profil erstellen" icon="fa-plus" iconPos="right"></button>
+      <button pButton type="button" [routerLink]="['hitlist', 'newAlertcontrol']" label="Neues Profil erstellen" icon="fa-plus"></button>
   </div>
 </div>
 <div *ngIf="alertcontrols" class="container">
@@ -45,11 +45,11 @@
           {{d.description}}
         </th>
         <th>
-          {{'subject_' + d.notationgroup | translate:'en'}}
+          {{'subject.' + d.notationgroup | translate:'en'}}
         </th>
         <th>
           <button pButton type="button" class="ui-button-success" style="font-weight: normal;" [routerLink]="['nrequests', d.identifier]"
-                  icon="fa-list-alt" iconPos="right" label="zur Liste"></button>
+                  icon="fa-list-alt" label="zur Liste"></button>
         </th>
         <th>
           {{d.thresholdRatio}}
@@ -63,12 +63,12 @@
 
         <th>
           <button pButton class="ui-button-warning" style="font-weight: normal;"
-                  [routerLink]="['hitlist', d.identifier]" iconPos="right" icon="fa-edit" label="Bearbeiten"></button>
-          <button pButton class="ui-button-danger" style="font-weight: normal;" icon="fa-trash" iconPos="right" label="Löschen"
+                  [routerLink]="['hitlist', d.identifier]" icon="fa-edit" label="Bearbeiten"></button>
+          <button pButton class="ui-button-danger" style="font-weight: normal;" icon="fa-trash" label="Löschen"
                   (click)="deleteAlertcontrol(d); $event.stopPropagation()"></button>
         </th>
         <th>
-          <button pButton class="ui-button-secondary" style="color: #f60;" icon="fa-rss" iconPos="right" label="RSS"
+          <button pButton class="ui-button-secondary" style="color: #f60;" icon="fa-rss" label="RSS"
                   (click)="goToRss(d)"></button>
         </th>
       </tr>

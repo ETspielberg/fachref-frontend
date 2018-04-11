@@ -16,6 +16,7 @@ import {EventanalysisService} from "../services/eventanalysis.service";
 import {IgnoredService} from "../services/ignored.service";
 import {ProfilesPerUserService} from "../services/profilesperuser.service";
 import {TranslateModule} from "../translate/translate.module";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   imports: [CommonModule,
@@ -29,6 +30,7 @@ import {TranslateModule} from "../translate/translate.module";
     TooltipModule,
     SelectButtonModule,
     CalendarModule,
+    TableModule,
     DialogModule,
     AutoCompleteModule,
     InputSwitchModule,

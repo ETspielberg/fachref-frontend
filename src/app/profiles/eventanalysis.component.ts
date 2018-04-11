@@ -37,6 +37,10 @@ export class EventanalysisComponent implements OnInit {
 
   selectedList: string;
 
+  tableFields: string[] = ['shelfmark', 'meanRelativeLoan', 'lastStock', 'maxLoansAbs', 'proposedDeletion', 'comment'];
+
+  cols: any[];
+
   showAllAnalyses: boolean;
 
   private threshold: number;
@@ -53,6 +57,8 @@ export class EventanalysisComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cols = [];
+    this.tableFields.forEach(entry => this.cols.push({field: entry, header: this.translateService.instant('table.field.'+ entry)}));
     this.showAllAnalyses = false;
     this.threshold = 1;
     this.eventanalyses = [];
@@ -71,7 +77,7 @@ export class EventanalysisComponent implements OnInit {
           this.stockcontrol = data;
           this.eventanalysisService.getAllForStockcontrolWiththreshold(this.identifier, this.threshold).subscribe(
             data => {
-              this.eventanalyses = data;
+              this.eventanalyses = data.filter(entry => entry.status !== 'OBSOLETE');
               this.sortEventanalyses();
               this.selectedList = 'proposed';
               this.busy = false;
@@ -135,7 +141,9 @@ export class EventanalysisComponent implements OnInit {
   }
 
   saveIgnored(ignored: Ignored) {
-    this.ignoredService.create(ignored);
+    this.ignoredService.create(ignored).subscribe(
+      data => console.log('saved ignored ' + JSON.stringify(ignored))
+    );
     this.display = false;
     this.sortEventanalyses();
   }
@@ -166,7 +174,16 @@ export class EventanalysisComponent implements OnInit {
       eventanalysis.mab,
       new Date(),
       new Date(year + 2, month, day));
-    this.ignoredService.create(ignored);
+    this.ignoredService.create(ignored).subscribe(
+      data => {
+        this.msgs = [];
+        this.msgs.push({severity: 'success', summary: 'gesperrt', detail: 'Der Titel wurde gesperrt.'});
+      },
+      error => {
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'nicht gesperrt', detail: 'Der Titel konnte nicht gesperrt werden. Ursache: ' + error});
+      }
+    );
     this.saveEventanalysis(eventanalysis);
     this.sortEventanalyses();
   }
@@ -179,7 +196,7 @@ export class EventanalysisComponent implements OnInit {
 
   fromBlacklistToProposal(eventanalysis: Eventanalysis) {
     eventanalysis.status = 'proposed';
-    this.ignoredService.deleteIgnored('eventanalysis' + eventanalysis.titleId);
+    this.ignoredService.deleteIgnored('eventanalysis' + eventanalysis.titleId).subscribe();
     this.saveEventanalysis(eventanalysis);
     this.sortEventanalyses();
   }
@@ -195,12 +212,16 @@ export class EventanalysisComponent implements OnInit {
     this.msgs.push({severity: 'info', summary: 'Titeldaten', detail: text});
   }
 
-  goToProtokoll(shelfmark: string, collection: string) {
+  showMab(eventanalysis: Eventanalysis) {
+    this.showInfo(eventanalysis.mab)
+  }
+
+  goToProtokoll(eventanalysis: Eventanalysis) {
     let url;
-    if (shelfmark.indexOf(',') > 0) {
-      url = '/protokoll?shelfmark=' + shelfmark.substring(0, shelfmark.indexOf(',')) + '&amp;collections=' + collection
+    if (eventanalysis.shelfmark.indexOf(',') > 0) {
+      url = '/protokoll?shelfmark=' + eventanalysis.shelfmark.substring(0, eventanalysis.shelfmark.indexOf(',')) + '&collections=' + eventanalysis.collection;
     } else {
-      url = '/protokoll?shelfmark=' + shelfmark + '&amp;collections=' + collection
+      url = '/protokoll?shelfmark=' + eventanalysis.shelfmark + '&amp;collections=' + eventanalysis.collection;
     }
     window.open(url, '_blank');
   }

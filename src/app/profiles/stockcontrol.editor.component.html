@@ -19,7 +19,7 @@
           </label>
           <div class="ui-g-6">
             <select id="subjectID" [(ngModel)]="stockcontrol.subjectID" class="form-control">
-              <option *ngFor="let m of subjectIds" value="m">{{m | translate}}</option>
+              <option *ngFor="let m of subjectIds" value="{{m}}">{{'subject.' + m | translate}}</option>
             </select>
           </div>
         </div>
@@ -140,7 +140,7 @@
               <td>{{su.username}}</td>
               <td>
                 <button pButton type="button" class="ui-button-danger"
-                        (click)="deleteStockcontrolUser(su)" label="Teilen aufheben" iconPos="right"
+                        (click)="deleteStockcontrolUser(su)" label="Teilen aufheben"
                         icon="fa-trash"></button>
               </td>
             </tr>
@@ -152,7 +152,7 @@
                                 placeholder="Suche mit E-Mail" [minLength]="3"></p-autoComplete>
               </td>
               <td>
-                <button pButton type="button" label="Hinzufügen" icon="fa-plus" iconPos="right"
+                <button pButton type="button" label="Hinzufügen" icon="fa-plus"
                         (click)="shareWithUser(userShare)"></button>
               </td>
             </tr>
@@ -161,9 +161,9 @@
         <div class="ui-g-12">
           <div class="ui-g-10 ui-g-offset-1">
             <div class="form-group">
-              <button pButton type="button" class="ui-button-danger" label="Abbrechen" icon="fa-times" iconPos="right"
+              <button pButton type="button" class="ui-button-danger" label="Abbrechen" icon="fa-times"
                       (click)="goBack()"></button>
-              <button pButton type="button" class="ui-button-success" label="Speichern" icon="fa-save" iconPos="right"
+              <button pButton type="button" class="ui-button-success" label="Speichern" icon="fa-save"
                       (click)="save(stockcontrol)"></button>
             </div>
           </div>

@@ -70,8 +70,8 @@
 <div class="col-sm-9 col-md-10 col-md-offset-1 main">
     <div class="form-group">
         <div class="col-md-8">
-            <button class="btn btn-danger" (click)="goBack()">Abbrechen</button>
-            <button class="btn btn-success" (click)="save(usersettings)">Speichern</button>
+            <button pButton type="button" class="ui-button-danger" (click)="goBack()" label="Abbrechen" icon="fa-times"></button>
+            <button pButton type="button" class="ui-button-success" (click)="save(usersettings)" label="Speichern" icon="fa-save"></button>
         </div>
     </div>
 </div>

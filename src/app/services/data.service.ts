@@ -25,7 +25,7 @@ export class DataService {
 
     getAllJournalcounterForIssn(issn : string) : Observable<JournalCounter[]> {
       const url = this.journalcounterUrl + '/getForIssn?issn=' + issn;
-      //const url = 'assets/data/example_journalcounter.json';
+      // const url = 'assets/data/example_journalcounter.json';
         return this.http.get<JournalCounter[]>(url);
     }
 
@@ -35,15 +35,13 @@ export class DataService {
     }
 
     getAllEbookcounterForIsbn(isbn : string) : Observable<EbookCounter[]> {
-        return this.http.get<EbookCounter[]>(
-            this.ebookcounterUrl + '/search/findByIsbn?onlineIsbn=' + isbn)
-            .map(data => data['_embedded']['ebookcounter'])
+      const url = this.ebookcounterUrl + '/getForIsbn?isbn=' + isbn;
+      // const url = 'assets/data/example_ebookcounter.json';
+        return this.http.get<EbookCounter[]>(url);
     }
 
-    getAllDatabasecounterForPlatform(name : string) : Observable<DatabaseCounter[]> {
-        return this.http.get<DatabaseCounter[]>(
-            this.databasecounterUrl + '/search/findByName?name=' + name)
-            .map(data => data['_embedded']['databasecounter'])
+    getAllDatabasecounterForPlatform(platform : string) : Observable<DatabaseCounter[]> {
+        return this.http.get<DatabaseCounter[]>(this.databasecounterUrl + '/getForPlatform?platform=' + platform);
     }
 
     getAllNrequests() : Observable<Nrequests[]> {

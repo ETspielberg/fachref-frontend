@@ -8,4 +8,4 @@ export const resourcesUrl = '/api/resources';
 //export const gatewayurl = '/';
 export const batchUrl = '/services/batch';
 export const headers = new HttpHeaders().set('Content-Type','application/json');
-export const ignoredUrl = '/api/blacklist';
+export const ignoredUrl = '/api/blacklist/ignored';

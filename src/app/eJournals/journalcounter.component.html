@@ -6,19 +6,19 @@
       <form (submit)="getCounters()" (keyup.enter)="getCounters()">
         <div class="ui-g">
           <div class="ui-g-6">
-      <span class="ui-float-label">
-      <input id="float-input" type="text" size="30" pInputText [(ngModel)]="identifiersString"
+            <label for="isbn-input">ISSN, ISBN, ID: </label>
+            <input id="isbn-input" type="text" size="30" pInputText [(ngModel)]="identifiersString"
              [ngModelOptions]="{standalone: true}" autofocus>
-      <label for="float-input">ISSN, ISBN, ID</label>
-      </span>
+
           </div>
           <div class="ui-g-6">
-        <button pButton type="button" label="{{'submit' | translate}}" (click)="getCounters()" class="ui-button-success"></button>
+        <button pButton type="button" label="Abfragen" (click)="getCounters()" class="ui-button-success" icon="fa-chart-line"></button>
           </div>
         </div>
       </form>
     </div>
 </div>
-<div class="container">
+<p-messages [(value)]="messages" [closable]="false"></p-messages>
+<div class="container" *ngIf="messages.length === 0">
     <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters" style="display: block"></chart>
 </div>

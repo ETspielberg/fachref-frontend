@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <div class="container">
-    <h1>Profile</h1>
-    <p>Individuelle Bestandspflege für jeden Fachbereich</p>
+    <h1>{{'title.profiles' | translate}}</h1>
+    <p>{{'description.profiles.short' | translate}}</p>
       <button pButton type="button" [routerLink]="['profile', 'newProfile']" icon="fa-plus" iconPos="right" label="Neues Profil erstellen"></button>
   </div>
 </div>
@@ -32,7 +32,7 @@
 
 			<span class="links">
 				<button *ngIf="d.status == 'FINISHED'" pButton type="button" class="ui-button-success" style="font-weight: normal;"
-                [routerLink]="['eventanalysis', d.identifier]" icon="fa-list-alt" iconPos="right"
+                [routerLink]="['eventanalysis', d.identifier]" icon="fa-list-alt"
                 label="zur Liste"></button>
         <span *ngIf="d.status == 'RUNNING'"> Analyse läuft</span>
         <span *ngIf="d.status == 'CREATED'"> Noch keine Analyse erstellt</span>
@@ -41,16 +41,16 @@
         <th>
 			<span class="links">
                 <button pButton [disabled]="d.status == 'RUNNING'" style="font-weight: normal;" (click)="runStockcontrol(d)" label="Analyse starten"
-                        iconPos="right" icon="fa-play"></button>
+                        icon="fa-play"></button>
 			</span>
           <span class="links">
                         <button pButton class="ui-button-warning" style="font-weight: normal;" [disabled]="d.status == 'RUNNING'"
-                                [routerLink]="['profile', d.identifier]" iconPos="right" icon="fa-edit"
+                                [routerLink]="['profile', d.identifier]" icon="fa-edit"
                                 label="Bearbeiten"></button>
 			        </span>
           <span class="links">
                         <button pButton class="ui-button-danger" style="font-weight: normal;" [disabled]="d.status == 'RUNNING'" icon="fa-trash"
-                                iconPos="right" label="Löschen"
+                                label="Löschen"
                                 (click)="deleteStockcontrol(d); $event.stopPropagation()"></button>
 			        </span>
         </th>

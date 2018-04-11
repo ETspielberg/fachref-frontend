@@ -13,7 +13,7 @@ import {AuthentificationService} from "./services/authentification.service";
 import {CommonModule,} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {TranslateModule} from "./translate/translate.module";
-import {TranslateService} from "./translate";
+import {TranslatePipe, TranslateService} from "./translate";
 import {ButtonModule, InputTextModule} from "primeng/primeng";
 
 @NgModule ({

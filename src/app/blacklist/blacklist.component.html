@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1>Blacklist</h1>
-        <p>Diese Titel sind für weitere Analyse und Vormerk-Hitlisten gesperrt.</p>
+        <p></p>
       <p *ngIf="blacklist.length > 0">Liste anzeigen :
         <p-selectButton [options]="options" [(ngModel)]="selected"></p-selectButton>
       </p>
@@ -28,7 +28,7 @@
       <p-column field="expire" header="Sperrung Ende"></p-column>
       <p-column header="Sperrung aufheben">
         <ng-template pTemplate="filter" let-col>
-          <button pButton class="ui-button-danger" icon="fa-trash" iconPos="right" label="Löschen"
+          <button pButton class="ui-button-danger" icon="fa-trash" label="Löschen"
                   (click)="deleteIgnored(col); $event.stopPropagation()"></button>
         </ng-template>
       </p-column>
