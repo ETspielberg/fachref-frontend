@@ -141,8 +141,16 @@ export class EventanalysisComponent implements OnInit {
   }
 
   saveIgnored(ignored: Ignored) {
+    
     this.ignoredService.create(ignored).subscribe(
-      data => console.log('saved ignored ' + JSON.stringify(ignored))
+      data => {
+        this.msgs = [];
+        this.msgs.push({severity: 'success', summary: 'gesperrt', detail: 'Der Titel wurde mit den erweiterten Einstellungen gesperrt.'});
+      },
+      error => {
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'nicht gesperrt', detail: 'Der Titel konnte nicht gesperrt werden. Ursache: ' + error});
+      }
     );
     this.display = false;
     this.sortEventanalyses();

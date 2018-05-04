@@ -49,16 +49,19 @@ export class BlacklistComponent implements OnInit {
     if (this.blacklist.length > 0) {
       for (let ignored of this.blacklist) {
         if (this.selectedIgnoreds.has(ignored.type)) {
-          this.selectedIgnoreds[ignored.type].push(ignored);
+          let list = this.selectedIgnoreds.get(ignored.type);
+            list.push(ignored);
+          this.selectedIgnoreds.set(ignored.type, list);
         } else {
           let newList: Ignored[] = [];
           newList.push(ignored);
           this.selectedIgnoreds.set(ignored.type, newList);
-          this.options.push({label: this.translateService.instant(ignored.type), value: ignored.type})
+          this.options.push({label: this.translateService.instant(ignored.type), value: ignored.type});
           this.selected = ignored.type;
         }
       }
     }
+    console.log(this.selectedIgnoreds.get('deletion'));
     this.busy = false;
   }
 

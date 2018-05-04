@@ -26,14 +26,14 @@ export class IgnoredService {
 
     create(ignored: Ignored): Observable<Ignored> {
         return this.http
-            .post<Ignored>(appGlobals.ignoredUrl, JSON.stringify(
-                ignored),
+            .post<Ignored>(appGlobals.ignoredUrl,
+                ignored.toString(),
                 {headers: appGlobals.headers});
     }
 
     update(ignored: Ignored): Observable<Ignored> {
         return this.http
-            .patch<Ignored>(appGlobals.ignoredUrl + '/' + ignored.identifier, JSON.stringify(ignored), {headers: appGlobals.headers});
+            .patch<Ignored>(appGlobals.ignoredUrl + '/' + ignored.identifier, ignored.toString(), {headers: appGlobals.headers});
     }
 
     get(identifier: string):Observable<Ignored> {

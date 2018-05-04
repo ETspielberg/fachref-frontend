@@ -10,6 +10,7 @@ export class Nrequests  {
         public NLoans : number,
         public NItems : number,
         public NLendable : number,
-        public date : Date
+        public date : Date,
+        public isbn: string
     ) { }
 }

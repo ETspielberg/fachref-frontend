@@ -85,22 +85,11 @@
           <label class="ui-g-4 control-label" for="staticBuffer"
                  data-toggle="tooltip"
                  title="Anzahl an Exemplaren über die maximale Ausleihe hinaus, die nicht ausgesondert werden. Wird eine ganze Zahl angegeben (zum Beispiel 4), so verbleiben mindestens vier Exemplare ZUSÄTZLICH zur maximalen Ausleihe im Bestand. Auch die Angabe von Anteilen (0.1 für 10%) ist möglich.">
-            Statischer Puffer
+            Reserve
           </label>
           <div class="ui-g-2">
             <input id="staticBuffer" placeholder="z.B. 2"
                    class="form-control input-md" type="text" [(ngModel)]="stockcontrol.staticBuffer" required/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="ui-g-4 control-label" for="variableBuffer"
-                 data-toggle="tooltip"
-                 title="Anzahl an Exemplaren, die in Abhängigkeit von der durchschnittlichen Ausleihe im Bestand verbleiben. Je höher die durchschnittliche Ausleihe ist, desto mehr Exemplare wverbleiben ZUSÄTZLICH zur maximalen Ausleihe im Bestand. Auch die Angabe von Anteilen (0.2 für 20%) ist möglich.">
-            Variabler Puffer
-          </label>
-          <div class="ui-g-2">
-            <input id="variableBuffer" placeholder="z.B. 0.4"
-                   class="form-control input-md" type="text" [(ngModel)]="stockcontrol.variableBuffer" required/>
           </div>
         </div>
         <div class="form-group">

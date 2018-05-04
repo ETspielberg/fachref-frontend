@@ -36,7 +36,7 @@ export class StockcontrolComponent implements OnInit,OnDestroy {
     }
 
     runStockcontrol(stockcontrol : Stockcontrol) : void {
-        this._http.get(appGlobals.batchUrl + "/batch/eventanalyzer?identifier=" + stockcontrol.identifier).subscribe();
+        this._http.get(appGlobals.batchUrl + "/eventanalyzer?identifier=" + stockcontrol.identifier).subscribe();
         setTimeout(this.getStockcontrols(),1000);
     }
 

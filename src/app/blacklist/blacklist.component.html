@@ -15,25 +15,41 @@
 <p-growl baseZIndex="10" life="7500" [(value)]="msgs"></p-growl>
 
 <div *ngIf="blacklist.length > 0" class="container">
-  <p-dataTable [value]="selectedIgnoreds[selected]" [paginator]="true" [rows]="10" #dt>
+  <p-table [value]="selectedIgnoreds.get(selected)" [paginator]="true" [rows]="10" #dt>
     <ng-template pTemplate="header">
-      <p-column field="shelfmark" header="Signatur" [filter]="true" filterPlaceholder="Suche"></p-column>
-      <p-column field="type" header="Typ" [filter]="true" filterMatchMode="equals">
-        <!--<ng-template pTemplate="filter" let-col>
-          <p-dropdown [options]="options" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
-        </ng-template> -->
-      </p-column>
-      <p-column field="comment" header="Kommentar" [filter]="true" filterPlaceholder="Suche"></p-column>
-      <p-column field="date" header="Sperrung Aufnahme"></p-column>
-      <p-column field="expire" header="Sperrung Ende"></p-column>
-      <p-column header="Sperrung aufheben">
-        <ng-template pTemplate="filter" let-col>
-          <button pButton class="ui-button-danger" icon="fa-trash" label="Löschen"
-                  (click)="deleteIgnored(col); $event.stopPropagation()"></button>
-        </ng-template>
-      </p-column>
+      <tr>
+        <th>
+          Signatur
+        </th>
+        <th>
+          Art
+        </th>
+        <th>
+          Kommentar
+        </th>
+        <th>
+          Datum Sperrung
+        </th>
+        <th>
+          Enddatum
+        </th>
+        <th>Aktion</th>
+      </tr>
     </ng-template>
-  </p-dataTable>
+    <ng-template pTemplate="body" let-ignored>
+      <tr>
+        <td>{{ignored.shelfmark}}</td>
+        <td>{{ignored.type}}</td>
+        <td>{{ignored.comment}}</td>
+        <td>{{ignored.date}}</td>
+        <td>{{ignored.expire}}</td>
+        <td>
+          <button pButton class="ui-button-danger" icon="fa-trash" label="Löschen"
+                  (click)="deleteIgnored(ignored); $event.stopPropagation()"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
 <div *ngIf="blacklist.length == 0" class="container">
