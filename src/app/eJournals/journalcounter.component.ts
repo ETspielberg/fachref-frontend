@@ -130,7 +130,7 @@ export class JournalcounterComponent implements OnInit {
   convertJournalcounterIntoPlotData(description, journalcounters: JournalCounter[]) {
     let list: number[][] = [];
     for (let journalcounter of journalcounters) {
-      const date = new Date(journalcounter.year, journalcounter.month - 1);
+      const date = new Date(journalcounter.year, journalcounter.month);
       const values = [date.valueOf(), journalcounter.totalRequests];
       list.push(values);
     }
@@ -143,7 +143,7 @@ export class JournalcounterComponent implements OnInit {
   convertDatabasecounterIntoPlotData(description, databasecounters: DatabaseCounter[]) {
     let list: number[][] = [];
     for (let databasecounter of databasecounters) {
-      const date = new Date(databasecounter.year, databasecounter.month - 1);
+      const date = new Date(databasecounter.year, databasecounter.month);
       const values = [date.valueOf(), databasecounter.recordViews];
       list.push(values);
     }
@@ -156,7 +156,7 @@ export class JournalcounterComponent implements OnInit {
   convertEbookCounterIntoPlotData(description, ebookcounters: EbookCounter[]) {
     let list: number[][] = [];
     for (let ebookcounter of ebookcounters) {
-      const date = new Date(ebookcounter.year, ebookcounter.month - 1);
+      const date = new Date(ebookcounter.year, ebookcounter.month);
       const values = [date.valueOf(), ebookcounter.totalRequests];
       list.push(values);
     }
@@ -184,6 +184,7 @@ export class JournalcounterComponent implements OnInit {
         'Jul', 'Aug', 'Sep', 'Okt', 'Nov',
         'Dez']
     };
+    this.options.exporting = {enabled: true};
     this.options.tooltip = {xDateFormat: '%B %Y'};
     this.updateChartObject();
   }
