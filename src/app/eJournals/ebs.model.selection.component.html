@@ -1,0 +1,77 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="ui-g">
+      <div class="ui-g-8">
+        <h1>{{'title.ebs' | translate}}</h1>
+        <p>{{'description.ebs.short' | translate}} </p>
+        <div>
+          <label for="ebsModelInput">{{'title.ebs.select.model' | translate}}</label>
+          <p-dropdown id="ebsModelInput" [options]="ebsModels" optionLabel="id" [(ngModel)]="activeEbsModel">}
+          </p-dropdown>
+        </div>
+      </div>
+      <div *ngIf="ebsModelsCollected" class="ui-g-4">
+        <p-card title="{{activeEbsModel.publisher}}" subtitle="{{activeEbsModel.startOfEbs}} bis {{activeEbsModel.endOfEbs}}"
+                [style]="{width: '360px'}" styleClass="ui-card-shadow">
+          <p-header>
+            {{activeEbsModel.id}}
+          </p-header>
+          <div>{{activeEbsModel.description}}</div>
+          <p-footer>
+            <button pButton type="button" label="Liste abrufen" icon="fa-check" (click)="loadEbsData()"></button>
+          </p-footer>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="ebsDataCollected">
+  <h3 [style.color]="activeColor"> {{'ebs.total.price' | translate}}: {{totalPrice | number: '1.2-2'}}</h3>
+  <p-table  #dt [value]="ebsDatas" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of cols" [ngSwitch]="col.field">
+          <input *ngSwitchCase="'title'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+          <p-dropdown *ngSwitchCase="'subjectArea'" [options]="subjectAreas" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+          <div *ngSwitchCase="'year'">
+            {{yearFilter}}
+            <i class="fa fa-close" (click)="yearFilter=minimumYear;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+            <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="minimumYear" [max]="maximumYear" (onChange)="onYearChange($event, dt)"></p-slider>
+          </div>
+          <div *ngSwitchCase="'totalUsage'">
+            {{usageFilter}}
+            <i class="fa fa-close" (click)="yearFilter=maximumPrice;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="usageFilter"></i>
+            <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="usageFilter" [min]="0" [max]="maximumUsage" (onChange)="onUsageChange($event, dt)"></p-slider>
+          </div>
+          <div *ngSwitchCase="'price'">
+            {{priceFilter}}
+            <i class="fa fa-close" (click)="priceFilter=maximumPrice;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="usageFilter"></i>
+            <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="priceFilter" [min]="0" [max]="maximumPrice" (onChange)="onPriceChange($event, dt)"></p-slider>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ebsData>
+      <tr>
+        <td>{{ebsData.title}}</td>
+        <td>{{ebsData.subjectArea}}</td>
+        <td>{{ebsData.year}}</td>
+        <td>{{ebsData.totalUsage}}</td>
+        <td>{{ebsData.price}}</td>
+        <td>{{ebsData.pricePerUsage | number: '1.3-3'}}</td>
+        <td>
+          <p-toggleButton [(ngModel)]="ebsData.selected" (onChange)="updateEbsData(ebsData)"></p-toggleButton>
+        </td>
+        <td>
+          <button pButton type="button" label="Nutzung zeigen" (click)="goToUsage(ebsData)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

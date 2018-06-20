@@ -140,9 +140,9 @@ export class EventanalysisComponent implements OnInit {
     );
   }
 
-  saveIgnored(ignored: Ignored) {
-    
-    this.ignoredService.create(ignored).subscribe(
+  updateIgnored(ignored: Ignored) {
+
+    this.ignoredService.update(ignored).subscribe(
       data => {
         this.msgs = [];
         this.msgs.push({severity: 'success', summary: 'gesperrt', detail: 'Der Titel wurde mit den erweiterten Einstellungen gesperrt.'});

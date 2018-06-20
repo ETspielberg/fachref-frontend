@@ -12,7 +12,7 @@
     <p-calendar [(ngModel)]="ignored.expire" dateFormat="dd.mm.yy" [yearNavigator]="true" [monthNavigator]="true"
                 yearRange="2015:2030" [inline]="true"></p-calendar>
     <p-footer>
-      <button type="button" pButton icon="fa-save" (click)="saveIgnored(ignored)" class="ui-button-success"
+      <button type="button" pButton icon="fa-save" (click)="updateIgnored(ignored)" class="ui-button-success"
               label="Speichern"></button>
       <button type="button" pButton icon="fa-times" (click)="display=false" class="ui-button-danger"
               label="Abbrechen"></button>

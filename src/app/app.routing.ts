@@ -6,7 +6,7 @@ const routes: Routes = [
   {path: 'profiles', loadChildren: 'app/profiles/profiles.module#ProfilesModule'},
   {path: 'hitlists', loadChildren: 'app/hitlists/hitlists.module#HitlistsModule'},
   {path: 'user', loadChildren: 'app/usersettings/usersettings.module#UsersettingsModule'},
-  {path: 'ejournals', loadChildren: 'app/eJournals/ejournals.module#EJournalsModule'},
+  {path: 'emedia', loadChildren: 'app/eJournals/ejournals.module#EJournalsModule'},
   {path: 'media', loadChildren: 'app/media/media.module#MediaModule'},
   {path: 'blacklist', loadChildren: 'app/blacklist/blacklist.module#BlacklistModule'},
   {path: '', redirectTo: 'start', pathMatch: 'full'}

@@ -25,6 +25,11 @@ export class IgnoredService {
     }
 
     create(ignored: Ignored): Observable<Ignored> {
+      console.log("saving ignored:");
+      console.log(ignored);
+      console.log(JSON.stringify(ignored));
+      console.log(ignored.toString());
+      console.log()
         return this.http
             .post<Ignored>(appGlobals.ignoredUrl,
                 ignored.toString(),
@@ -33,7 +38,7 @@ export class IgnoredService {
 
     update(ignored: Ignored): Observable<Ignored> {
         return this.http
-            .patch<Ignored>(appGlobals.ignoredUrl + '/' + ignored.identifier, ignored.toString(), {headers: appGlobals.headers});
+            .patch<Ignored>(appGlobals.ignoredUrl + '/' + ignored.identifier, JSON.stringify(ignored), {headers: appGlobals.headers});
     }
 
     get(identifier: string):Observable<Ignored> {

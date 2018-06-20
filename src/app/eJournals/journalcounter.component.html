@@ -1,24 +1,30 @@
 <div class="jumbotron">
-    <div class="container">
-        <h1>{{'title.eusage' | translate}}</h1>
-        <p>{{'description.eusage.short' | translate}} </p>
+  <div class="container">
+    <h1>{{'title.eusage' | translate}}</h1>
+    <p>{{'description.eusage.short' | translate}} </p>
+    <form (submit)="getCounters()" (keyup.enter)="getCounters()">
+      <div class="ui-g">
+        <div class="ui-g-6">
+          <label for="isbn-input">ISSN, ISBN, ID: </label>
+          <input id="isbn-input" type="text" size="30" pInputText [(ngModel)]="identifiersString"
+                 [ngModelOptions]="{standalone: true}" autofocus>
 
-      <form (submit)="getCounters()" (keyup.enter)="getCounters()">
-        <div class="ui-g">
-          <div class="ui-g-6">
-            <label for="isbn-input">ISSN, ISBN, ID: </label>
-            <input id="isbn-input" type="text" size="30" pInputText [(ngModel)]="identifiersString"
-             [ngModelOptions]="{standalone: true}" autofocus>
-
-          </div>
-          <div class="ui-g-6">
-        <button pButton type="button" label="Abfragen" (click)="getCounters()" class="ui-button-success" icon="fa-chart-line"></button>
-          </div>
         </div>
-      </form>
-    </div>
+        <div class="ui-g-6">
+          <button pButton type="button" label="Abfragen" (click)="getCounters()" class="ui-button-success"
+                  icon="fa-chart-line"></button>
+        </div>
+      </div>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <button pButton type="button" icon="fa-server" label="EBS-Modell" routerLink="ebs" class="ui-button"></button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 <p-messages [(value)]="messages" [closable]="false"></p-messages>
 <div class="container" *ngIf="messages.length === 0">
-    <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters" style="display: block"></chart>
+  <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters"
+         style="display: block"></chart>
 </div>

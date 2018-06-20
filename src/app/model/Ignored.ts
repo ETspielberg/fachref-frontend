@@ -8,11 +8,14 @@ export class Ignored {
         public comment: string,
         public mab: string,
         public date: Date,
-        public expire: Date
+        public expire: Date,
+        public _link?: object
     ) {
     }
 
     public toString(): string {
+      console.log(this.date);
+      console.log(this.expire);
       return '{"titleId": "' + this.titleId + '", "identifier": "' + this.identifier +
         '", "shelfmark": "' + this.shelfmark + '", "type": "' + this.type + '", "comment": "' + this.comment +
         '", "mab": "' + this.mab + '", "date": "' + this.getDateFormatted(this.date) +
@@ -20,6 +23,7 @@ export class Ignored {
     }
 
     private getDateFormatted(date: Date): string {
+      console.log(date);
       let day = date.getDay().toString();
       if (day.length === 1) {
         day = '0' + day;
