@@ -47,7 +47,7 @@ export class NrequestsComponent implements OnInit {
               this.notationgroupService.get(this.alertcontrol.notationgroup).subscribe(
                 data => {
                   this.notationgroup = data;
-                  this.nrequestsService.getAllForRange(this.notationgroup.notationsStart, this.notationgroup.notationsEnd).subscribe(
+                  this.nrequestsService.getAllForRange(this.notationgroup.notationsStart, this.notationgroup.notationsEnd, this.alertcontrol.timeperiod).subscribe(
                     data => {
                       this.nrequestss = data;
                       this.busy = false;

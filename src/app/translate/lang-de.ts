@@ -57,7 +57,7 @@ export const LANG_DE_TRANS = {
   'subject.85': 'Maschinenbau',
   'subject.88': 'Elektrotechnik',
   'subject.91': 'Sonstige Gebiete der Technik',
-  'subject.94': 'Turkistik',
+  'subject.94c': 'Turkistik',
   'subject.99': 'Sonderstandorte',
   'status_deleted': 'aussondern',
   'status_ignored': 'ignorieren',
