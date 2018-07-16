@@ -88,4 +88,8 @@ export const LANG_DE_TRANS = {
   'table.field.selected': 'Ausgewählt?',
   'table.field.showUsage': 'Nutzung',
   'table.field.year' : 'Erscheinungsjahr',
+  'usage.per.year': 'Nutzung pro Jahr',
+  'stack.option.stacked': 'gestapelt',
+  'stack.option.none': 'einzeln',
+  'stack.option.percentage': 'anteilig'
 };

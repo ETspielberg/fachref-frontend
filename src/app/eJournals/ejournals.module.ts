@@ -29,11 +29,10 @@ export function highchartsFactory() {
   const hc = require('highcharts');
   const dd = require('highcharts/modules/drilldown');
   dd(hc);
-
   return hc;
 }
 
-HighchartsExporting(highcharts);
+//HighchartsExporting(highcharts);
 
 @NgModule({
   imports: [HttpModule,

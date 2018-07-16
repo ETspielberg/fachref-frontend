@@ -4,6 +4,7 @@ export const dataUrl = '/api/data';
 export const filesUrl = '/files';
 export const getterUrl = '/api/getter';
 export const settingsUrl = '/api/settings';
+export const counterretrievalUrl = '/api/counterretrieval';
 export const resourcesUrl = '/api/resources';
 //export const gatewayurl = '/';
 export const batchUrl = '/services/batch';

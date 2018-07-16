@@ -16,15 +16,25 @@
         </div>
       </div>
       <div class="ui-g">
-        <div class="ui-g-12">
-          <button pButton type="button" icon="fa-server" label="EBS-Modell" routerLink="ebs" class="ui-button"></button>
+
+        <div *ngIf="journalcounters || ebookcounters || databasecounters" class="ui-g-9">
+          <p-selectButton [options]="stackOptions" [(ngModel)]="stackValue" [ngModelOptions]="{standalone: true}" (onChange)="updatePlotData()"></p-selectButton>
+        </div>
+        <div class="ui-g-3">
+          <button pButton type="button" icon="fa-server" label="EBS-Modelle" routerLink="ebs" class="ui-button"></button>
         </div>
       </div>
     </form>
   </div>
 </div>
 <p-messages [(value)]="messages" [closable]="false"></p-messages>
-<div class="container" *ngIf="messages.length === 0">
-  <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters"
-         style="display: block"></chart>
+<div class="ui-g" *ngIf="messages.length === 0">
+  <div class="ui-g-8">
+    <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters"
+           style="display: block"></chart>
+  </div>
+  <div *ngIf="journalcounters || ebookcounters"  class="ui-g-4">
+    <chart [options]="statsOptions" *ngIf="yearStatsValues"
+           style="display: block"></chart>
+  </div>
 </div>

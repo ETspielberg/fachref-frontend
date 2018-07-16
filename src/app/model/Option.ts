@@ -9,9 +9,10 @@ export class Option {
         public xAxis? : object,
         public chart? : object,
         public colors? : string[],
-        public plotOptions? : object,
+        public plotOptions? : object | null,
         public lang?: object,
         public tooltip?: object,
-        public exporting?: object
+        public exporting?: object,
+        public column?: object
     ) {}
 }

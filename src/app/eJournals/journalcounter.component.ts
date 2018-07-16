@@ -8,6 +8,7 @@ import {EbookCounter} from "../model/EbookCounter";
 import {DatabaseCounter} from "../model/DatabaseCounter";
 import {Message} from "primeng/primeng";
 import {TranslateService} from "../translate";
+import {SelectItem} from "primeng/api";
 
 @Component({
   selector: 'journalcounter',
@@ -29,13 +30,29 @@ export class JournalcounterComponent implements OnInit {
 
   public options: Option;
 
+  public statsOptions;
+
+  chart: Object;
+
+  public yearStats: Map<number, number>;
+
   public identifiersString: string;
 
   private typeOfIdentifier: string;
 
+  public stackValue: string;
+
+  public stackOptions: SelectItem[];
+
+  private stackPossibilities = ['stacked', 'percentage'];
+
   private identifiers: string[];
 
   public messages: Message[];
+
+  public yearStatsLabel: number[];
+
+  public yearStatsValues: number[];
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
@@ -43,13 +60,20 @@ export class JournalcounterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.stackOptions = [];
+    this.stackValue = 'stacked';
+    this.stackPossibilities.forEach(
+      entry => {
+        this.stackOptions.push({label: this.translateService.instant('stack.option.' + entry), value: entry});
+      }
+    );
     this.messages = [];
     this.identifiersString = '';
     this.plotData = new Map<string, number[][]>();
     this.descriptions = new Map<string, string>();
     this.route.queryParams.subscribe((params: Params) => {
       if ( params['identifiers'] !== undefined ) {
-        this.identifiersString = params['identifiers'];
+        this.identifiersString = params['identifiers'].trim();
       }
       console.log('read identifiers ' + this.identifiersString + ' from request.');
       if (this.identifiersString !== '') {
@@ -60,6 +84,9 @@ export class JournalcounterComponent implements OnInit {
 
   getCounters() {
     this.messages = [];
+    this.yearStats = new Map();
+    this.yearStatsValues = [];
+    this.yearStatsLabel = [];
     this.plotData = new Map<string, number[][]>();
     this.descriptions = new Map<string, string>();
     const error = {
@@ -70,6 +97,7 @@ export class JournalcounterComponent implements OnInit {
     if (this.identifiersString != null) {
       this.identifiers = this.identifiersString.split(" ");
       for (let identifier of this.identifiers) {
+        identifier = identifier.trim();
         this.typeOfCounter(identifier);
         if (this.typeOfIdentifier === 'journal') {
           this.journalcounters = new Map<string, JournalCounter[]>();
@@ -130,7 +158,15 @@ export class JournalcounterComponent implements OnInit {
   convertJournalcounterIntoPlotData(description, journalcounters: JournalCounter[]) {
     let list: number[][] = [];
     for (let journalcounter of journalcounters) {
-      const date = new Date(journalcounter.year, journalcounter.month);
+      const year = journalcounter.year;
+      const date = new Date(year, journalcounter.month);
+      if (this.yearStats.has(year)) {
+        let count = this.yearStats.get(year);
+        count += journalcounter.totalRequests;
+        this.yearStats.set(year, count);
+      } else {
+        this.yearStats.set(year, journalcounter.totalRequests);
+      }
       const values = [date.valueOf(), journalcounter.totalRequests];
       list.push(values);
     }
@@ -156,8 +192,16 @@ export class JournalcounterComponent implements OnInit {
   convertEbookCounterIntoPlotData(description, ebookcounters: EbookCounter[]) {
     let list: number[][] = [];
     for (let ebookcounter of ebookcounters) {
+      const year = ebookcounter.year;
       const date = new Date(ebookcounter.year, ebookcounter.month);
       const values = [date.valueOf(), ebookcounter.totalRequests];
+      if (this.yearStats.has(year)) {
+        let count = this.yearStats.get(year);
+        count += ebookcounter.totalRequests;
+        this.yearStats.set(year, count);
+      } else {
+        this.yearStats.set(year, ebookcounter.totalRequests);
+      }
       list.push(values);
     }
     list = list.sort((n1, n2) => n1[0] - n2[0]);
@@ -167,13 +211,23 @@ export class JournalcounterComponent implements OnInit {
   }
 
   updatePlotData() {
+    this.statsOptions = new Option({text: this.translateService.instant('usage.per.year')}, [],
+      {title: {text: 'Anzahl'}, min: 0, allowDecimals: false},
+      {
+        type: 'number'
+      },
+      {defaultSeriesType: 'bar', zoomType: 'xy'},
+      ['#AA4643', '#4572A7', '#89A54E', '#80699B',
+        '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92']);
+    this.statsOptions.exporting = {enabled: true};
+    this.statsOptions.tooltip = {xDateFormat: '%Y'};
     this.options = new Option({text: "Anzahl Zugriffe"}, [],
       {title: {text: 'Anzahl'}, min: 0, allowDecimals: false},
       {
         type: 'datetime',
-        dateTimeLabelFormats: {month: '%b %y'}
+        dateTimeLabelFormats: {month: '%B %Y'}
       },
-      {defaultSeriesType: 'line', zoomType: 'xy'},
+      {defaultSeriesType: 'column', zoomType: 'xy'},
       ['#AA4643', '#4572A7', '#89A54E', '#80699B',
         '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92']);
     this.options.lang = {
@@ -186,7 +240,24 @@ export class JournalcounterComponent implements OnInit {
     };
     this.options.exporting = {enabled: true};
     this.options.tooltip = {xDateFormat: '%B %Y'};
+    this.setPlotOptions();
     this.updateChartObject();
+  }
+
+  setPlotOptions() {
+    if (this.stackValue === 'stacked') {
+      this.options.plotOptions = {
+        column: {
+          stacking: 'normal'
+        }
+      }
+    } else if(this.stackValue === 'percentage') {
+      this.options.plotOptions = {
+        column: {
+          stacking: 'percent'
+        }
+      }
+    }
   }
 
   updateChartObject() {
@@ -196,5 +267,13 @@ export class JournalcounterComponent implements OnInit {
         this.options.series.push(dataset);
       }
     );
+    let values: number[][] = [];
+    this.yearStats.forEach(
+      (value: number, key: number) => {
+        this.yearStatsLabel.push(key);
+        this.yearStatsValues.push(value);
+        values.push([key, value]);
+      });
+    this.statsOptions.series.push(new Dataset(this.translateService.instant('usage.per.year'),values));
   }
 }
