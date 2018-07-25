@@ -37,6 +37,7 @@ export class StockcontrolEditorComponent implements OnInit {
 
   availableSubjects: object[];
 
+  public materialIds = ['BOOK', 'CDROM', 'CD', 'DVD', 'ISSUE', 'ISSST', 'ISSBD', 'LOSEB', 'DIN', 'SONLM', 'ERES', 'SK', 'KASS', 'NOTEN', 'RECOR', 'VIDEO', 'VDISK', 'KART', 'MKFM', 'MKF', 'DIAP', 'FOTO', 'SPIEL', 'TONBI', 'FSPUL', 'FSTR', 'HAND', 'MED', 'KK', 'SCHL', 'USB'];
   public subjectIds= ['00', '01', '04', '07', '10', '13', '16', '19', '22', '25', '28', '31', '34', '34a', '37', '40', '43', '46a', '46b', '46c', '49', '52', '55', '58', '61', '64', '67', '70', '73', '75', '77', '77a', '79', '82', '85', '88', '91', '94c', '99'];
 
   constructor(private stockcontrolService: StockcontrolService,

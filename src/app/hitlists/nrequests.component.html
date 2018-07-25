@@ -13,7 +13,7 @@
 
 <div class="container">
     <h2>Hitliste</h2>
-    <p *ngIf="alertcontrol"> für das Profil: {{alertcontrol.description}}</p>
+    <p *ngIf="alertcontrol"> für das Profil: {{alertcontrol.description}}. Es werdern die maximalen Werte der letzten {{alertcontrol.timeperiod}} Tage angezeigt.</p>
     <p-dataTable #dt [value]="nrequestss" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,50]">
         <p-column field="shelfmark" header="Signatur" [sortable]="true"></p-column>
       <p-column header="Info / Protokoll">

@@ -52,6 +52,11 @@
             Aktion
           </th>
         </tr>
+        <tr>
+          <th *ngFor="let col of cols">
+          <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+          </th>
+        </tr>
       </ng-template>
       <ng-template pTemplate="body" let-eventanalyse>
         <tr>

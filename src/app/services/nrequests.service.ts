@@ -16,6 +16,6 @@ export class NrequestsService {
 
     getAllForRange(startNotation : string, endNotation : string, timeperiod: number) : Observable<Nrequests[]> {
         let url = this.nrequestsUrl + '/getForTimeperiod?startNotation=' + startNotation + "&endNotation=" + endNotation + '&timeperiod=' + String(timeperiod);
-        return this.http.get<Nrequests[]>(url).map(data => data['_embedded']['nrequests']);
+        return this.http.get<Nrequests[]>(url);
     }
 }

@@ -46,8 +46,9 @@
             Materialien:
           </label>
           <div class="ui-g-6">
-            <input id="materials" [(ngModel)]="stockcontrol.materials" placeholder="z.B. BOOKS"
-                   class="form-control input-md"/>
+            <select id="materials" [(ngModel)]="stockcontrol.materials" class="form-control">
+              <option *ngFor="let m of materialIds" value="{{m}}">{{'material.' + m | translate}}</option>
+            </select>
           </div>
         </div>
       </div>
