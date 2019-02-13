@@ -8,7 +8,6 @@ import {appRouting} from "./app.routing";
 import { HttpClientModule } from '@angular/common/http';
 import {ProfilesPerUserService} from "./services/profilesperuser.service";
 import {NotationgroupService} from "./services/notationgroup.service";
-import {GetterService} from "./services/getter.service";
 import {AuthentificationService} from "./services/authentification.service";
 import {CommonModule,} from "@angular/common";
 import {FormsModule} from "@angular/forms";
@@ -20,18 +19,18 @@ import {ButtonModule, InputTextModule} from "primeng/primeng";
     imports: [
       CommonModule,
       FormsModule,
-        BrowserModule,
-        UserModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
+      BrowserModule,
+      UserModule,
+      HttpClientModule,
+      BrowserAnimationsModule,
       TranslateModule,
       ButtonModule,
       InputTextModule,
-        appRouting
+      appRouting
     ],
     declarations: [AppComponent],
     bootstrap: [AppComponent],
-    providers: [AuthentificationService,UsersettingsService,HttpClientModule,ProfilesPerUserService,NotationgroupService,GetterService],
+    providers: [AuthentificationService,UsersettingsService,HttpClientModule,ProfilesPerUserService,NotationgroupService, TranslateService],
   exports: []
 })
 export class AppModule{ }

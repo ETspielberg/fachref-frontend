@@ -19,7 +19,7 @@ export class StockcontrolComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit(): void {
-      this.timer = IntervalObservable.create(1000).subscribe(() =>   this.getStockcontrols())
+      this.timer = IntervalObservable.create(2000).subscribe(() =>   this.getStockcontrols())
     }
 
     getStockcontrols() {
@@ -36,8 +36,9 @@ export class StockcontrolComponent implements OnInit,OnDestroy {
     }
 
     runStockcontrol(stockcontrol : Stockcontrol) : void {
-        this._http.get(appGlobals.batchUrl + "/eventanalyzer?identifier=" + stockcontrol.identifier).subscribe();
-        setTimeout(this.getStockcontrols(),1000);
+      stockcontrol.status = "RUNNING";
+        this._http.get(appGlobals.stockanalyzerUrl + "/eventanalyzer/" + stockcontrol.identifier).subscribe();
+        setTimeout(this.getStockcontrols(),2000);
     }
 
     ngOnDestroy() {

@@ -21,7 +21,7 @@
 </div>
 
 <p-dialog header="Daten werden abgerufen" [modal]="true" [closable]="false" [(visible)]="busy">
-  <img src="assets/img/loading_newtons_cradle.gif" alt="Loading..." style="width:304px;height:228px;">
+  <img src="/files/custom/loading.gif" alt="Loading..." style="width:304px;height:228px;">
 </p-dialog>
 
 <p-growl baseZIndex="10" life="7500" [(value)]="msgs"></p-growl>
@@ -44,7 +44,7 @@
           <th>
             Info / Protokoll
           </th>
-          <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+          <th *ngFor="let col of cols" [ngStyle]="{'display': col.display}" [pSortableColumn]="col.field">
             {{col.header}}
             <p-sortIcon [field]="col.field"></p-sortIcon>
           </th>
@@ -69,6 +69,9 @@
           </td>
           <td>
             {{eventanalyse['shelfmark']}}
+          </td>
+          <td>
+            {{eventanalyse['titleId']}}
           </td>
           <td>
             {{eventanalyse['meanRelativeLoan'] | percent:'1.0-1'}}

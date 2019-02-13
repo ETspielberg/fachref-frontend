@@ -1,65 +1,44 @@
-<div class="container" *ngIf="usersettings">
-    <h2 class="sub-header">Angaben zur Person</h2>
-    <p>Diese Angaben werden unter anderem verwendet, um E-Mails mit Aussonderungs- oder Erwerbungsvorschlägen zu
-        generieren.</p>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="fullname">
-                Name
-            </label>
-            <div class="col-md-6">
-                <input id="fullname" [(ngModel)]="usersettings.fullname" placeholder="{i18n:editor.placeholder.fullname}" class="form-control input-md"
-                       type="text"/>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="email">
-                E-Mail
-            </label>
-            <div class="col-md-6">
-                <input id="email" [(ngModel)]="usersettings.email" placeholder="{i18n:editor.placeholder.email}" class="form-control input-md"
-                       type="email"/>
-            </div>
-        </div>
-    </div>
+<div class="jumbotron">
+  <h1>Eigene Einstellungen</h1>
+</div>
+<div class="ui-g-nopad" *ngIf="loaded">
+  <div class="ui-g">
     <h2 class="sub-header">Standardzeitraum</h2>
-    <div class="col-md-12">
+    <div class="ui-g-12">
         <p> Die folgende Zeitangabe beschreibt den Zeitraum, in dem ein bereits bearbeitetes Werk von einer weiteren
             Analyse ausgeschlossen ist. Außerdem wird dieser Zeitraum verwendet, wenn Titel über den "Standard"-Button
             auf die Blacklist gesetzt werden.</p>
     </div>
-    <div class="col-md-12">
+    <div class="ui-g-12">
         <div class="form-group">
-            <label class="col-md-2 control-label" for="interval">
+            <label class="ui-g-2 control-label" for="interval">
                 Standardzeitraum
             </label>
-            <div class="col-md-6">
+            <div class="ui-g-6">
                 <input id="interval" [(ngModel)]="usersettings.timePeriod" placeholder="{i18n:editor.placeholder.interval}" class="form-control input-md"
                        type="text"/>
             </div>
         </div>
     </div>
 </div>
-<div class="container">
+<div class="ui-g">
     <h2 class="sub-header">Angaben zu Fächern</h2>
     <p> Bitte die eigenen Fächer und die Rolle (Referent oder Vertretung) auswählen. Mit Hilfe des Symbols "+" können
         Einträge hinzugefügt, mittels "-" Einträge entfernt werden. </p>
-    <div class="col-md-12">
+    <div class="ui-g-12">
         <div class="form-group">
-            <label class="col-md-3 control-label" for="subject">
+            <label class="ui-g-3 control-label" for="subject">
                 Fächer als Fachreferent
             </label>
-            <div class="col-md-9">
+            <div class="ui-g-9">
                 <p-multiSelect id="subject" [options]="availableSubjects" [(ngModel)]="subjects" defaultLabel="Bitte auswählen" selectedItemsLabel="{0} Fächer ausgewählt"></p-multiSelect>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label" for="substitute">
+            <label class="ui-g-3 control-label" for="substitute">
                 Fächer als Vertreter
             </label>
-            <div class="col-md-9">
+            <div class="ui-g-9">
                 <p-multiSelect id="substitute" [options]="availableSubjects" [(ngModel)]="substitute" defaultLabel="Bitte auswählen" selectedItemsLabel="{0} Fächer ausgewählt"></p-multiSelect>
             </div>
         </div>
@@ -67,11 +46,12 @@
     </div>
 </div>
 
-<div class="col-sm-9 col-md-10 col-md-offset-1 main">
+<div class="ui-g-10 ui-g-offset-1">
     <div class="form-group">
-        <div class="col-md-8">
+        <div class="ui-g-8">
             <button pButton type="button" class="ui-button-danger" (click)="goBack()" label="Abbrechen" icon="fa-times"></button>
             <button pButton type="button" class="ui-button-success" (click)="save(usersettings)" label="Speichern" icon="fa-save"></button>
         </div>
     </div>
+</div>
 </div>

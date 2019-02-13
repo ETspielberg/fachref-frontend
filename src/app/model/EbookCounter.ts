@@ -1,4 +1,6 @@
-export class EbookCounter  {
+import {Counter} from "./Counter";
+
+export class EbookCounter extends Counter {
 
   constructor(
     public id : string,
@@ -22,5 +24,5 @@ export class EbookCounter  {
     public psRequestsMobile?: number,
     public epubRequests?: number,
     public sectionRequests?: number
-  ) { }
+  ) { super(id, platform, month, year, totalRequests, publisher, title) }
 }

@@ -4,6 +4,8 @@ import {UsersettingsService} from "../services/usersettings.service";
 import { Location }  from '@angular/common';
 import { Router} from "@angular/router";
 import {AuthentificationService} from "../services/authentification.service";
+import {TranslateService} from "../translate";
+import {SelectItem} from "primeng/api";
 
 @Component({
     selector: 'usersettings',
@@ -19,61 +21,31 @@ export class UsersettingsComponent implements OnInit {
 
     usersettings: Usersettings;
 
-  availableSubjects = [
-    {value : "01", label : "Allgemeines"},
-    {value : "04", label : "Sprach- und Literaturwissenschaften"},
-    {value : "07", label : "Germanistik"},
-    {value : "10", label : "Anglistik"},
-    {value : "13", label : "Romanistik"},
-    {value : "16", label : "sonstige Philologien"},
-    {value : "19", label : "Philosophie"},
-    {value : "22", label : "Psychologie"},
-    {value : "25", label : "Erziehungswissenschaften"},
-    {value : "28", label : "Theologie"},
-    {value : "31", label : "Autoren GW"},
-    {value : "34", label : "Kunstwissenschaften"},
-    {value : "34", label : "Medienwissenschaften"},
-    {value : "37", label : "Sportwissenschaften"},
-    {value : "40", label : "Geschichte"},
-    {value : "43", label : "Geowissenschaften"},
-    {value : "46a", label : "Sozialwissenschaften"},
-    {value : "46b", label : "Soziologie"},
-    {value : "46c", label : "Politikwissenschaften"},
-    {value : "49", label : "Wirtschaftswissenschaften"},
-    {value : "52", label : "Rechtswissenscahften"},
-    {value : "55", label : "Land- und Forstwissenschaften"},
-    {value : "58", label : "Naturwissenschaften"},
-    {value : "61", label : "Mathematik"},
-    {value : "64", label : "Informatik"},
-    {value : "67", label : "Physik"},
-    {value : "70", label : "Chemie"},
-    {value : "73", label : "Astronomie"},
-    {value : "75", label : "Biologie"},
-    {value : "77", label : "Medizin"},
-    {value : "79", label : "Technik allgemein"},
-    {value : "82", label : "Bauingenieurwesen"},
-    {value : "85", label : "Maschinenbau"},
-    {value : "88", label : "Elektrotechnik"},
-    {value : "91", label : "Sonstige Gebiete der Technik"},
-    {value : "94", label : "Turkistik"},
-    {value : "99", label : "Sonderstandorte"}
-  ];
+  subjectIndizes: string[] = ["01", "04", "07", "10", "13", "16", "19", "22", "25", "28", "31", "34", "34", "37", "40", "43", "46a", "46b", "46c" ,"49", "52", "55", "58", "61", "64", "67", "70", "73", "75", "77", "79", "82", "85", "88", "91", "94", "99"];
+
+  availableSubjects: SelectItem[];
+
+  loaded: boolean = false;
 
 
     constructor(private userService: UsersettingsService,
                 private authenticationService: AuthentificationService,
                 private location : Location,
-                private router : Router) {
+                private router : Router,
+                private translateService: TranslateService) {
     }
 
     ngOnInit(): void {
+      this.availableSubjects = [];
+      this.subjectIndizes.forEach( entry => this.availableSubjects.push({value: entry, label: this.translateService.instant('subject.' + entry)}));
       this.userService.get(this.authenticationService.principal.name).subscribe(
         data => {
           this.usersettings = data;
           this.subjects = this.usersettings.subjects;
           this.substitute = this.usersettings.substitute;
+          this.loaded = true;
         },
-        error =>  this.usersettings = new Usersettings(this.authenticationService.principal.name,'','',5,5,[],[])
+        error =>  this.usersettings = new Usersettings(this.authenticationService.principal.name,5,[],[])
       );
     }
 

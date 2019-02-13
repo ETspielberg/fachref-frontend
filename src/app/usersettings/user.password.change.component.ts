@@ -1,16 +1,16 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'passwordchange',
+  selector: 'app-passwordchange',
   templateUrl: 'user.password.change.component.html'
 })
 export class UserPasswordChangeComponent {
 
-  password : string;
+  password: string;
 
-  passwordRepeat : string;
+  passwordRepeat: string;
 
-  identical : boolean;
+  identical: boolean;
 
   changePassword() {
     this.checkPassword();

@@ -6,7 +6,7 @@ import * as appGlobals from '../app.globals';
 
 @Injectable()
 export class ProfilesPerUserService {
-    private profilesPerUserUrl : string = appGlobals.settingsUrl + '/profilesperuser';
+    private profilesPerUserUrl : string = appGlobals.stockanalyzerUrl + '/profilesperuser';
 
     constructor (private http: HttpClient) {}
 

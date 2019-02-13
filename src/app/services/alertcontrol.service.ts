@@ -14,8 +14,8 @@ import {AuthentificationService} from "./authentification.service";
 
 @Injectable()
 export class AlertcontrolService {
-    private alertcontrolUrl : string = appGlobals.settingsUrl + '/alertcontrol';
-    private profilePerUserUrl : string = appGlobals.settingsUrl + '/profilesperuser';
+    private alertcontrolUrl : string = appGlobals.stockanalyzerUrl + '/alertcontrol';
+    private profilePerUserUrl : string = appGlobals.stockanalyzerUrl + '/profilesperuser';
     private username : string;
 
     constructor (private http: HttpClient, private authentificationService : AuthentificationService) {}

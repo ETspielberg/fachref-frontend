@@ -1,4 +1,4 @@
-<a  *ngIf="!guest" href="#" class="dropdown-toggle" data-toggle="dropdown"><b *ngIf="userData" >{{userData.fullname}}</b> <span class="caret"></span></a>
+<a  *ngIf="!guest" href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{principal.fullname}}</b> <span class="caret"></span></a>
 <ul *ngIf="!guest" class="dropdown-menu" id="login-dp">
     <li>
         <a routerLink="/user">Einstellungen</a>

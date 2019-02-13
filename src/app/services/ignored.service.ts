@@ -15,13 +15,11 @@ export class IgnoredService {
     constructor (private http: HttpClient) {}
 
     getAll() : Observable<Ignored[]> {
-        return this.http.get<Ignored[]>(appGlobals.ignoredUrl).map(
-          data => data['_embedded']['ignored']
-        );
+        return this.http.get<Ignored[]>(appGlobals.ignoredUrl+ '/all');
     }
 
     deleteIgnored(identifier: string) {
-        return this.http.delete(appGlobals.ignoredUrl + '/' + identifier, {headers: appGlobals.headers});
+        return this.http.delete(appGlobals.ignoredUrl + '/ignored/' + identifier, {headers: appGlobals.headers});
     }
 
     create(ignored: Ignored): Observable<Ignored> {
@@ -29,19 +27,18 @@ export class IgnoredService {
       console.log(ignored);
       console.log(JSON.stringify(ignored));
       console.log(ignored.toString());
-      console.log()
         return this.http
-            .post<Ignored>(appGlobals.ignoredUrl,
+            .post<Ignored>(appGlobals.ignoredUrl + '/ignored/',
                 ignored.toString(),
                 {headers: appGlobals.headers});
     }
 
     update(ignored: Ignored): Observable<Ignored> {
         return this.http
-            .patch<Ignored>(appGlobals.ignoredUrl + '/' + ignored.identifier, JSON.stringify(ignored), {headers: appGlobals.headers});
+            .patch<Ignored>(appGlobals.ignoredUrl + '/ignored/' + ignored.identifier, JSON.stringify(ignored), {headers: appGlobals.headers});
     }
 
-    get(identifier: string):Observable<Ignored> {
-      return this.http.get<Ignored>(appGlobals.ignoredUrl + '/' + identifier)
+    get(identifier: string):Observable<Ignored[]> {
+      return this.http.get<Ignored[]>(appGlobals.ignoredUrl + '/' + identifier)
     }
 }

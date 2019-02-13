@@ -11,7 +11,7 @@ import * as appGlobals from '../app.globals';
 
 @Injectable()
 export class EventanalysisService {
-    private eventanalysisUrl : string = appGlobals.dataUrl + '/eventanalysis';
+    private eventanalysisUrl : string = appGlobals.stockanalyzerUrl + '/eventanalysis';
 
     constructor (private http: HttpClient) {}
 

@@ -1,4 +1,6 @@
-export class JournalCounter  {
+import {Counter} from "./Counter";
+
+export class JournalCounter extends Counter {
 
     constructor(
         public id : string,
@@ -21,5 +23,7 @@ export class JournalCounter  {
         public psRequests : number,
         public psRequestsMobile : number,
         public totalRequests : number
-    ) { }
+    ) {
+      super(id, platform, month, year, totalRequests, publisher, fullName)
+    }
 }

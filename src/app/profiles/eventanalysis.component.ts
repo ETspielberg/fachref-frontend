@@ -37,7 +37,7 @@ export class EventanalysisComponent implements OnInit {
 
   selectedList: string;
 
-  tableFields: string[] = ['shelfmark', 'meanRelativeLoan', 'lastStock', 'maxLoansAbs', 'proposedDeletion', 'comment'];
+  tableFields: string[] = ['shelfmark', 'titleId', 'meanRelativeLoan', 'lastStock', 'maxLoansAbs', 'proposedDeletion', 'comment'];
 
   cols: any[];
 
@@ -58,7 +58,13 @@ export class EventanalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [];
-    this.tableFields.forEach(entry => this.cols.push({field: entry, header: this.translateService.instant('table.field.'+ entry)}));
+    this.tableFields.forEach(entry => {
+      if (entry === 'tableId') {
+        this.cols.push({field: entry, header: this.translateService.instant('table.field.'+ entry), display: 'none'});
+      } else {
+        this.cols.push({field: entry, header: this.translateService.instant('table.field.'+ entry), display: 'table-cell'});
+      }
+    });
     this.showAllAnalyses = false;
     this.threshold = 1;
     this.eventanalyses = [];
@@ -134,7 +140,11 @@ export class EventanalysisComponent implements OnInit {
   showDialog(eventanalysis: Eventanalysis) {
     this.ignoredService.get('eventanalysis' + eventanalysis.titleId).subscribe(
       data => {
-        this.ignored = data;
+        for (let entry of data) {
+          if (entry.type === 'eventanalysis') {
+            this.ignored = entry;
+          }
+        }
         this.display = true;
       }
     );
@@ -225,12 +235,7 @@ export class EventanalysisComponent implements OnInit {
   }
 
   goToProtokoll(eventanalysis: Eventanalysis) {
-    let url;
-    if (eventanalysis.shelfmark.indexOf(',') > 0) {
-      url = '/protokoll?shelfmark=' + eventanalysis.shelfmark.substring(0, eventanalysis.shelfmark.indexOf(',')) + '&collections=' + eventanalysis.collection;
-    } else {
-      url = '/protokoll?shelfmark=' + eventanalysis.shelfmark + '&amp;collections=' + eventanalysis.collection;
-    }
+    const url = '/protokoll?shelfmark=' + eventanalysis.shelfmark + '&amp;collections=' + eventanalysis.collection;
     window.open(url, '_blank');
   }
 }

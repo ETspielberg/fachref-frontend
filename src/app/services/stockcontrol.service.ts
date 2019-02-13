@@ -15,8 +15,7 @@ import {AuthentificationService} from "./authentification.service";
 
 @Injectable()
 export class StockcontrolService {
-    private stockcontrolUrl : string = appGlobals.settingsUrl + '/stockcontrol';
-    private profilePerUserUrl : string = appGlobals.settingsUrl + 'http://localhost:11300/profilesperuser';
+    private stockcontrolUrl : string = appGlobals.stockanalyzerUrl + '/stockcontrol';
     private username : string;
 
     constructor (private http: HttpClient, private authentificationService : AuthentificationService) {}
@@ -27,8 +26,7 @@ export class StockcontrolService {
 
     getAllForUsername() : Observable<Stockcontrol[]> {
         this.username = this.authentificationService.principal.name;
-        return this.http.get<Stockcontrol[]>(this.stockcontrolUrl + '/search/findByUsername?username=' + this.username)
-            .map(response => response['_embedded']['stockcontrol']);
+        return this.http.get<Stockcontrol[]>(this.stockcontrolUrl + '/peruser/' + this.username);
     }
 
     getStockcontrol(identifier : String) : Observable<Stockcontrol> {

@@ -17,7 +17,7 @@
       </div>
       <div class="ui-g">
 
-        <div *ngIf="journalcounters || ebookcounters || databasecounters" class="ui-g-9">
+        <div *ngIf="collected" class="ui-g-9">
           <p-selectButton [options]="stackOptions" [(ngModel)]="stackValue" [ngModelOptions]="{standalone: true}" (onChange)="updatePlotData()"></p-selectButton>
         </div>
         <div class="ui-g-3">
@@ -30,11 +30,46 @@
 <p-messages [(value)]="messages" [closable]="false"></p-messages>
 <div class="ui-g" *ngIf="messages.length === 0">
   <div class="ui-g-8">
-    <chart [options]="options" *ngIf="journalcounters || ebookcounters || databasecounters"
+    <chart [options]="options" *ngIf="collected"
            style="display: block"></chart>
   </div>
-  <div *ngIf="journalcounters || ebookcounters"  class="ui-g-4">
+  <div *ngIf="collected"  class="ui-g-4">
     <chart [options]="statsOptions" *ngIf="yearStatsValues"
            style="display: block"></chart>
   </div>
 </div>
+
+
+<div class="ui-g" *ngIf="messages.length === 0">
+  <div *ngIf="collected" class="ui-g-12">
+      <p-table #dt [value]="allCounters" [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,50]" sortMode="multiple">
+        <ng-template pTemplate="caption">
+          <div class="ui-helper-clearfix">
+            <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export csv" (click)="dt.exportCSV()"
+                    style="float:left"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+            <th *ngFor="let col of columns">
+              <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+  </div>
+</div>
+

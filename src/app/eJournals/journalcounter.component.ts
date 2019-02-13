@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {JournalCounter} from '../model/JournalCounter';
 import {Params, ActivatedRoute} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {Option} from "../model/Option";
 import {Dataset} from "../model/Dataset";
-import {EbookCounter} from "../model/EbookCounter";
-import {DatabaseCounter} from "../model/DatabaseCounter";
 import {Message} from "primeng/primeng";
 import {TranslateService} from "../translate";
 import {SelectItem} from "primeng/api";
+import {Counter} from "../model/Counter";
 
 @Component({
   selector: 'journalcounter',
@@ -18,11 +16,7 @@ import {SelectItem} from "primeng/api";
 
 export class JournalcounterComponent implements OnInit {
 
-  public journalcounters: Map<string, JournalCounter[]>;
-
-  public ebookcounters: Map<string, EbookCounter[]>;
-
-  public databasecounters: Map<string, DatabaseCounter[]>;
+  public counters: Map<string, Counter[]>;
 
   private descriptions: Map<string, string>;
 
@@ -32,11 +26,11 @@ export class JournalcounterComponent implements OnInit {
 
   public statsOptions;
 
-  chart: Object;
-
   public yearStats: Map<number, number>;
 
   public identifiersString: string;
+
+  public mode: string;
 
   private typeOfIdentifier: string;
 
@@ -54,12 +48,24 @@ export class JournalcounterComponent implements OnInit {
 
   public yearStatsValues: number[];
 
+  public allCounters: Counter[];
+
+  public cols: any[];
+
+  public collected: boolean;
+
+  public tableFieldsJournals = ['printIssn', 'fullName', 'publisher', 'platform', 'year', 'month', 'totalRequests'];
+
+  public tableFieldsEbooks = ['title', 'doi', 'publisher', 'platform', 'year', 'month', 'totalRequests'];
+
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
-  private translateService: TranslateService) {
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
+    this.collected = false;
+    this.cols = [];
     this.stackOptions = [];
     this.stackValue = 'stacked';
     this.stackPossibilities.forEach(
@@ -72,10 +78,14 @@ export class JournalcounterComponent implements OnInit {
     this.plotData = new Map<string, number[][]>();
     this.descriptions = new Map<string, string>();
     this.route.queryParams.subscribe((params: Params) => {
-      if ( params['identifiers'] !== undefined ) {
+      if (params['identifiers'] !== undefined) {
         this.identifiersString = params['identifiers'].trim();
       }
-      console.log('read identifiers ' + this.identifiersString + ' from request.');
+      if (params['mode'] !== undefined) {
+        this.mode = params['mode'].trim()
+      } else {
+        this.mode = 'single'
+      }
       if (this.identifiersString !== '') {
         this.getCounters();
       }
@@ -83,64 +93,76 @@ export class JournalcounterComponent implements OnInit {
   }
 
   getCounters() {
+    this.collected = false;
     this.messages = [];
     this.yearStats = new Map();
     this.yearStatsValues = [];
     this.yearStatsLabel = [];
+    this.allCounters = [];
     this.plotData = new Map<string, number[][]>();
     this.descriptions = new Map<string, string>();
-    const error = {
-      severity: 'error',
-      summary: 'Fehler: ',
-      detail: this.translateService.instant('message.error.noDataFound')
-    };
-    if (this.identifiersString != null) {
-      this.identifiers = this.identifiersString.split(" ");
-      for (let identifier of this.identifiers) {
-        identifier = identifier.trim();
-        this.typeOfCounter(identifier);
-        if (this.typeOfIdentifier === 'journal') {
-          this.journalcounters = new Map<string, JournalCounter[]>();
-          this.dataService.getAllJournalcounterForIssn(identifier).subscribe(
-            data => {
-
-              if (data.length === 0) {
-                this.messages = [];
-                this.messages.push(error)
-              } else {
-                this.journalcounters[identifier] = data;
-                this.convertJournalcounterIntoPlotData(identifier, this.journalcounters[identifier]);
-              }
-            }
-          );
-        } else if (this.typeOfIdentifier === 'ebook') {
-          this.ebookcounters = new Map<string, EbookCounter[]>();
-          this.dataService.getAllEbookcounterForIsbn(identifier).subscribe(
+    this.counters = new Map<string, Counter[]>();
+    if (this.mode === 'single') {
+      if (this.identifiersString != null) {
+        this.identifiers = this.identifiersString.split(" ");
+        for (let identifier of this.identifiers) {
+          identifier = identifier.trim();
+          this.typeOfCounter(identifier);
+          this.dataService.getAllCounterForIdentifier(identifier, this.typeOfIdentifier).subscribe(
             data => {
               if (data.length === 0) {
-                this.messages = [];
-                this.messages.push(error)
+                this.sendNoDataError();
               } else {
-                this.ebookcounters[identifier] = data;
-                this.convertEbookCounterIntoPlotData(identifier, this.ebookcounters[identifier]);
-              }
-            }
-          );
-        } else if (this.typeOfIdentifier === 'database') {
-          this.databasecounters = new Map<string, DatabaseCounter[]>();
-          this.dataService.getAllDatabasecounterForPlatform(identifier).subscribe(
-            data => {
-              if (data.length === 0) {
-                this.messages = [];
-                this.messages.push(error)
-              } else {
-                this.databasecounters[identifier] = data;
-                this.convertDatabasecounterIntoPlotData(identifier, this.databasecounters[identifier]);
+                this.addData(data, identifier)
               }
             }
           );
         }
       }
+    } else {
+      const identifier = this.identifiersString.trim();
+      this.dataService.getAllCounterForIdentifier(identifier, this.mode).subscribe(
+        data => {
+          if (data.length === 0) {
+            this.sendNoDataError();
+          } else {
+            this.addData(data, identifier)
+          }
+        }
+      )
+    }
+  }
+
+  addData(data: Counter[], identifier: string) {
+    this.counters[identifier] = data;
+    this.allCounters.push(...data);
+    this.convertCounterIntoPlotData(identifier, this.counters[identifier]);
+    this.prepareTableFields();
+    this.collected = true;
+  }
+
+  sendNoDataError() {
+    const error = {
+      severity: 'error',
+      summary: 'Fehler: ',
+      detail: this.translateService.instant('message.error.noDataFound')
+    };
+    this.messages = [];
+    this.messages.push(error)
+  }
+
+  prepareTableFields() {
+    this.cols = [];
+    if (this.typeOfIdentifier === 'journal') {
+      this.tableFieldsJournals.forEach(entry => this.cols.push({
+        field: entry,
+        header: this.translateService.instant('table.field.' + entry)
+      }));
+    } else if (this.typeOfIdentifier === 'ebook') {
+      this.tableFieldsEbooks.forEach(entry => this.cols.push({
+        field: entry,
+        header: this.translateService.instant('table.field.' + entry)
+      }));
     }
   }
 
@@ -155,58 +177,24 @@ export class JournalcounterComponent implements OnInit {
     }
   }
 
-  convertJournalcounterIntoPlotData(description, journalcounters: JournalCounter[]) {
+  convertCounterIntoPlotData(description: string, counters: Counter[]) {
     let list: number[][] = [];
-    for (let journalcounter of journalcounters) {
-      const year = journalcounter.year;
-      const date = new Date(year, journalcounter.month);
+    for (let counter of counters) {
+      const year = counter.year;
+      const date = new Date(year, counter.month);
       if (this.yearStats.has(year)) {
         let count = this.yearStats.get(year);
-        count += journalcounter.totalRequests;
+        count += counter.totalRequests;
         this.yearStats.set(year, count);
       } else {
-        this.yearStats.set(year, journalcounter.totalRequests);
+        this.yearStats.set(year, counter.totalRequests);
       }
-      const values = [date.valueOf(), journalcounter.totalRequests];
+      const values = [date.valueOf(), counter.totalRequests];
       list.push(values);
     }
     list = list.sort((n1, n2) => n1[0] - n2[0]);
     this.plotData.set(description, list);
-    this.descriptions.set(description, journalcounters[0].fullName);
-    this.updatePlotData();
-  }
-
-  convertDatabasecounterIntoPlotData(description, databasecounters: DatabaseCounter[]) {
-    let list: number[][] = [];
-    for (let databasecounter of databasecounters) {
-      const date = new Date(databasecounter.year, databasecounter.month);
-      const values = [date.valueOf(), databasecounter.recordViews];
-      list.push(values);
-    }
-    list = list.sort((n1, n2) => n1[0] - n2[0]);
-    this.plotData.set(description, list);
-    this.descriptions.set(description, databasecounters[0].title);
-    this.updatePlotData();
-  }
-
-  convertEbookCounterIntoPlotData(description, ebookcounters: EbookCounter[]) {
-    let list: number[][] = [];
-    for (let ebookcounter of ebookcounters) {
-      const year = ebookcounter.year;
-      const date = new Date(ebookcounter.year, ebookcounter.month);
-      const values = [date.valueOf(), ebookcounter.totalRequests];
-      if (this.yearStats.has(year)) {
-        let count = this.yearStats.get(year);
-        count += ebookcounter.totalRequests;
-        this.yearStats.set(year, count);
-      } else {
-        this.yearStats.set(year, ebookcounter.totalRequests);
-      }
-      list.push(values);
-    }
-    list = list.sort((n1, n2) => n1[0] - n2[0]);
-    this.plotData.set(description, list);
-    this.descriptions.set(description, ebookcounters[0].title);
+    this.descriptions.set(description, counters[0].title);
     this.updatePlotData();
   }
 
@@ -251,7 +239,7 @@ export class JournalcounterComponent implements OnInit {
           stacking: 'normal'
         }
       }
-    } else if(this.stackValue === 'percentage') {
+    } else if (this.stackValue === 'percentage') {
       this.options.plotOptions = {
         column: {
           stacking: 'percent'
@@ -274,6 +262,6 @@ export class JournalcounterComponent implements OnInit {
         this.yearStatsValues.push(value);
         values.push([key, value]);
       });
-    this.statsOptions.series.push(new Dataset(this.translateService.instant('usage.per.year'),values));
+    this.statsOptions.series.push(new Dataset(this.translateService.instant('usage.per.year'), values));
   }
 }

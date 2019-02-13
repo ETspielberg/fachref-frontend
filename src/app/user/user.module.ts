@@ -4,9 +4,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        RouterModule],
+    imports: [BrowserModule, RouterModule],
     declarations: [UserComponent],
     exports: [UserComponent],
     providers: []

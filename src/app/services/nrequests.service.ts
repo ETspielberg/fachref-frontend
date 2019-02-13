@@ -6,7 +6,7 @@ import * as appGlobals from '../app.globals';
 
 @Injectable()
 export class NrequestsService {
-    private nrequestsUrl : string = appGlobals.dataUrl + '/nrequests';
+    private nrequestsUrl : string = appGlobals.stockanalyzerUrl + '/nrequests';
 
     constructor (private http: HttpClient) {}
 

@@ -13,18 +13,13 @@ export class AppComponent implements OnInit {
 
     principal : Principal;
 
-    usersettings : Usersettings;
-
-   constructor (private authentificationService : AuthentificationService, private userService : UsersettingsService) {  }
+   constructor (private authentificationService : AuthentificationService) {  }
 
     ngOnInit(): void {
       this.authentificationService.updatePrincipal().subscribe(
         data => {
           this.principal = data;
           this.refreshUser();
-          this.userService.get(this.principal.name).subscribe(
-            data => this.usersettings = data
-          );
         },
         error => console.log(error)
       );
